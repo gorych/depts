@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -40,7 +41,16 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.objectdetection.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+
+    // Barcode model
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
 }
