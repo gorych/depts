@@ -49,10 +49,7 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
 
         promptChip = findViewById(R.id.bottom_prompt_chip)
         promptChipAnimator =
-            (AnimatorInflater.loadAnimator(
-                this,
-                R.animator.bottom_prompt_chip_enter
-            ) as AnimatorSet).apply {
+            (AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter) as AnimatorSet).apply {
                 setTarget(promptChip)
             }
 
@@ -161,23 +158,24 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
                     promptChip?.setText(R.string.prompt_point_at_a_barcode)
                     startCameraPreview()
                 }
-
                 WorkflowState.CONFIRMING -> {
                     promptChip?.visibility = View.VISIBLE
                     promptChip?.setText(R.string.prompt_move_camera_closer)
                     startCameraPreview()
                 }
-
+                WorkflowState.SEARCHING -> {
+                    promptChip?.visibility = View.VISIBLE
+                    promptChip?.setText(R.string.prompt_searching)
+                    stopCameraPreview()
+                }
                 WorkflowState.DETECTED, WorkflowState.SEARCHED -> {
                     promptChip?.visibility = View.GONE
                     stopCameraPreview()
                 }
-
                 else -> promptChip?.visibility = View.GONE
             }
 
-            val shouldPlayPromptChipEnteringAnimation =
-                wasPromptChipGone && promptChip?.visibility == View.VISIBLE
+            val shouldPlayPromptChipEnteringAnimation = wasPromptChipGone && promptChip?.visibility == View.VISIBLE
             promptChipAnimator?.let {
                 if (shouldPlayPromptChipEnteringAnimation && !it.isRunning) it.start()
             }

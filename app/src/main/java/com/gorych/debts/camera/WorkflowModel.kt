@@ -8,8 +8,11 @@ import com.google.mlkit.vision.barcode.common.Barcode
 
 /** View model for handling application workflow based on camera preview.  */
 class WorkflowModel(application: Application) : AndroidViewModel(application) {
+
     val workflowState = MutableLiveData<WorkflowState>()
     val detectedBarcode = MutableLiveData<Barcode>()
+
+    private val objectIdsToSearch = HashSet<Int>()
 
     var isCameraLive = false
         private set
@@ -18,12 +21,12 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
      * State set of the application workflow.
      */
     enum class WorkflowState {
+        NOT_STARTED,
         DETECTING,
         DETECTED,
         CONFIRMING,
         SEARCHING,
-        SEARCHED,
-        NOT_STARTED
+        SEARCHED
     }
 
     @MainThread
@@ -33,6 +36,7 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
 
     fun markCameraLive() {
         isCameraLive = true
+        objectIdsToSearch.clear()
     }
 
     fun markCameraFrozen() {
