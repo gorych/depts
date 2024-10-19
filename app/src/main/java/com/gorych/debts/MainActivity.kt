@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             private val titleView: TextView = view.findViewById(R.id.mode_title)
             private val subtitleView: TextView = view.findViewById(R.id.mode_subtitle)
 
-            internal fun bindDetectionMode(applicationMode: ApplicationMode) {
+            fun bindDetectionMode(applicationMode: ApplicationMode) {
                 titleView.setText(applicationMode.titleResId)
                 subtitleView.setText(applicationMode.subtitleResId)
                 itemView.setOnClickListener {
@@ -67,10 +67,7 @@ class MainActivity : AppCompatActivity() {
                     when (applicationMode) {
                         ApplicationMode.BARCODE_LIVE ->
                             activity.startActivity(
-                                Intent(
-                                    activity,
-                                    LiveBarcodeScanningActivity::class.java
-                                )
+                                Intent(activity, LiveBarcodeScanningActivity::class.java)
                             )
                         ApplicationMode.SHOW_ALL_CLIENTS -> TODO()
                     }
