@@ -9,7 +9,7 @@ import com.gorych.debts.settings.PreferenceUtils
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
-import com.gorych.debts.InputInfo
+import com.gorych.debts.camera.InputInfo
 import com.gorych.debts.camera.CameraReticleAnimator
 import com.gorych.debts.camera.FrameProcessorBase
 import com.gorych.debts.camera.GraphicOverlay

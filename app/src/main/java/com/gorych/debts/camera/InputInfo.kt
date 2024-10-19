@@ -1,7 +1,6 @@
-package com.gorych.debts
+package com.gorych.debts.camera
 
 import android.graphics.Bitmap
-import com.gorych.debts.camera.FrameMetadata
 import com.gorych.debts.util.Utils
 import java.nio.ByteBuffer
 
@@ -24,11 +23,5 @@ class CameraInputInfo(
             )
             bitmap!!
         }
-    }
-}
-
-class BitmapInputInfo(private val bitmap: Bitmap) : InputInfo {
-    override fun getBitmap(): Bitmap {
-        return bitmap
     }
 }
