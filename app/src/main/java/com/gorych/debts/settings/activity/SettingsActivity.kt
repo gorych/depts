@@ -1,8 +1,9 @@
-package com.gorych.debts.settings
+package com.gorych.debts.settings.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.gorych.debts.R
+import com.gorych.debts.settings.SettingsFragment
 
 /** Hosts the preference fragment to configure settings.  */
 class SettingsActivity : AppCompatActivity() {

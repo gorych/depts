@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
   <TextView
-      android:id="@+id/mode_title"
+      android:id="@+id/client_full_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingTop="@dimen/home_page_mode_item_title_padding_top"
@@ -18,7 +18,7 @@
       android:textSize="@dimen/home_page_mode_item_title_size"/>
 
   <TextView
-      android:id="@+id/mode_subtitle"
+      android:id="@+id/client_details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingBottom="@dimen/home_page_mode_item_subtitle_padding_bottom"

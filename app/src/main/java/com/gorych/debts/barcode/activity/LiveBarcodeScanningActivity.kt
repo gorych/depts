@@ -1,4 +1,4 @@
-package com.gorych.debts
+package com.gorych.debts.barcode.activity
 
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.internal.Objects
 import com.google.android.material.chip.Chip
+import com.gorych.debts.R
 import com.gorych.debts.barcode.BarcodeField
 import com.gorych.debts.barcode.BarcodeProcessor
 import com.gorych.debts.barcode.BarcodeResultFragment
@@ -21,7 +22,7 @@ import com.gorych.debts.camera.CameraSourcePreview
 import com.gorych.debts.camera.GraphicOverlay
 import com.gorych.debts.camera.WorkflowModel
 import com.gorych.debts.camera.WorkflowModel.WorkflowState
-import com.gorych.debts.settings.SettingsActivity
+import com.gorych.debts.settings.activity.SettingsActivity
 import java.io.IOException
 
 /** Demonstrates the barcode scanning workflow using camera preview.  */

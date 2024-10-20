@@ -21,23 +21,23 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".LiveBarcodeScanningActivity"
+            android:name=".barcode.activity.LiveBarcodeScanningActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name=".purchaser.activity.ShowAllClientsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".settings.activity.SettingsActivity"
             android:exported="false"
             android:label="@string/settings_title"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

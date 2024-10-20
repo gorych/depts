@@ -15,6 +15,7 @@
     <string name="prompt_point_at_a_barcode">Point your camera at a barcode</string>
     <string name="prompt_hold_camera_steady">Keep camera still for a moment</string>
     <string name="prompt_move_camera_closer">Move closer to search</string>
+    <string name="all_clients_activity_title">All clients</string>
 
     <!-- Strings for camera settings. -->
     <string name="pref_category_camera">Camera</string>

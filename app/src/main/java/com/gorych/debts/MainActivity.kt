@@ -13,10 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.util.Utils
 
 class MainActivity : AppCompatActivity() {
-    private enum class ApplicationMode(val titleResId: Int, val subtitleResId: Int) {
-        BARCODE_LIVE(R.string.mode_barcode_live_title, R.string.mode_barcode_live_subtitle),
-        SHOW_ALL_CLIENTS(R.string.mode_show_all_clients_title, R.string.mode_show_all_clients_subtitle)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,13 +60,9 @@ class MainActivity : AppCompatActivity() {
                 subtitleView.setText(applicationMode.subtitleResId)
                 itemView.setOnClickListener {
                     val activity = this@MainActivity
-                    when (applicationMode) {
-                        ApplicationMode.BARCODE_LIVE ->
-                            activity.startActivity(
-                                Intent(activity, LiveBarcodeScanningActivity::class.java)
-                            )
-                        ApplicationMode.SHOW_ALL_CLIENTS -> TODO()
-                    }
+                    val activityClass =
+                        ApplicationMode.entries.first { it == applicationMode }.activityClass
+                    activity.startActivity(Intent(activity, activityClass))
                 }
             }
         }
