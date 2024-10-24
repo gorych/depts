@@ -1,5 +1,6 @@
 package com.gorych.debts.purchaser.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,34 +12,36 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.R
 import com.gorych.debts.purchaser.Purchaser
 
-class ShowAllClientsActivity : AppCompatActivity() {
+class AllClientsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        setContentView(R.layout.activity_show_all_clients)
+        setContentView(R.layout.activity_all_clients)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.clients_recycler_view)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val purchasers = purchasers()
+        val purchasers = loadPurchasers()
 
         findViewById<RecyclerView>(R.id.clients_recycler_view).apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@ShowAllClientsActivity)
+            layoutManager = LinearLayoutManager(this@AllClientsActivity)
             adapter = PurchaserItemAdapter(purchasers)
         }
     }
 
-    private fun purchasers(): List<Purchaser> {
+    private fun loadPurchasers(): List<Purchaser> {
         val purchasers =
             (1..100).map {
                 Purchaser(
+                    "$it".toLong(),
                     "Yahor$it",
                     "Semianchenia$it",
                     "+375 25 1594702",
@@ -74,6 +77,14 @@ class ShowAllClientsActivity : AppCompatActivity() {
             fun bind(purchaser: Purchaser) {
                 clientFullNameView.text = purchaser.fullName()
                 clientDetailsView.text = purchaser.details()
+
+                itemView.setOnClickListener {
+                    val activity = this@AllClientsActivity
+                    val intent = Intent(activity, ClientDetailedInfoActivity::class.java).apply {
+                        putExtra(IntentExtras.SELECTED_PURCHASER, purchaser)
+                    }
+                    activity.startActivity(intent)
+                }
             }
         }
     }

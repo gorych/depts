@@ -2,7 +2,7 @@ package com.gorych.debts
 
 import androidx.appcompat.app.AppCompatActivity
 import com.gorych.debts.barcode.activity.LiveBarcodeScanningActivity
-import com.gorych.debts.purchaser.activity.ShowAllClientsActivity
+import com.gorych.debts.purchaser.activity.AllClientsActivity
 
 enum class ApplicationMode(
     val titleResId: Int,
@@ -12,7 +12,7 @@ enum class ApplicationMode(
     SHOW_ALL_CLIENTS(
         R.string.mode_show_all_clients_title,
         R.string.mode_show_all_clients_subtitle,
-        ShowAllClientsActivity::class.java
+        AllClientsActivity::class.java
     ),
     BARCODE_LIVE(
         R.string.mode_barcode_live_title,

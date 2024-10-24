@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     val activity = this@MainActivity
                     val activityClass =
                         ApplicationMode.entries.first { it == applicationMode }.activityClass
-                    activity.startActivity(Intent(activity, activityClass))
+                    activity.startActivity(Intent(this@MainActivity, activityClass))
                 }
             }
         }
