@@ -7,13 +7,13 @@
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingTop="@dimen/home_page_title_padding_top"
-      android:paddingBottom="@dimen/home_page_title_padding_bottom"
+      android:paddingTop="@dimen/page_title_padding_top"
+      android:paddingBottom="@dimen/page_title_padding_bottom"
       android:fontFamily="google-sans"
       android:gravity="center_horizontal"
       android:text="@string/app_name"
       android:textColor="@color/white"
-      android:textSize="@dimen/home_page_title_size"/>
+      android:textSize="@dimen/page_title_size"/>
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/mode_recycler_view"
