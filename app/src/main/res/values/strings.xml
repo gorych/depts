@@ -5,7 +5,7 @@
     <string name="mode_barcode_live_title">Barcode Scanning</string>
     <string name="mode_barcode_live_subtitle">Read data encoded in most standard barcode formats.</string>
     <string name="mode_show_all_clients_title">Shows all clients</string>
-    <string name="mode_show_all_clients_subtitle">Shows all clients available in DB</string>
+    <string name="mode_show_all_clients_subtitle">Shows detailed info about all clients</string>
 
     <string name="settings_title">Debts Settings</string>
     <string name="cd_settings_button">Settings</string>
