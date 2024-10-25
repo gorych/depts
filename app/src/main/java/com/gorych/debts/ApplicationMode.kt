@@ -14,6 +14,11 @@ enum class ApplicationMode(
         R.string.mode_show_all_clients_subtitle,
         AllClientsActivity::class.java
     ),
+    SHOW_ALL_GOODS(
+        R.string.mode_show_all_goods_title,
+        R.string.mode_show_all_goods_subtitle,
+        AllClientsActivity::class.java
+    ),
     BARCODE_LIVE(
         R.string.mode_barcode_live_title,
         R.string.mode_barcode_live_subtitle,

@@ -25,7 +25,6 @@ import com.gorych.debts.camera.WorkflowModel.WorkflowState
 import com.gorych.debts.settings.activity.SettingsActivity
 import java.io.IOException
 
-/** Demonstrates the barcode scanning workflow using camera preview.  */
 class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
 
     private var cameraSource: CameraSource? = null
@@ -50,7 +49,10 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
 
         promptChip = findViewById(R.id.bottom_prompt_chip)
         promptChipAnimator =
-            (AnimatorInflater.loadAnimator(this, R.animator.bottom_prompt_chip_enter) as AnimatorSet).apply {
+            (AnimatorInflater.loadAnimator(
+                this,
+                R.animator.bottom_prompt_chip_enter
+            ) as AnimatorSet).apply {
                 setTarget(promptChip)
             }
 
@@ -159,36 +161,46 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
                     promptChip?.setText(R.string.prompt_point_at_a_barcode)
                     startCameraPreview()
                 }
+
                 WorkflowState.CONFIRMING -> {
                     promptChip?.visibility = View.VISIBLE
                     promptChip?.setText(R.string.prompt_move_camera_closer)
                     startCameraPreview()
                 }
+
                 WorkflowState.SEARCHING -> {
                     promptChip?.visibility = View.VISIBLE
                     promptChip?.setText(R.string.prompt_searching)
                     stopCameraPreview()
                 }
+
                 WorkflowState.DETECTED, WorkflowState.SEARCHED -> {
                     promptChip?.visibility = View.GONE
                     stopCameraPreview()
                 }
+
                 else -> promptChip?.visibility = View.GONE
             }
 
-            val shouldPlayPromptChipEnteringAnimation = wasPromptChipGone && promptChip?.visibility == View.VISIBLE
+            val shouldPlayPromptChipEnteringAnimation =
+                wasPromptChipGone && promptChip?.visibility == View.VISIBLE
             promptChipAnimator?.let {
                 if (shouldPlayPromptChipEnteringAnimation && !it.isRunning) it.start()
             }
         })
 
-        workflowModel?.detectedBarcode?.observe(this, Observer { barcode ->
+        workflowModel?.detectedBarcode?.observe(this) { barcode ->
             if (barcode != null) {
                 val barcodeFieldList = ArrayList<BarcodeField>()
-                barcodeFieldList.add(BarcodeField("Raw Value", barcode.rawValue ?: ""))
+                barcodeFieldList.add(
+                    BarcodeField(
+                        getString(R.string.barcode_field_label_title),
+                        barcode.rawValue ?: ""
+                    )
+                )
                 BarcodeResultFragment.show(supportFragmentManager, barcodeFieldList)
             }
-        })
+        }
     }
 
     companion object {

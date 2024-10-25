@@ -52,11 +52,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/teal_round_button"
-                android:contentDescription="@string/clients_activity_create_new_debt_tooltip_text"
+                android:contentDescription="@string/clients_activity_create_new_receipt_tooltip_text"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_baseline_add_24"
-                android:tooltipText="@string/clients_activity_create_new_debt_tooltip_text" />
+                android:tooltipText="@string/clients_activity_create_new_receipt_tooltip_text" />
         </LinearLayout>
     </GridLayout>
 
