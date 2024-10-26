@@ -4,13 +4,16 @@
     <!-- Application modes. -->
     <string name="mode_barcode_live_title">Barcode Scanning</string>
     <string name="mode_barcode_live_subtitle">Read data encoded in most standard barcode formats.</string>
-    <string name="mode_show_all_clients_title">Show all clients</string>
+    <string name="mode_show_all_clients_title">Clients</string>
     <string name="mode_show_all_clients_subtitle">Shows detailed info about all clients</string>
-    <string name="mode_show_all_goods_title">Show all goods</string>
+    <string name="mode_show_all_goods_title">Goods</string>
     <string name="mode_show_all_goods_subtitle">Shows detailed info about all goods</string>
 
     <string name="clients_activity_create_new_receipt_tooltip_text">Create new receipt</string>
     <string name="barcode_field_label_title">Detected barcode</string>
+    <string name="client_phone_view_prefix">Phone: %1$s</string>
+    <string name="client_debts_text_view_YES_value">Active debts: yes</string>
+    <string name="client_debts_text_view_NO_value">Active debts: no</string>
 
     <string name="settings_title">Debts Settings</string>
     <string name="cd_settings_button">Settings</string>

@@ -30,7 +30,14 @@
                 android:textSize="@dimen/clients_page_mode_item_title_size" />
 
             <TextView
-                android:id="@+id/client_details"
+                android:id="@+id/client_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/list_item_subtitle"
+                android:textSize="@dimen/clients_page_mode_item_subtitle_size" />
+            <TextView
+                android:id="@+id/client_debts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"

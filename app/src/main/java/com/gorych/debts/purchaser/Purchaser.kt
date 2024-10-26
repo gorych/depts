@@ -12,6 +12,4 @@ data class Purchaser(
     val hasActiveDebts: Boolean
 ) : Parcelable {
     fun fullName(): String = "$name $surname"
-
-    fun details(): String = "Phone: $phoneNumber\nHas active debts: $hasActiveDebts"
 }

@@ -12,8 +12,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.R
+import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 
 class AllClientsActivity : AppCompatActivity() {
@@ -42,8 +42,8 @@ class AllClientsActivity : AppCompatActivity() {
             (1..100).map {
                 Purchaser(
                     "$it".toLong(),
-                    "Yahor$it",
-                    "Semianchenia$it",
+                    "Егор$it",
+                    "Семенченя$it",
                     "+375 25 1594702",
                     it % 2 == 0
                 )
@@ -72,11 +72,16 @@ class AllClientsActivity : AppCompatActivity() {
             RecyclerView.ViewHolder(view) {
 
             private val clientFullNameView: TextView = view.findViewById(R.id.client_full_name)
-            private val clientDetailsView: TextView = view.findViewById(R.id.client_details)
+            private val clientPhoneView: TextView = view.findViewById(R.id.client_phone)
+            private val clientDebtsView: TextView = view.findViewById(R.id.client_debts)
 
             fun bind(purchaser: Purchaser) {
                 clientFullNameView.text = purchaser.fullName()
-                clientDetailsView.text = purchaser.details()
+                clientPhoneView.text =
+                    getString(R.string.client_phone_view_prefix, purchaser.phoneNumber)
+                clientDebtsView.text =
+                    if (purchaser.hasActiveDebts) getString(R.string.client_debts_text_view_YES_value)
+                    else getString(R.string.client_debts_text_view_NO_value)
 
                 itemView.setOnClickListener {
                     val activity = this@AllClientsActivity
