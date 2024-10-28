@@ -36,15 +36,25 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
 
         purchaser?.let {
             findViewById<TextView>(R.id.client_details_tv_title).text = it.fullName()
-            findViewById<TextView>(R.id.client_details_tv_phone).text =
-                getString(R.string.client_phone_view_prefix, it.phoneNumber)
 
-            val debts = getPurchaserDebts(purchaser)
+            bindPhoneView(it)
 
             findViewById<RecyclerView>(R.id.client_details_rv_debts).apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(this@ClientDetailedInfoActivity)
-                adapter = DebtItemAdapter(debts)
+                adapter = DebtItemAdapter(getPurchaserDebts(purchaser))
+            }
+        }
+    }
+
+    private fun bindPhoneView(purchaser: Purchaser) {
+        val phoneView = findViewById<TextView>(R.id.client_details_tv_phone)
+        when {
+            purchaser.phoneNumber != null -> {
+                phoneView.text = getString(R.string.client_phone_view_prefix, purchaser.phoneNumber)
+            }
+            else -> {
+                phoneView.visibility = View.GONE
             }
         }
     }
@@ -83,9 +93,12 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
             RecyclerView.ViewHolder(view) {
 
             private val debtNameView: TextView = view.findViewById(R.id.client_info_tv_debt_name)
-            private val debtBarcodeView: TextView = view.findViewById(R.id.client_info_tv_debt_barcode)
-            private val debtCreationDateView: TextView = view.findViewById(R.id.client_info_tv_debt_creation_date)
-            private val debtSellerView: TextView = view.findViewById(R.id.client_info_tv_debt_seller)
+            private val debtBarcodeView: TextView =
+                view.findViewById(R.id.client_info_tv_debt_barcode)
+            private val debtCreationDateView: TextView =
+                view.findViewById(R.id.client_info_tv_debt_creation_date)
+            private val debtSellerView: TextView =
+                view.findViewById(R.id.client_info_tv_debt_seller)
 
             fun bind(debt: Debt) {
                 debtNameView.text = debt.name

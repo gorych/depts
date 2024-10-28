@@ -8,7 +8,7 @@ data class Purchaser(
     val id: Long,
     val name: String,
     val surname: String,
-    val phoneNumber: String
+    val phoneNumber: String?
 ) : Parcelable {
     fun fullName(): String = "$name $surname"
 

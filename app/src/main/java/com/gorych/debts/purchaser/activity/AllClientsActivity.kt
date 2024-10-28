@@ -23,7 +23,6 @@ class AllClientsActivity : AppCompatActivity() {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_all_clients)
 
-
         val itemsView = findViewById<RecyclerView>(R.id.all_clients_rv_items)
 
         ViewCompat.setOnApplyWindowInsetsListener(itemsView) { v, insets ->
@@ -46,7 +45,7 @@ class AllClientsActivity : AppCompatActivity() {
                     "$it".toLong(),
                     "Егор$it",
                     "Семенченя$it",
-                    "+375 25 1594702"
+                    if (it % 2 == 0) "+375 25 1594702" else null
                 )
             }
         return purchasers
@@ -72,14 +71,26 @@ class AllClientsActivity : AppCompatActivity() {
         inner class PurchaserItemViewHolder(view: View) :
             RecyclerView.ViewHolder(view) {
 
-            private val clientFullNameView: TextView = view.findViewById(R.id.all_clients_item_tv_full_name)
-            private val clientPhoneView: TextView = view.findViewById(R.id.all_clients_item_tv_phone)
-            private val clientDebtsView: TextView = view.findViewById(R.id.all_clients_item_tv_debts)
+            private val clientFullNameView: TextView =
+                view.findViewById(R.id.all_clients_item_tv_full_name)
+            private val clientPhoneView: TextView =
+                view.findViewById(R.id.all_clients_item_tv_phone)
+            private val clientDebtsView: TextView =
+                view.findViewById(R.id.all_clients_item_tv_debts)
 
             fun bind(purchaser: Purchaser) {
                 clientFullNameView.text = purchaser.fullName()
-                clientPhoneView.text =
-                    getString(R.string.client_phone_view_prefix, purchaser.phoneNumber)
+
+                when {
+                    purchaser.phoneNumber != null -> {
+                        clientPhoneView.text =
+                            getString(R.string.client_phone_view_prefix, purchaser.phoneNumber)
+                    }
+                    else -> {
+                        clientPhoneView.visibility = View.GONE
+                    }
+                }
+
                 clientDebtsView.text =
                     if (purchaser.hasActiveDebts()) getString(R.string.client_debts_text_view_YES_value)
                     else getString(R.string.client_debts_text_view_NO_value)
