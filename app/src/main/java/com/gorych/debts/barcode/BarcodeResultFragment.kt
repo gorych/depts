@@ -35,7 +35,7 @@ class BarcodeResultFragment : BottomSheetDialogFragment() {
             }
 
         val barcodeFieldRecyclerView: RecyclerView =
-            view.findViewById<RecyclerView>(R.id.barcode_field_recycler_view)
+            view.findViewById(R.id.barcode_rv_result)
         barcodeFieldRecyclerView.setHasFixedSize(true)
         barcodeFieldRecyclerView.layoutManager = LinearLayoutManager(activity)
         barcodeFieldRecyclerView.adapter = BarcodeFieldAdapter(barcodeFieldList)

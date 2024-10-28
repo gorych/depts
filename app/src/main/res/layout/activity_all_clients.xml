@@ -16,7 +16,7 @@
         android:textSize="@dimen/page_title_size"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/clients_recycler_view"
+        android:id="@+id/all_clients_rv_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>

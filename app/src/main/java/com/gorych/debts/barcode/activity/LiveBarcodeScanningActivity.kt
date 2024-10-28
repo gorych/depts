@@ -41,13 +41,13 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_live_barcode)
-        preview = findViewById(R.id.camera_preview)
+        preview = findViewById(R.id.barcode_csp_camera_preview)
         graphicOverlay = findViewById<GraphicOverlay>(R.id.camera_preview_graphic_overlay).apply {
             setOnClickListener(this@LiveBarcodeScanningActivity)
             cameraSource = CameraSource(this)
         }
 
-        promptChip = findViewById(R.id.bottom_prompt_chip)
+        promptChip = findViewById(R.id.camera_preview_chip_bottom_prompt)
         promptChipAnimator =
             (AnimatorInflater.loadAnimator(
                 this,
@@ -56,11 +56,11 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
                 setTarget(promptChip)
             }
 
-        findViewById<View>(R.id.close_button).setOnClickListener(this)
-        flashButton = findViewById<View>(R.id.flash_button).apply {
+        findViewById<View>(R.id.barcode_iv_close_button).setOnClickListener(this)
+        flashButton = findViewById<View>(R.id.barcode_iv_flash_button).apply {
             setOnClickListener(this@LiveBarcodeScanningActivity)
         }
-        settingsButton = findViewById<View>(R.id.settings_button).apply {
+        settingsButton = findViewById<View>(R.id.barcode_iv_settings_button).apply {
             setOnClickListener(this@LiveBarcodeScanningActivity)
         }
 
@@ -96,8 +96,8 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.close_button -> onBackPressed()
-            R.id.flash_button -> {
+            R.id.barcode_iv_close_button -> onBackPressed()
+            R.id.barcode_iv_flash_button -> {
                 flashButton?.let {
                     if (it.isSelected) {
                         it.isSelected = false
@@ -109,7 +109,7 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
                 }
             }
 
-            R.id.settings_button -> {
+            R.id.barcode_iv_settings_button -> {
                 settingsButton?.isEnabled = false
                 startActivity(Intent(this, SettingsActivity::class.java))
             }

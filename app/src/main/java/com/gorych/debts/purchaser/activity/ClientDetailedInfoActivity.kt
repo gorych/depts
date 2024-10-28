@@ -26,7 +26,7 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_client_detailed_info)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.clients_debts_recycler_view)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.client_details_rv_debts)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -35,13 +35,13 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
         val purchaser: Purchaser? = intent.getParcelableExtra(IntentExtras.SELECTED_PURCHASER)
 
         purchaser?.let {
-            findViewById<TextView>(R.id.client_details_view_title).text = it.fullName()
-            findViewById<TextView>(R.id.client_phone_text_view_value).text =
+            findViewById<TextView>(R.id.client_details_tv_title).text = it.fullName()
+            findViewById<TextView>(R.id.client_details_tv_phone).text =
                 getString(R.string.client_phone_view_prefix, it.phoneNumber)
 
             val debts = getPurchaserDebts(purchaser)
 
-            findViewById<RecyclerView>(R.id.clients_debts_recycler_view).apply {
+            findViewById<RecyclerView>(R.id.client_details_rv_debts).apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(this@ClientDetailedInfoActivity)
                 adapter = DebtItemAdapter(debts)
@@ -69,7 +69,7 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
             return DebtItemViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(
-                        R.layout.clients_detailed_info_activity_item, parent, false
+                        R.layout.client_detailed_info_activity_item, parent, false
                     )
             )
         }
@@ -82,10 +82,10 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
         inner class DebtItemViewHolder(view: View) :
             RecyclerView.ViewHolder(view) {
 
-            private val debtNameView: TextView = view.findViewById(R.id.debt_name)
-            private val debtBarcodeView: TextView = view.findViewById(R.id.debt_barcode)
-            private val debtCreationDateView: TextView = view.findViewById(R.id.debt_creation_date)
-            private val debtSellerView: TextView = view.findViewById(R.id.debt_seller)
+            private val debtNameView: TextView = view.findViewById(R.id.client_info_tv_debt_name)
+            private val debtBarcodeView: TextView = view.findViewById(R.id.client_info_tv_debt_barcode)
+            private val debtCreationDateView: TextView = view.findViewById(R.id.client_info_tv_debt_creation_date)
+            private val debtSellerView: TextView = view.findViewById(R.id.client_info_tv_debt_seller)
 
             fun bind(debt: Debt) {
                 debtNameView.text = debt.name

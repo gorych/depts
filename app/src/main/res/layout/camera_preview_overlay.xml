@@ -8,13 +8,13 @@
       android:layout_height="match_parent"/>
 
   <FrameLayout
-      android:id="@+id/static_overlay_container"
+      android:id="@+id/camera_preview_f_layout_static_overlay_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/transparent">
 
     <ProgressBar
-        android:id="@+id/search_progress_bar"
+        android:id="@+id/camera_preview_progress_bar_search"
         android:layout_width="@dimen/search_progress_bar_size"
         android:layout_height="@dimen/search_progress_bar_size"
         android:layout_gravity="center"
@@ -24,7 +24,7 @@
         android:visibility="gone"/>
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/bottom_prompt_chip"
+        android:id="@+id/camera_preview_chip_bottom_prompt"
         style="@style/Widget.MaterialComponents.Chip.Entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -22,18 +22,20 @@ class AllClientsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_all_clients)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.clients_recycler_view)) { v, insets ->
+
+
+        val itemsView = findViewById<RecyclerView>(R.id.all_clients_rv_items)
+
+        ViewCompat.setOnApplyWindowInsetsListener(itemsView) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val purchasers = loadPurchasers()
-
-        findViewById<RecyclerView>(R.id.clients_recycler_view).apply {
+        itemsView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@AllClientsActivity)
-            adapter = PurchaserItemAdapter(purchasers)
+            adapter = PurchaserItemAdapter(loadPurchasers())
         }
     }
 
@@ -57,7 +59,7 @@ class AllClientsActivity : AppCompatActivity() {
             return PurchaserItemViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(
-                        R.layout.clients_activity_item, parent, false
+                        R.layout.all_clients_activity_item, parent, false
                     )
             )
         }
@@ -70,9 +72,9 @@ class AllClientsActivity : AppCompatActivity() {
         inner class PurchaserItemViewHolder(view: View) :
             RecyclerView.ViewHolder(view) {
 
-            private val clientFullNameView: TextView = view.findViewById(R.id.client_full_name)
-            private val clientPhoneView: TextView = view.findViewById(R.id.client_phone)
-            private val clientDebtsView: TextView = view.findViewById(R.id.client_debts)
+            private val clientFullNameView: TextView = view.findViewById(R.id.all_clients_item_tv_full_name)
+            private val clientPhoneView: TextView = view.findViewById(R.id.all_clients_item_tv_phone)
+            private val clientDebtsView: TextView = view.findViewById(R.id.all_clients_item_tv_debts)
 
             fun bind(purchaser: Purchaser) {
                 clientFullNameView.text = purchaser.fullName()

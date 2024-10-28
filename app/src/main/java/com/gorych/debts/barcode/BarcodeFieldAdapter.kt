@@ -14,8 +14,8 @@ internal class BarcodeFieldAdapter(private val barcodeFieldList: List<BarcodeFie
 
     internal class BarcodeFieldViewHolder private constructor(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val labelView: TextView = view.findViewById(R.id.barcode_field_label)
-        private val valueView: TextView = view.findViewById(R.id.barcode_field_value)
+        private val labelView: TextView = view.findViewById(R.id.barcode_tv_field_label)
+        private val valueView: TextView = view.findViewById(R.id.barcode_tv_field_value)
 
         fun bindBarcodeField(barcodeField: BarcodeField) {
             labelView.text = barcodeField.label

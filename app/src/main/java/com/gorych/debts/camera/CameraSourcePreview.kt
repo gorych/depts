@@ -89,7 +89,7 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
             for (i in 0 until childCount) {
                 val childView = getChildAt(i)
                 when (childView.id) {
-                    R.id.static_overlay_container -> {
+                    R.id.camera_preview_f_layout_static_overlay_container -> {
                         childView.layout(0, 0, layoutWidth, layoutHeight)
                     }
                     else -> {

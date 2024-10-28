@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/client_full_name"
+                android:id="@+id/client_info_tv_debt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="google-sans-medium"
@@ -30,14 +30,22 @@
                 android:textSize="@dimen/clients_page_mode_item_title_size" />
 
             <TextView
-                android:id="@+id/client_phone"
+                android:id="@+id/client_info_tv_debt_barcode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:textColor="@color/list_item_subtitle"
                 android:textSize="@dimen/clients_page_mode_item_subtitle_size" />
             <TextView
-                android:id="@+id/client_debts"
+                android:id="@+id/client_info_tv_debt_creation_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="@dimen/clients_page_mode_item_subtitle_padding_bottom"
+                android:textColor="@color/list_item_subtitle"
+                android:textSize="@dimen/clients_page_mode_item_subtitle_size" />
+            <TextView
+                android:id="@+id/client_info_tv_debt_seller"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -54,7 +62,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/roundButton"
+                android:id="@+id/client_info_btn_close_debt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"

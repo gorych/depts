@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/client_details_view_title"
+        android:id="@+id/client_details_tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="google-sans"
@@ -16,7 +16,7 @@
         android:textSize="@dimen/page_title_size" />
 
     <TextView
-        android:id="@+id/client_phone_text_view_value"
+        android:id="@+id/client_details_tv_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="google-sans-medium"
@@ -46,7 +46,7 @@
         android:background="#40FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/clients_debts_recycler_view"
+        android:id="@+id/client_details_rv_debts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>

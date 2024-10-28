@@ -15,7 +15,7 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.settings_container, SettingsFragment())
+            .replace(R.id.settings_linear_layout_container, SettingsFragment())
             .commit()
     }
 

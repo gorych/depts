@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_main)
-        findViewById<RecyclerView>(R.id.mode_recycler_view).apply {
+        findViewById<RecyclerView>(R.id.main_rv_items).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = ModeItemAdapter(ApplicationMode.entries.toTypedArray())
@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         private inner class ModeItemViewHolder(view: View) :
             RecyclerView.ViewHolder(view) {
 
-            private val titleView: TextView = view.findViewById(R.id.mode_title)
-            private val subtitleView: TextView = view.findViewById(R.id.mode_subtitle)
+            private val titleView: TextView = view.findViewById(R.id.main_tv_mode_title)
+            private val subtitleView: TextView = view.findViewById(R.id.main_tv_mode_subtitle)
 
             fun bindDetectionMode(applicationMode: ApplicationMode) {
                 titleView.setText(applicationMode.titleResId)
