@@ -44,8 +44,7 @@ class AllClientsActivity : AppCompatActivity() {
                     "$it".toLong(),
                     "Егор$it",
                     "Семенченя$it",
-                    "+375 25 1594702",
-                    it % 2 == 0
+                    "+375 25 1594702"
                 )
             }
         return purchasers
@@ -80,7 +79,7 @@ class AllClientsActivity : AppCompatActivity() {
                 clientPhoneView.text =
                     getString(R.string.client_phone_view_prefix, purchaser.phoneNumber)
                 clientDebtsView.text =
-                    if (purchaser.hasActiveDebts) getString(R.string.client_debts_text_view_YES_value)
+                    if (purchaser.hasActiveDebts()) getString(R.string.client_debts_text_view_YES_value)
                     else getString(R.string.client_debts_text_view_NO_value)
 
                 itemView.setOnClickListener {

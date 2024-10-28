@@ -8,8 +8,10 @@ data class Purchaser(
     val id: Long,
     val name: String,
     val surname: String,
-    val phoneNumber: String,
-    val hasActiveDebts: Boolean
+    val phoneNumber: String
 ) : Parcelable {
     fun fullName(): String = "$name $surname"
+
+    //TODO
+    fun hasActiveDebts(): Boolean = true
 }

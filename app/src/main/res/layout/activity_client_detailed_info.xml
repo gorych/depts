@@ -15,8 +15,38 @@
         android:textColor="@color/white"
         android:textSize="@dimen/page_title_size" />
 
+    <TextView
+        android:id="@+id/client_phone_text_view_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="google-sans-medium"
+        android:paddingTop="@dimen/clients_page_mode_item_title_padding_top"
+        android:paddingBottom="@dimen/clients_page_mode_item_title_padding_bottom"
+        android:textColor="@color/white"
+        android:paddingStart="@dimen/clients_page_mode_item_padding_horizontal"
+        android:paddingEnd="@dimen/clients_page_mode_item_padding_horizontal"
+        android:textSize="@dimen/clients_page_mode_item_title_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="google-sans-medium"
+        android:paddingTop="@dimen/clients_page_mode_item_title_padding_top"
+        android:paddingBottom="@dimen/clients_page_mode_item_title_padding_bottom"
+        android:textColor="@color/white"
+        android:paddingStart="@dimen/clients_page_mode_item_padding_horizontal"
+        android:paddingEnd="@dimen/clients_page_mode_item_padding_horizontal"
+        android:textSize="@dimen/clients_page_mode_item_title_size"
+        android:text="@string/client_debts_view_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/clients_page_debts_title_margin_top"
+        android:background="#40FFFFFF" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/clients_details_recycler_view"
+        android:id="@+id/clients_debts_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>

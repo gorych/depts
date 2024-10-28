@@ -33,4 +33,5 @@
     <string name="client_phone_view_prefix">Телефон: %1$s</string>
     <string name="client_debts_text_view_YES_value">Активные долги: да</string>
     <string name="client_debts_text_view_NO_value">Активные долги: нет</string>
+    <string name="client_debts_view_title">Долги</string>
 </resources>
