@@ -100,7 +100,6 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
 
             fun bind(debt: Debt) {
                 debtNameView.text = debt.name
-                //debtBarcodeView.text = debt.barcode
                 debtCreationDateView.text = debt.created.toString()
                 debtSellerView.text = debt.seller
             }

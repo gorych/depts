@@ -20,24 +20,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="google-sans-medium"
+        android:paddingStart="@dimen/view_item_padding_horizontal"
         android:paddingTop="@dimen/view_item_title_padding_top"
+        android:paddingEnd="@dimen/view_item_padding_horizontal"
         android:paddingBottom="@dimen/view_item_title_padding_bottom"
         android:textColor="@color/white"
-        android:paddingStart="@dimen/view_item_padding_horizontal"
-        android:paddingEnd="@dimen/view_item_padding_horizontal"
         android:textSize="@dimen/view_item_title_size" />
 
-    <TextView
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="google-sans-medium"
-        android:paddingTop="@dimen/view_item_title_padding_top"
-        android:paddingBottom="@dimen/view_item_title_padding_bottom"
-        android:textColor="@color/white"
-        android:paddingStart="@dimen/view_item_padding_horizontal"
-        android:paddingEnd="@dimen/view_item_padding_horizontal"
-        android:textSize="@dimen/view_item_title_size"
-        android:text="@string/client_debts_view_title"/>
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <TextView
+            android:id="@+id/client_info_tv_debts_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.2"
+            android:fontFamily="google-sans-medium"
+            android:paddingStart="@dimen/view_item_padding_horizontal"
+            android:paddingTop="@dimen/view_item_title_padding_top"
+            android:paddingEnd="@dimen/view_item_padding_horizontal"
+            android:paddingBottom="@dimen/view_item_title_padding_bottom"
+            android:text="@string/client_debts_view_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/view_item_title_size" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0.8"
+            android:checked="true"
+            android:fontFamily="google-sans-medium"
+            android:paddingStart="@dimen/view_item_padding_horizontal"
+            android:paddingEnd="@dimen/view_item_padding_horizontal"
+            android:text="@string/client_debts_cb_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/view_item_title_size" />
+    </GridLayout>
 
     <View
         android:layout_width="match_parent"
@@ -49,6 +70,6 @@
         android:id="@+id/client_details_rv_debts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
 </LinearLayout>
