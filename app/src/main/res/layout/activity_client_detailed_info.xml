@@ -20,23 +20,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="google-sans-medium"
-        android:paddingTop="@dimen/clients_page_mode_item_title_padding_top"
-        android:paddingBottom="@dimen/clients_page_mode_item_title_padding_bottom"
+        android:paddingTop="@dimen/view_item_title_padding_top"
+        android:paddingBottom="@dimen/view_item_title_padding_bottom"
         android:textColor="@color/white"
-        android:paddingStart="@dimen/clients_page_mode_item_padding_horizontal"
-        android:paddingEnd="@dimen/clients_page_mode_item_padding_horizontal"
-        android:textSize="@dimen/clients_page_mode_item_title_size" />
+        android:paddingStart="@dimen/view_item_padding_horizontal"
+        android:paddingEnd="@dimen/view_item_padding_horizontal"
+        android:textSize="@dimen/view_item_title_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="google-sans-medium"
-        android:paddingTop="@dimen/clients_page_mode_item_title_padding_top"
-        android:paddingBottom="@dimen/clients_page_mode_item_title_padding_bottom"
+        android:paddingTop="@dimen/view_item_title_padding_top"
+        android:paddingBottom="@dimen/view_item_title_padding_bottom"
         android:textColor="@color/white"
-        android:paddingStart="@dimen/clients_page_mode_item_padding_horizontal"
-        android:paddingEnd="@dimen/clients_page_mode_item_padding_horizontal"
-        android:textSize="@dimen/clients_page_mode_item_title_size"
+        android:paddingStart="@dimen/view_item_padding_horizontal"
+        android:paddingEnd="@dimen/view_item_padding_horizontal"
+        android:textSize="@dimen/view_item_title_size"
         android:text="@string/client_debts_view_title"/>
 
     <View

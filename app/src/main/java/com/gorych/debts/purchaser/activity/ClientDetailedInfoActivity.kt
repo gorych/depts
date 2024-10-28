@@ -93,8 +93,6 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
             RecyclerView.ViewHolder(view) {
 
             private val debtNameView: TextView = view.findViewById(R.id.client_info_tv_debt_name)
-            private val debtBarcodeView: TextView =
-                view.findViewById(R.id.client_info_tv_debt_barcode)
             private val debtCreationDateView: TextView =
                 view.findViewById(R.id.client_info_tv_debt_creation_date)
             private val debtSellerView: TextView =
