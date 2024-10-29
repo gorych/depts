@@ -19,12 +19,12 @@ import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.Status
 import java.time.LocalDate.now
 
-class ClientDetailedInfoActivity : AppCompatActivity() {
+class ClientInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        setContentView(R.layout.activity_client_detailed_info)
+        setContentView(R.layout.activity_client_info)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.client_details_rv_debts)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -41,7 +41,7 @@ class ClientDetailedInfoActivity : AppCompatActivity() {
 
             findViewById<RecyclerView>(R.id.client_details_rv_debts).apply {
                 setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(this@ClientDetailedInfoActivity)
+                layoutManager = LinearLayoutManager(this@ClientInfoActivity)
                 adapter = DebtItemAdapter(getPurchaserDebts(purchaser))
             }
         }

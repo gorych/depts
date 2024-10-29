@@ -97,7 +97,7 @@ class AllClientsActivity : AppCompatActivity() {
 
                 itemView.setOnClickListener {
                     val activity = this@AllClientsActivity
-                    val intent = Intent(activity, ClientDetailedInfoActivity::class.java).apply {
+                    val intent = Intent(activity, ClientInfoActivity::class.java).apply {
                         putExtra(IntentExtras.SELECTED_PURCHASER, purchaser)
                     }
                     activity.startActivity(intent)
