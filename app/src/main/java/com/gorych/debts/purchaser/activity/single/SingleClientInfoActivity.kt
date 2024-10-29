@@ -1,4 +1,4 @@
-package com.gorych.debts.purchaser.activity
+package com.gorych.debts.purchaser.activity.single
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,7 +21,7 @@ import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.repository.PurchaserDebtRepository
 import com.gorych.debts.util.ClipboardUtils.copyTextToClipboard
 
-class ClientInfoActivity : AppCompatActivity() {
+class SingleClientInfoActivity : AppCompatActivity() {
 
     private lateinit var purchaserDebtRepository: PurchaserDebtRepository
     private lateinit var debtsRecyclerView: RecyclerView
@@ -59,7 +59,7 @@ class ClientInfoActivity : AppCompatActivity() {
     private fun bindDebtsRecyclerView() {
         debtsRecyclerView.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@ClientInfoActivity)
+            layoutManager = LinearLayoutManager(this@SingleClientInfoActivity)
             adapter = debtItemAdapter
         }
     }
@@ -82,7 +82,7 @@ class ClientInfoActivity : AppCompatActivity() {
 
                 phoneView.setOnClickListener {
                     copyTextToClipboard(
-                        this@ClientInfoActivity,
+                        this@SingleClientInfoActivity,
                         LABEL_PHONE_NUMBER,
                         phoneView.text.toString()
                     )
@@ -101,7 +101,7 @@ class ClientInfoActivity : AppCompatActivity() {
     private fun showCopiedToast() {
         Toast
             .makeText(
-                this@ClientInfoActivity,
+                this@SingleClientInfoActivity,
                 getString(R.string.copied), Toast.LENGTH_SHORT
             )
             .show()

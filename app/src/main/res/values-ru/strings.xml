@@ -4,7 +4,7 @@
     <string name="mode_barcode_live_title">Сканирование штрихкода</string>
     <string name="mode_barcode_live_subtitle">Считывает данные закодированные в штрихкоде</string>
     <string name="mode_show_all_clients_title">Покупатели</string>
-    <string name="mode_show_all_clients_subtitle">Отображает детальную информацию о клиентах</string>
+    <string name="mode_show_all_clients_subtitle">Отображает детальную информацию о покупателях</string>
     <string name="settings_title">Настройки</string>
     <string name="cd_settings_button">Настройки</string>
     <string name="cd_close_button">Назад</string>
