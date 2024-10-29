@@ -36,6 +36,7 @@
                 android:fontFamily="sans-serif"
                 android:textColor="@color/list_item_subtitle"
                 android:textSize="@dimen/view_item_subtitle_size" />
+
             <TextView
                 android:id="@+id/all_clients_item_tv_debts"
                 android:layout_width="match_parent"
@@ -46,25 +47,20 @@
                 android:textSize="@dimen/view_item_subtitle_size" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_columnWeight="0.2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/all_clients_item_btn_create_receipt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/teal_round_button"
-                android:contentDescription="@string/clients_activity_create_new_receipt_tooltip_text"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_baseline_add_24"
-                android:tooltipText="@string/clients_activity_create_new_receipt_tooltip_text" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/all_clients_item_btn_create_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:background="@drawable/teal_round_button"
+            android:contentDescription="@string/clients_activity_create_new_receipt_tooltip_text"
+            android:padding="10dp"
+            android:layout_margin="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_add_24"
+            android:tooltipText="@string/clients_activity_create_new_receipt_tooltip_text" />
     </GridLayout>
 
     <View
