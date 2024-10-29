@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,10 +19,10 @@ import com.gorych.debts.purchaser.Good
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.Status
+import com.gorych.debts.util.ClipboardUtils.copyTextToClipboard
 import java.time.LocalDate.now
 
 class ClientInfoActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -51,8 +52,22 @@ class ClientInfoActivity : AppCompatActivity() {
     private fun bindPhoneView(purchaser: Purchaser) {
         when {
             purchaser.phoneNumber != null -> {
-                val phoneView = findViewById<TextView>(R.id.client_details_tv_phone)
+                val phoneView: TextView = findViewById(R.id.client_info_tv_phone)
                 phoneView.text = purchaser.phoneNumber
+
+                phoneView.setOnClickListener {
+                    copyTextToClipboard(
+                        this@ClientInfoActivity,
+                        LABEL_PHONE_NUMBER,
+                        phoneView.text.toString()
+                    )
+                    Toast
+                        .makeText(
+                            this@ClientInfoActivity,
+                            getString(R.string.copied), Toast.LENGTH_SHORT
+                        )
+                        .show()
+                }
             }
 
             else -> {
@@ -108,5 +123,9 @@ class ClientInfoActivity : AppCompatActivity() {
                 debtSellerView.text = debt.seller
             }
         }
+    }
+
+    companion object {
+        const val LABEL_PHONE_NUMBER = "phoneNumberLabel"
     }
 }
