@@ -13,40 +13,65 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.gorych.debts.R
 import com.gorych.debts.purchaser.Debt
-import com.gorych.debts.purchaser.Good
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
-import com.gorych.debts.purchaser.Status
+import com.gorych.debts.purchaser.repository.PurchaserRepository
 import com.gorych.debts.util.ClipboardUtils.copyTextToClipboard
-import java.time.LocalDate.now
 
 class ClientInfoActivity : AppCompatActivity() {
+
+    private lateinit var purchaserRepository: PurchaserRepository
+    private lateinit var debtsRecyclerView: RecyclerView
+    private lateinit var debtItemAdapter: DebtItemAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_client_info)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.client_details_rv_debts)) { v, insets ->
+        purchaserRepository = PurchaserRepository()
+        debtsRecyclerView = findViewById(R.id.client_details_rv_debts)
+
+        ViewCompat.setOnApplyWindowInsetsListener(debtsRecyclerView) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val purchaser: Purchaser? = intent.getParcelableExtra(IntentExtras.SELECTED_PURCHASER)
+        val selectedPurchaser: Purchaser? =
+            intent.getParcelableExtra(IntentExtras.SELECTED_PURCHASER)
 
-        purchaser?.let {
+        selectedPurchaser?.let {
+            val activeDebts = purchaserRepository.getActiveDebtsOfPurchaser(it)
+            debtItemAdapter = DebtItemAdapter(activeDebts)
+
             findViewById<TextView>(R.id.client_details_tv_title).text = it.fullName()
 
             bindPhoneView(it)
-
-            findViewById<RecyclerView>(R.id.client_details_rv_debts).apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(this@ClientInfoActivity)
-                adapter = DebtItemAdapter(getPurchaserDebts(purchaser))
-            }
+            bindActiveDebtsOnlyCheckBox(it)
+            bindDebtsRecyclerView()
         }
+    }
+
+    private fun bindDebtsRecyclerView() {
+        debtsRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@ClientInfoActivity)
+            adapter = debtItemAdapter
+        }
+    }
+
+    private fun bindActiveDebtsOnlyCheckBox(purchaser: Purchaser) {
+        findViewById<MaterialCheckBox>(R.id.client_info_mcb_active_debts_only)
+            .setOnCheckedChangeListener { _, isChecked ->
+                val newItems: List<Debt> =
+                    if (isChecked) purchaserRepository.getActiveDebtsOfPurchaser(purchaser)
+                    else purchaserRepository.getAllDebtsOfPurchaser(purchaser)
+                debtItemAdapter.updateItems(newItems)
+            }
     }
 
     private fun bindPhoneView(purchaser: Purchaser) {
@@ -61,12 +86,7 @@ class ClientInfoActivity : AppCompatActivity() {
                         LABEL_PHONE_NUMBER,
                         phoneView.text.toString()
                     )
-                    Toast
-                        .makeText(
-                            this@ClientInfoActivity,
-                            getString(R.string.copied), Toast.LENGTH_SHORT
-                        )
-                        .show()
+                    showCopiedToast()
                 }
             }
 
@@ -78,20 +98,17 @@ class ClientInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPurchaserDebts(purchaser: Purchaser): List<Debt> {
-        val goods = listOf(
-            Good(1, "Колбаса", "123456789", now()),
-            Good(2, null.toString(), "987525543", now())
-        )
-
-        val debts = listOf(
-            Debt(1, "Чек №1", now(), Status.OPEN, purchaser, goods, "Алла"),
-            Debt(2, "Чек №2", now(), Status.CLOSED, purchaser, goods, "Наташа"),
-        )
-        return debts
+    private fun showCopiedToast() {
+        Toast
+            .makeText(
+                this@ClientInfoActivity,
+                getString(R.string.copied), Toast.LENGTH_SHORT
+            )
+            .show()
     }
 
-    private inner class DebtItemAdapter(private val debts: List<Debt>) :
+
+    private inner class DebtItemAdapter(private var debts: List<Debt>) :
         RecyclerView.Adapter<DebtItemAdapter.DebtItemViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebtItemViewHolder {
@@ -108,8 +125,12 @@ class ClientInfoActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: DebtItemViewHolder, position: Int) =
             holder.bind(debts[position])
 
-        inner class DebtItemViewHolder(view: View) :
-            RecyclerView.ViewHolder(view) {
+        fun updateItems(newItems: List<Debt>) {
+            debts = newItems
+            notifyDataSetChanged()
+        }
+
+        inner class DebtItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
             private val debtNameView: TextView = view.findViewById(R.id.client_info_tv_debt_name)
             private val debtCreationDateView: TextView =
