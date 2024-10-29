@@ -81,4 +81,8 @@ A
   <dimen name="barcode_field_label_padding">4dp</dimen>
   <dimen name="divider_height">1dp</dimen>
   <dimen name="clients_page_debts_title_margin_top">4dp</dimen>
+  <dimen name="activity_icon_padding_top">18dp</dimen>
+  <dimen name="active_debts_count_view_padding">10dp</dimen>
+  <dimen name="active_debts_count_view_layout_margin">12dp</dimen>
+  <dimen name="active_debts_count_view_text_size">36sp</dimen>
 </resources>

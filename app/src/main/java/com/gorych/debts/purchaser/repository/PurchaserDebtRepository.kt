@@ -1,15 +1,16 @@
 package com.gorych.debts.purchaser.repository
 
-import com.gorych.debts.purchaser.Debt
+import com.gorych.debts.debt.Debt
 import com.gorych.debts.purchaser.Good
 import com.gorych.debts.purchaser.Purchaser
-import com.gorych.debts.purchaser.Status
+import com.gorych.debts.debt.Status
 import java.time.LocalDate.now
 
+//TODO
 class PurchaserDebtRepository {
 
     fun getActiveDebtsOfPurchaser(purchaser: Purchaser): List<Debt> {
-        return getAllDebtsOfPurchaser(purchaser).filter { it -> it.status == Status.OPEN }
+        return getAllDebtsOfPurchaser(purchaser).filter { it.status == Status.OPEN }
     }
 
     fun getAllDebtsOfPurchaser(purchaser: Purchaser): List<Debt> {

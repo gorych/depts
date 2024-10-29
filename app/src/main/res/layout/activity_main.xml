@@ -1,24 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="@dimen/page_title_padding_top"
-      android:paddingBottom="@dimen/page_title_padding_bottom"
-      android:fontFamily="google-sans"
-      android:gravity="center_horizontal"
-      android:text="@string/app_name"
-      android:textColor="@color/white"
-      android:textSize="@dimen/page_title_size"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/home_page_mode_item_padding_horizontal"
+        android:paddingEnd="@dimen/home_page_mode_item_padding_horizontal">
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/main_rv_items"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scrollbars="vertical"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="google-sans"
+            android:gravity="start"
+            android:paddingTop="@dimen/page_title_padding_top"
+            android:paddingBottom="@dimen/page_title_padding_bottom"
+            android:text="@string/app_name"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/page_title_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/client_info_iv_contact_phone_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/contact_phone"
+            android:paddingTop="@dimen/activity_icon_padding_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_attach_money_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/active_debts_count_view_layout_margin"
+                android:background="@drawable/teal_round_button_96"
+                android:contentDescription="@string/active_debts_count_text"
+                android:padding="@dimen/active_debts_count_view_padding"
+                android:scaleType="fitCenter"
+                android:tooltipText="@string/active_debts_count_text" />
+
+            <TextView
+                android:id="@+id/all_clients_tv_count_of_active_debts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:fontFamily="google-sans"
+                android:textColor="@android:color/white"
+                android:textFontWeight="500"
+                android:textSize="@dimen/active_debts_count_view_text_size" />
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_rv_items"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scrollbars="vertical" />
+    </LinearLayout>
 </LinearLayout>

@@ -6,18 +6,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gorych.debts.debt.repository.DebtRepository
 import com.gorych.debts.util.Utils
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var debtRepository: DebtRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_main)
+
+        debtRepository = DebtRepository()
+        findViewById<TextView>(R.id.all_clients_tv_count_of_active_debts).apply {
+            val allDebtsCount = debtRepository.getAllCount()
+            text = allDebtsCount.toString()
+            setOnClickListener {
+                showCountOfDebtsToast(allDebtsCount)
+            }
+        }
+
         findViewById<RecyclerView>(R.id.main_rv_items).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -30,6 +44,15 @@ class MainActivity : AppCompatActivity() {
         if (!Utils.allPermissionsGranted(this)) {
             Utils.requestRuntimePermissions(this)
         }
+    }
+
+    private fun showCountOfDebtsToast(count: Int) {
+        Toast
+            .makeText(
+                this@MainActivity,
+                getString(R.string.debts_count, count), Toast.LENGTH_SHORT
+            )
+            .show()
     }
 
     private inner class ModeItemAdapter(private val applicationModes: Array<ApplicationMode>) :

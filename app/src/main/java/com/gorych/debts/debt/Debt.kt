@@ -1,6 +1,8 @@
-package com.gorych.debts.purchaser
+package com.gorych.debts.debt
 
 import android.os.Parcelable
+import com.gorych.debts.purchaser.Good
+import com.gorych.debts.purchaser.Purchaser
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
