@@ -35,4 +35,5 @@
     <string name="client_debts_text_view_NO_value">Активные долги: нет</string>
     <string name="client_debts_view_title">Долги</string>
     <string name="client_debts_cb_text">Только активные</string>
+    <string name="contact_phone">Контактный телефон</string>
 </resources>

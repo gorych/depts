@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,13 +49,16 @@ class ClientInfoActivity : AppCompatActivity() {
     }
 
     private fun bindPhoneView(purchaser: Purchaser) {
-        val phoneView = findViewById<TextView>(R.id.client_details_tv_phone)
         when {
             purchaser.phoneNumber != null -> {
-                phoneView.text = getString(R.string.client_phone_view_prefix, purchaser.phoneNumber)
+                val phoneView = findViewById<TextView>(R.id.client_details_tv_phone)
+                phoneView.text = purchaser.phoneNumber
             }
+
             else -> {
-                phoneView.visibility = View.GONE
+                val phoneLayout =
+                    findViewById<ConstraintLayout>(R.id.client_details_c_layout_phone)
+                phoneLayout.visibility = View.GONE
             }
         }
     }

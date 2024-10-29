@@ -49,5 +49,6 @@
     <string name="prompt_searching">Searching&#8230;</string>
     <string name="client_debts_view_title">Debts</string>
     <string name="client_debts_cb_text">Active debts only</string>
+    <string name="contact_phone">Contact phone</string>
 
 </resources>
