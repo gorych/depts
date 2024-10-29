@@ -6,7 +6,7 @@ import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.Status
 import java.time.LocalDate.now
 
-class PurchaserRepository {
+class PurchaserDebtRepository {
 
     fun getActiveDebtsOfPurchaser(purchaser: Purchaser): List<Debt> {
         return getAllDebtsOfPurchaser(purchaser).filter { it -> it.status == Status.OPEN }

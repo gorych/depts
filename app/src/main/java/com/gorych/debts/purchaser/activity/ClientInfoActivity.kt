@@ -18,12 +18,12 @@ import com.gorych.debts.R
 import com.gorych.debts.purchaser.Debt
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
-import com.gorych.debts.purchaser.repository.PurchaserRepository
+import com.gorych.debts.purchaser.repository.PurchaserDebtRepository
 import com.gorych.debts.util.ClipboardUtils.copyTextToClipboard
 
 class ClientInfoActivity : AppCompatActivity() {
 
-    private lateinit var purchaserRepository: PurchaserRepository
+    private lateinit var purchaserDebtRepository: PurchaserDebtRepository
     private lateinit var debtsRecyclerView: RecyclerView
     private lateinit var debtItemAdapter: DebtItemAdapter
 
@@ -32,7 +32,7 @@ class ClientInfoActivity : AppCompatActivity() {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_client_info)
 
-        purchaserRepository = PurchaserRepository()
+        purchaserDebtRepository = PurchaserDebtRepository()
         debtsRecyclerView = findViewById(R.id.client_details_rv_debts)
 
         ViewCompat.setOnApplyWindowInsetsListener(debtsRecyclerView) { v, insets ->
@@ -45,7 +45,7 @@ class ClientInfoActivity : AppCompatActivity() {
             intent.getParcelableExtra(IntentExtras.SELECTED_PURCHASER)
 
         selectedPurchaser?.let {
-            val activeDebts = purchaserRepository.getActiveDebtsOfPurchaser(it)
+            val activeDebts = purchaserDebtRepository.getActiveDebtsOfPurchaser(it)
             debtItemAdapter = DebtItemAdapter(activeDebts)
 
             findViewById<TextView>(R.id.client_details_tv_title).text = it.fullName()
@@ -68,8 +68,8 @@ class ClientInfoActivity : AppCompatActivity() {
         findViewById<MaterialCheckBox>(R.id.client_info_mcb_active_debts_only)
             .setOnCheckedChangeListener { _, isChecked ->
                 val newItems: List<Debt> =
-                    if (isChecked) purchaserRepository.getActiveDebtsOfPurchaser(purchaser)
-                    else purchaserRepository.getAllDebtsOfPurchaser(purchaser)
+                    if (isChecked) purchaserDebtRepository.getActiveDebtsOfPurchaser(purchaser)
+                    else purchaserDebtRepository.getAllDebtsOfPurchaser(purchaser)
                 debtItemAdapter.updateItems(newItems)
             }
     }
