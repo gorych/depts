@@ -2,7 +2,7 @@ package com.gorych.debts
 
 import androidx.appcompat.app.AppCompatActivity
 import com.gorych.debts.barcode.activity.LiveBarcodeScanningActivity
-import com.gorych.debts.purchaser.activity.list.ClientListActivity
+import com.gorych.debts.purchaser.ui.list.ClientListActivity
 
 enum class ApplicationMode(
     val titleResId: Int,

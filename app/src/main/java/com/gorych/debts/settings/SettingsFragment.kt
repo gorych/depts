@@ -6,7 +6,7 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.gorych.debts.R
 import com.gorych.debts.camera.CameraSource
-import com.gorych.debts.util.Utils
+import com.gorych.debts.utility.Utils
 import java.util.HashMap
 
 /** Configures App settings.  */

@@ -6,7 +6,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.gorych.debts.util.Utils
+import com.gorych.debts.utility.Utils
 import java.util.ArrayList
 
 /**

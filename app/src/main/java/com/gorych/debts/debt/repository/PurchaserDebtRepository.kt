@@ -1,12 +1,11 @@
-package com.gorych.debts.purchaser.repository
+package com.gorych.debts.debt.repository
 
 import com.gorych.debts.debt.Debt
-import com.gorych.debts.purchaser.Good
+import com.gorych.debts.debt.Debt.Status
+import com.gorych.debts.good.Good
 import com.gorych.debts.purchaser.Purchaser
-import com.gorych.debts.debt.Status
 import java.time.LocalDate.now
 
-//TODO
 class PurchaserDebtRepository {
 
     fun getActiveDebtsOfPurchaser(purchaser: Purchaser): List<Debt> {

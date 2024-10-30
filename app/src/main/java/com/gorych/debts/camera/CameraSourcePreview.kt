@@ -8,7 +8,7 @@ import android.view.SurfaceView
 import android.widget.FrameLayout
 import com.google.android.gms.common.images.Size
 import com.gorych.debts.R
-import com.gorych.debts.util.Utils
+import com.gorych.debts.utility.Utils
 import java.io.IOException
 
 /** Preview the camera image in the screen.  */

@@ -1,4 +1,4 @@
-package com.gorych.debts.purchaser.activity.list
+package com.gorych.debts.purchaser.ui.list
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,22 +9,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.R
 import com.gorych.debts.purchaser.Purchaser
+import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
-import com.gorych.debts.purchaser.view.PurchaserListView
 
-class ClientListActivity : AppCompatActivity(), PurchaserListView {
+class ClientListActivity : AppCompatActivity(), PurchaserListContract.View {
 
     private lateinit var purchaserListPresenter: PurchaserListPresenter
-    private lateinit var itemsView: RecyclerView
+    private lateinit var itemsRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_all_clients)
 
-        itemsView = findViewById(R.id.all_clients_rv_items)
+        itemsRecyclerView = findViewById(R.id.all_clients_rv_items)
 
-        ViewCompat.setOnApplyWindowInsetsListener(itemsView) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(itemsRecyclerView) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -32,11 +32,11 @@ class ClientListActivity : AppCompatActivity(), PurchaserListView {
 
         purchaserListPresenter = PurchaserListPresenter(this)
 
-        purchaserListPresenter.loadItems()
+        purchaserListPresenter.loadInitialList()
     }
 
     override fun populateItems(purchasers: List<Purchaser>) {
-        itemsView.apply {
+        itemsRecyclerView.apply {
             val activity = this@ClientListActivity
             layoutManager = LinearLayoutManager(activity)
             adapter = PurchaserItemAdapter(purchasers, activity)

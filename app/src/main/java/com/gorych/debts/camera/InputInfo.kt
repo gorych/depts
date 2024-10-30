@@ -1,7 +1,7 @@
 package com.gorych.debts.camera
 
 import android.graphics.Bitmap
-import com.gorych.debts.util.Utils
+import com.gorych.debts.utility.Utils
 import java.nio.ByteBuffer
 
 interface InputInfo {

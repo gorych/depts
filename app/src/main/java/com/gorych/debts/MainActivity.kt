@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.debt.repository.DebtRepository
-import com.gorych.debts.util.Utils
+import com.gorych.debts.utility.Utils
 
 class MainActivity : AppCompatActivity() {
 

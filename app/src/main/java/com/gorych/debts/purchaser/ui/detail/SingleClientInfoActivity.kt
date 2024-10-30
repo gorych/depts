@@ -1,4 +1,4 @@
-package com.gorych.debts.purchaser.activity.single
+package com.gorych.debts.purchaser.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,13 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.gorych.debts.R
 import com.gorych.debts.debt.Debt
+import com.gorych.debts.debt.repository.PurchaserDebtRepository
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
-import com.gorych.debts.purchaser.repository.PurchaserDebtRepository
-import com.gorych.debts.util.ClipboardUtils.copyTextToClipboard
+import com.gorych.debts.purchaser.contract.PurchaserDetailContract
+import com.gorych.debts.utility.ClipboardUtils.copyTextToClipboard
+import com.gorych.debts.utility.hide
 
-class SingleClientInfoActivity : AppCompatActivity() {
+class SingleClientInfoActivity : AppCompatActivity(), PurchaserDetailContract.View {
 
+    private lateinit var purchaserDetailPresenter: PurchaserDetailContract.Presenter
     private lateinit var purchaserDebtRepository: PurchaserDebtRepository
     private lateinit var debtsRecyclerView: RecyclerView
     private lateinit var debtItemAdapter: DebtItemAdapter
@@ -45,6 +48,8 @@ class SingleClientInfoActivity : AppCompatActivity() {
             intent.getParcelableExtra(IntentExtras.SELECTED_PURCHASER)
 
         selectedPurchaser?.let {
+            //purchaserDetailPresenter.loadActiveDebts(it)
+
             val activeDebts = purchaserDebtRepository.getActiveDebtsOfPurchaser(it)
             debtItemAdapter = DebtItemAdapter(activeDebts)
 
@@ -52,11 +57,11 @@ class SingleClientInfoActivity : AppCompatActivity() {
 
             bindPhoneView(it)
             bindActiveDebtsOnlyCheckBox(it)
-            bindDebtsRecyclerView()
+            bindDebtsView()
         }
     }
 
-    private fun bindDebtsRecyclerView() {
+    private fun bindDebtsView() {
         debtsRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SingleClientInfoActivity)
@@ -86,23 +91,23 @@ class SingleClientInfoActivity : AppCompatActivity() {
                         LABEL_PHONE_NUMBER,
                         phoneView.text.toString()
                     )
-                    showCopiedToast()
+                    shortToast(getString(R.string.copied))
                 }
             }
 
             else -> {
                 val phoneLayout =
                     findViewById<ConstraintLayout>(R.id.client_details_c_layout_phone)
-                phoneLayout.visibility = View.GONE
+                phoneLayout.hide()
             }
         }
     }
 
-    private fun showCopiedToast() {
+    private fun shortToast(text: String) {
         Toast
             .makeText(
                 this@SingleClientInfoActivity,
-                getString(R.string.copied), Toast.LENGTH_SHORT
+                text, Toast.LENGTH_SHORT
             )
             .show()
     }
@@ -148,5 +153,9 @@ class SingleClientInfoActivity : AppCompatActivity() {
 
     companion object {
         const val LABEL_PHONE_NUMBER = "phoneNumberLabel"
+    }
+
+    override fun populateDebts(debts: List<Debt>) {
+        debtItemAdapter = DebtItemAdapter(debts)
     }
 }

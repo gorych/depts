@@ -30,11 +30,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".purchaser.activity.list.ClientListActivity"
+            android:name=".purchaser.ui.list.ClientListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".purchaser.activity.single.SingleClientInfoActivity"
+            android:name=".purchaser.ui.detail.SingleClientInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

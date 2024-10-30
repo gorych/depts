@@ -12,7 +12,7 @@ import android.view.WindowManager
 import com.google.android.gms.common.images.Size
 import com.gorych.debts.R
 import com.gorych.debts.settings.PreferenceUtils
-import com.gorych.debts.util.Utils
+import com.gorych.debts.utility.Utils
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.util.IdentityHashMap

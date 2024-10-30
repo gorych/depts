@@ -7,7 +7,7 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.vision.common.InputImage
-import com.gorych.debts.util.ScopedExecutor
+import com.gorych.debts.utility.ScopedExecutor
 import java.nio.ByteBuffer
 
 /** Abstract base class of [FrameProcessor].  */

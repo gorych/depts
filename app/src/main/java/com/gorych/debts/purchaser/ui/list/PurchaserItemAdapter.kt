@@ -1,4 +1,4 @@
-package com.gorych.debts.purchaser.activity.list
+package com.gorych.debts.purchaser.ui.list
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.R
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
-import com.gorych.debts.purchaser.activity.single.SingleClientInfoActivity
-import com.gorych.debts.purchaser.activity.list.PurchaserItemAdapter.PurchaserItemViewHolder
+import com.gorych.debts.purchaser.ui.detail.SingleClientInfoActivity
+import com.gorych.debts.purchaser.ui.list.PurchaserItemAdapter.PurchaserItemViewHolder
 
 class PurchaserItemAdapter(private val purchasers: List<Purchaser>, private val context: Context) :
     RecyclerView.Adapter<PurchaserItemViewHolder>() {

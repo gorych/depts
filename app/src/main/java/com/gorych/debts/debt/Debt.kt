@@ -1,7 +1,7 @@
 package com.gorych.debts.debt
 
 import android.os.Parcelable
-import com.gorych.debts.purchaser.Good
+import com.gorych.debts.good.Good
 import com.gorych.debts.purchaser.Purchaser
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
@@ -15,9 +15,10 @@ data class Debt(
     val purchaser: Purchaser,
     val goods: List<Good>,
     val seller: String
-) : Parcelable
+) : Parcelable {
 
-enum class Status {
-    OPEN,
-    CLOSED
+    enum class Status {
+        OPEN,
+        CLOSED
+    }
 }

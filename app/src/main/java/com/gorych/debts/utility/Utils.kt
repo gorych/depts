@@ -1,4 +1,4 @@
-package com.gorych.debts.util
+package com.gorych.debts.utility
 
 import android.app.Activity
 import android.content.ContentResolver

@@ -1,4 +1,4 @@
-package com.gorych.debts.purchaser
+package com.gorych.debts.good
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

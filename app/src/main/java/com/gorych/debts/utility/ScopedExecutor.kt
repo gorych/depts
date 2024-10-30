@@ -1,4 +1,4 @@
-package com.gorych.debts.util
+package com.gorych.debts.utility
 
 import java.util.concurrent.Executor
 import java.util.concurrent.atomic.AtomicBoolean
