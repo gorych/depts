@@ -16,6 +16,7 @@ class ClientListActivity : AppCompatActivity(), PurchaserListContract.View {
 
     private lateinit var purchaserListPresenter: PurchaserListPresenter
     private lateinit var itemsRecyclerView: RecyclerView
+    private lateinit var purchaserAdapter: PurchaserItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +31,19 @@ class ClientListActivity : AppCompatActivity(), PurchaserListContract.View {
             insets
         }
 
-        purchaserListPresenter = PurchaserListPresenter(this)
+        purchaserAdapter = PurchaserItemAdapter()
 
+        itemsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@ClientListActivity)
+            adapter = purchaserAdapter
+            setHasFixedSize(true)
+        }
+
+        purchaserListPresenter = PurchaserListPresenter(this)
         purchaserListPresenter.loadInitialList()
     }
 
     override fun populateItems(purchasers: List<Purchaser>) {
-        itemsRecyclerView.apply {
-            val activity = this@ClientListActivity
-            layoutManager = LinearLayoutManager(activity)
-            adapter = PurchaserItemAdapter(purchasers, activity)
-            setHasFixedSize(true)
-        }
+        purchaserAdapter.updateItems(purchasers)
     }
 }

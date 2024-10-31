@@ -1,22 +1,24 @@
 package com.gorych.debts.purchaser.ui.list
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.R
+import com.gorych.debts.adapter.BaseAdapter
+import com.gorych.debts.adapter.BaseViewHolder
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
-import com.gorych.debts.purchaser.ui.detail.SingleClientInfoActivity
-import com.gorych.debts.purchaser.ui.list.PurchaserItemAdapter.PurchaserItemViewHolder
+import com.gorych.debts.purchaser.ui.detail.ClientDetailActivity
 
-class PurchaserItemAdapter(private val purchasers: List<Purchaser>, private val context: Context) :
-    RecyclerView.Adapter<PurchaserItemViewHolder>() {
+class PurchaserItemAdapter :
+    BaseAdapter<Purchaser, PurchaserItemAdapter.PurchaserItemViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PurchaserItemViewHolder {
+    override fun onCreateCustomViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PurchaserItemViewHolder {
         return PurchaserItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(
@@ -25,28 +27,23 @@ class PurchaserItemAdapter(private val purchasers: List<Purchaser>, private val 
         )
     }
 
-    override fun getItemCount(): Int = purchasers.size
+    inner class PurchaserItemViewHolder(view: View) : BaseViewHolder<Purchaser>(view) {
 
-    override fun onBindViewHolder(holder: PurchaserItemViewHolder, position: Int) =
-        holder.bind(purchasers[position])
-
-    inner class PurchaserItemViewHolder(view: View) :
-        RecyclerView.ViewHolder(view) {
-
+        private val clientPhoneView: TextView = view.findViewById(R.id.all_clients_item_tv_phone)
+        private val clientDebtsView: TextView = view.findViewById(R.id.all_clients_item_tv_debts)
         private val clientFullNameView: TextView =
             view.findViewById(R.id.all_clients_item_tv_full_name)
-        private val clientPhoneView: TextView =
-            view.findViewById(R.id.all_clients_item_tv_phone)
-        private val clientDebtsView: TextView =
-            view.findViewById(R.id.all_clients_item_tv_debts)
 
-        fun bind(purchaser: Purchaser) {
-            clientFullNameView.text = purchaser.fullName()
-
+        override fun bind(item: Purchaser) {
+            val context = itemView.context
+            clientFullNameView.text = item.fullName()
             when {
-                purchaser.phoneNumber != null -> {
+                item.phoneNumber != null -> {
                     clientPhoneView.text =
-                        context.getString(R.string.client_phone_view_prefix, purchaser.phoneNumber)
+                        context.getString(
+                            R.string.client_phone_view_prefix,
+                            item.phoneNumber
+                        )
                 }
 
                 else -> {
@@ -55,12 +52,12 @@ class PurchaserItemAdapter(private val purchasers: List<Purchaser>, private val 
             }
 
             clientDebtsView.text =
-                if (purchaser.hasActiveDebts()) context.getString(R.string.client_debts_text_view_YES_value)
+                if (item.hasActiveDebts()) context.getString(R.string.client_debts_text_view_YES_value)
                 else context.getString(R.string.client_debts_text_view_NO_value)
 
             itemView.setOnClickListener {
-                val intent = Intent(context, SingleClientInfoActivity::class.java).apply {
-                    putExtra(IntentExtras.SELECTED_PURCHASER, purchaser)
+                val intent = Intent(context, ClientDetailActivity::class.java).apply {
+                    putExtra(IntentExtras.SELECTED_PURCHASER, item)
                 }
                 context.startActivity(intent)
             }

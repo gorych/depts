@@ -34,7 +34,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".purchaser.ui.detail.SingleClientInfoActivity"
+            android:name=".purchaser.ui.detail.ClientDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
