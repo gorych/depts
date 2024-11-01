@@ -32,14 +32,15 @@ class ClientListActivity : AppCompatActivity(), PurchaserListContract.View {
         }
 
         purchaserAdapter = PurchaserItemAdapter()
+        val activityContext = this@ClientListActivity
 
         itemsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@ClientListActivity)
+            layoutManager = LinearLayoutManager(activityContext)
             adapter = purchaserAdapter
             setHasFixedSize(true)
         }
 
-        purchaserListPresenter = PurchaserListPresenter(this)
+        purchaserListPresenter = PurchaserListPresenter(activityContext)
         purchaserListPresenter.loadInitialList()
     }
 

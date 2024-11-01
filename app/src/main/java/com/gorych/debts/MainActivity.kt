@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.debt.repository.DebtRepository
-import com.gorych.debts.utility.Utils
+import com.gorych.debts.utility.PermissionUtils.allPermissionsGranted
+import com.gorych.debts.utility.PermissionUtils.requestRuntimePermissions
+import com.gorych.debts.utility.ToastUtils.Companion.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             val allDebtsCount = debtRepository.getAllCount()
             text = allDebtsCount.toString()
             setOnClickListener {
-                showCountOfDebtsToast(allDebtsCount)
+                toast(getString(R.string.debts_count, allDebtsCount))
             }
         }
 
@@ -41,18 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (!Utils.allPermissionsGranted(this)) {
-            Utils.requestRuntimePermissions(this)
+        if (!allPermissionsGranted(this)) {
+            requestRuntimePermissions(this)
         }
-    }
-
-    private fun showCountOfDebtsToast(count: Int) {
-        Toast
-            .makeText(
-                this@MainActivity,
-                getString(R.string.debts_count, count), Toast.LENGTH_SHORT
-            )
-            .show()
     }
 
     private inner class ModeItemAdapter(private val applicationModes: Array<ApplicationMode>) :

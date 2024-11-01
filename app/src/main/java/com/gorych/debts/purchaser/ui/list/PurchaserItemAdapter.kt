@@ -15,10 +15,7 @@ import com.gorych.debts.purchaser.ui.detail.ClientDetailActivity
 class PurchaserItemAdapter :
     BaseAdapter<Purchaser, PurchaserItemAdapter.PurchaserItemViewHolder>() {
 
-    override fun onCreateCustomViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): PurchaserItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PurchaserItemViewHolder {
         return PurchaserItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(
@@ -35,12 +32,12 @@ class PurchaserItemAdapter :
             view.findViewById(R.id.all_clients_item_tv_full_name)
 
         override fun bind(item: Purchaser) {
-            val context = itemView.context
+            val activityContext = itemView.context
             clientFullNameView.text = item.fullName()
             when {
                 item.phoneNumber != null -> {
                     clientPhoneView.text =
-                        context.getString(
+                        activityContext.getString(
                             R.string.client_phone_view_prefix,
                             item.phoneNumber
                         )
@@ -52,14 +49,14 @@ class PurchaserItemAdapter :
             }
 
             clientDebtsView.text =
-                if (item.hasActiveDebts()) context.getString(R.string.client_debts_text_view_YES_value)
-                else context.getString(R.string.client_debts_text_view_NO_value)
+                if (item.hasActiveDebts()) activityContext.getString(R.string.client_debts_text_view_YES_value)
+                else activityContext.getString(R.string.client_debts_text_view_NO_value)
 
             itemView.setOnClickListener {
-                val intent = Intent(context, ClientDetailActivity::class.java).apply {
+                val intent = Intent(activityContext, ClientDetailActivity::class.java).apply {
                     putExtra(IntentExtras.SELECTED_PURCHASER, item)
                 }
-                context.startActivity(intent)
+                activityContext.startActivity(intent)
             }
         }
     }

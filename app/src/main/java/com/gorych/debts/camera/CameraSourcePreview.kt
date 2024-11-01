@@ -8,7 +8,7 @@ import android.view.SurfaceView
 import android.widget.FrameLayout
 import com.google.android.gms.common.images.Size
 import com.gorych.debts.R
-import com.gorych.debts.utility.Utils
+import com.gorych.debts.utility.ScreenUtils
 import java.io.IOException
 
 /** Preview the camera image in the screen.  */
@@ -66,7 +66,7 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet) : FrameLayout(c
         cameraSource?.previewSize?.let { cameraPreviewSize = it }
 
         val previewSizeRatio = cameraPreviewSize?.let { size ->
-            if (Utils.isPortraitMode(context)) {
+            if (ScreenUtils.isPortraitMode(context)) {
                 // Camera's natural orientation is landscape, so need to swap width and height.
                 size.height.toFloat() / size.width
             } else {

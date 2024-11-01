@@ -12,7 +12,7 @@ import com.gorych.debts.debt.Debt
 class DebtRecyclerViewAdapter :
     BaseAdapter<Debt, DebtRecyclerViewAdapter.DebtItemViewHolder>() {
 
-    override fun onCreateCustomViewHolder(parent: ViewGroup, viewType: Int): DebtItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebtItemViewHolder {
         return DebtItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(

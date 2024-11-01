@@ -1,7 +1,7 @@
 package com.gorych.debts.camera
 
 import android.graphics.Bitmap
-import com.gorych.debts.utility.Utils
+import com.gorych.debts.utility.ScreenUtils
 import java.nio.ByteBuffer
 
 interface InputInfo {
@@ -18,7 +18,7 @@ class CameraInputInfo(
     @Synchronized
     override fun getBitmap(): Bitmap {
         return bitmap ?: let {
-            bitmap = Utils.convertToBitmap(
+            bitmap = ScreenUtils.convertToBitmap(
                 frameByteBuffer, frameMetadata.width, frameMetadata.height, frameMetadata.rotation
             )
             bitmap!!

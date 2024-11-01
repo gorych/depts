@@ -6,7 +6,7 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import com.gorych.debts.R
 import com.gorych.debts.camera.CameraSource
-import com.gorych.debts.utility.Utils
+import com.gorych.debts.utility.ScreenUtils
 import java.util.HashMap
 
 /** Configures App settings.  */
@@ -25,7 +25,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         try {
             camera = Camera.open(CameraSource.CAMERA_FACING_BACK)
-            val previewSizeList = Utils.generateValidPreviewSizeList(camera!!)
+            val previewSizeList = ScreenUtils.generateValidPreviewSizeList(camera!!)
             val previewSizeStringValues = arrayOfNulls<String>(previewSizeList.size)
             val previewToPictureSizeStringMap = HashMap<String, String>()
             for (i in previewSizeList.indices) {

@@ -2,7 +2,6 @@ package com.gorych.debts.purchaser.ui.detail
 
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +17,7 @@ import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserDetailContract
 import com.gorych.debts.purchaser.presenter.PurchaserDetailPresenter
 import com.gorych.debts.utility.ClipboardUtils.copyTextToClipboard
+import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.textAsString
 
@@ -95,7 +95,7 @@ class ClientDetailActivity : AppCompatActivity(), PurchaserDetailContract.View {
                         LABEL_PHONE_NUMBER,
                         tvPhone.textAsString()
                     )
-                    shortToast(getString(R.string.copied))
+                    toast(getString(R.string.copied))
                 }
             }
 
@@ -103,15 +103,6 @@ class ClientDetailActivity : AppCompatActivity(), PurchaserDetailContract.View {
                 findViewById<ConstraintLayout>(R.id.client_details_c_layout_phone).hide()
             }
         }
-    }
-
-    private fun shortToast(text: String) {
-        Toast
-            .makeText(
-                applicationContext,
-                text, Toast.LENGTH_SHORT
-            )
-            .show()
     }
 
     companion object {

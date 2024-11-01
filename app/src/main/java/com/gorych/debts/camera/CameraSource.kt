@@ -12,7 +12,7 @@ import android.view.WindowManager
 import com.google.android.gms.common.images.Size
 import com.gorych.debts.R
 import com.gorych.debts.settings.PreferenceUtils
-import com.gorych.debts.utility.Utils
+import com.gorych.debts.utility.ScreenUtils
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.util.IdentityHashMap
@@ -208,7 +208,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
             // Camera preview size is based on the landscape mode, so we need to also use the aspect
             // ration of display in the same mode for comparison.
             val displayAspectRatioInLandscape: Float =
-                if (Utils.isPortraitMode(graphicOverlay.context)) {
+                if (ScreenUtils.isPortraitMode(graphicOverlay.context)) {
                     graphicOverlay.height.toFloat() / graphicOverlay.width
                 } else {
                     graphicOverlay.width.toFloat() / graphicOverlay.height
@@ -435,7 +435,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
          * @return the selected preview and picture size pair
          */
         private fun selectSizePair(camera: Camera, displayAspectRatioInLandscape: Float): CameraSizePair? {
-            val validPreviewSizes = Utils.generateValidPreviewSizeList(camera)
+            val validPreviewSizes = ScreenUtils.generateValidPreviewSizeList(camera)
 
             var selectedPair: CameraSizePair? = null
             // Picks the preview size that has closest aspect ratio to display view.
@@ -449,7 +449,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
 
                 val previewAspectRatio = previewSize.width.toFloat() / previewSize.height.toFloat()
                 val aspectRatioDiff = abs(displayAspectRatioInLandscape - previewAspectRatio)
-                if (abs(aspectRatioDiff - minAspectRatioDiff) < Utils.ASPECT_RATIO_TOLERANCE) {
+                if (abs(aspectRatioDiff - minAspectRatioDiff) < ScreenUtils.ASPECT_RATIO_TOLERANCE) {
                     if (selectedPair == null || selectedPair.preview.width < sizePair.preview.width) {
                         selectedPair = sizePair
                     }

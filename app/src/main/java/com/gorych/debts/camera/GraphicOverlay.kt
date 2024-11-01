@@ -6,7 +6,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.gorych.debts.utility.Utils
+import com.gorych.debts.utility.ScreenUtils
 import java.util.ArrayList
 
 /**
@@ -64,7 +64,7 @@ class GraphicOverlay(context: Context, attrs: AttributeSet) : View(context, attr
      */
     fun setCameraInfo(cameraSource: CameraSource) {
         val previewSize = cameraSource.previewSize ?: return
-        if (Utils.isPortraitMode(context)) {
+        if (ScreenUtils.isPortraitMode(context)) {
             // Swap width and height when in portrait, since camera's natural orientation is landscape.
             previewWidth = previewSize.height
             previewHeight = previewSize.width
