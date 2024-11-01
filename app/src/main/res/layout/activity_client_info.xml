@@ -5,16 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/client_details_tv_title"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="google-sans"
-        android:gravity="center_horizontal"
-        android:paddingTop="@dimen/page_title_padding_top"
-        android:paddingBottom="@dimen/page_title_padding_bottom"
-        android:textColor="@color/white"
-        android:textSize="@dimen/page_title_size" />
+        android:id="@+id/top_bar_fragment_container"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/client_details_c_layout_phone"

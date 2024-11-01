@@ -2,7 +2,6 @@ package com.gorych.debts.purchaser.ui.detail
 
 import android.os.Bundle
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.gorych.debts.R
+import com.gorych.debts.TopBarActivity
 import com.gorych.debts.debt.Debt
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
@@ -21,9 +21,9 @@ import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.textAsString
 
-class ClientDetailActivity : AppCompatActivity(), PurchaserDetailContract.View {
+class ClientDetailActivity : TopBarActivity(), PurchaserDetailContract.View {
 
-    private lateinit var tvTitle: TextView
+    private lateinit var topBarTitle: String
     private lateinit var tvPhone: TextView
     private lateinit var rvDebts: RecyclerView
 
@@ -37,7 +37,6 @@ class ClientDetailActivity : AppCompatActivity(), PurchaserDetailContract.View {
         setContentView(R.layout.activity_client_info)
 
         tvPhone = findViewById(R.id.client_info_tv_phone)
-        tvTitle = findViewById(R.id.client_details_tv_title)
         rvDebts = findViewById(R.id.client_details_rv_debts)
 
         ViewCompat.setOnApplyWindowInsetsListener(rvDebts) { v, insets ->
@@ -54,6 +53,7 @@ class ClientDetailActivity : AppCompatActivity(), PurchaserDetailContract.View {
         selectedPurchaser?.let {
             populatePersonalInfo(it)
 
+            initTopBarFragment(topBarTitle, R.drawable.ic_baseline_person_24)
             initPhoneView(it)
             initActiveDebtsOnlyCheckBox(it)
             initDebtsView()
@@ -67,7 +67,7 @@ class ClientDetailActivity : AppCompatActivity(), PurchaserDetailContract.View {
     }
 
     override fun populatePersonalInfo(purchaser: Purchaser) {
-        tvTitle.text = purchaser.fullName()
+        topBarTitle = purchaser.fullName()
         tvPhone.text = purchaser.phoneNumber
     }
 
