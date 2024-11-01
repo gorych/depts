@@ -34,6 +34,17 @@ class MainActivity : AppCompatActivity(), ApplicationModeContract.View {
         applicationModePresenter.loadModes()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!allPermissionsGranted(this)) {
+            requestRuntimePermissions(this)
+        }
+    }
+
+    override fun populateItems(modes: List<ApplicationMode>) {
+        applicationModeAdapter.updateItems(modes)
+    }
+
     private fun initDebtsCountView() {
         findViewById<TextView>(R.id.all_clients_tv_count_of_active_debts).apply {
             val allDebtsCount = debtRepository.getAllCount()
@@ -50,16 +61,5 @@ class MainActivity : AppCompatActivity(), ApplicationModeContract.View {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = applicationModeAdapter
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (!allPermissionsGranted(this)) {
-            requestRuntimePermissions(this)
-        }
-    }
-
-    override fun populateItems(modes: List<ApplicationMode>) {
-        applicationModeAdapter.updateItems(modes)
     }
 }
