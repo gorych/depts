@@ -14,7 +14,7 @@ import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
 
 class ClientListActivity : AppCompatActivity(), PurchaserListContract.View {
 
-    private lateinit var purchaserListPresenter: PurchaserListPresenter
+    private lateinit var purchaserListPresenter: PurchaserListContract.Presenter
     private lateinit var itemsRecyclerView: RecyclerView
     private lateinit var purchaserAdapter: PurchaserItemAdapter
 

@@ -1,6 +1,7 @@
-package com.gorych.debts
+package com.gorych.debts.main
 
 import androidx.appcompat.app.AppCompatActivity
+import com.gorych.debts.R
 import com.gorych.debts.barcode.activity.LiveBarcodeScanningActivity
 import com.gorych.debts.purchaser.ui.list.ClientListActivity
 
