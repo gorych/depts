@@ -4,7 +4,6 @@
   <dimen name="page_title_padding_top">32dp</dimen>
   <dimen name="page_title_padding_bottom">16dp</dimen>
 
-  <dimen name="home_page_mode_item_padding_horizontal">24dp</dimen>
   <dimen name="home_page_mode_item_title_size">16sp</dimen>
   <dimen name="home_page_mode_item_title_padding_top">16dp</dimen>
   <dimen name="home_page_mode_item_title_padding_bottom">8dp</dimen>
