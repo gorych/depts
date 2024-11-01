@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.R
+import com.gorych.debts.TopBarFragment
 import com.gorych.debts.debt.repository.DebtRepository
 import com.gorych.debts.purchaser.contract.ApplicationModeContract
 import com.gorych.debts.utility.PermissionUtils.allPermissionsGranted
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity(), ApplicationModeContract.View {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_main)
+
+        initTopBarFragment()
 
         debtRepository = DebtRepository()
         applicationModeAdapter = ApplicationModeItemAdapter()
@@ -43,6 +46,16 @@ class MainActivity : AppCompatActivity(), ApplicationModeContract.View {
 
     override fun populateItems(modes: List<ApplicationMode>) {
         applicationModeAdapter.updateItems(modes)
+    }
+
+    private fun initTopBarFragment() {
+        val fragment = TopBarFragment.newInstance(
+            getString(R.string.app_name),
+            R.drawable.baseline_attach_money_24
+        )
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.top_bar_fragment_container, fragment)
+            .commit()
     }
 
     private fun initDebtsCountView() {

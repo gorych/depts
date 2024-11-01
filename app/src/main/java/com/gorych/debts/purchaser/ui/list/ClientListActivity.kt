@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.R
+import com.gorych.debts.TopBarFragment
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
@@ -22,6 +23,8 @@ class ClientListActivity : AppCompatActivity(), PurchaserListContract.View {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_all_clients)
+
+        initTopBarFragment()
 
         itemsRecyclerView = findViewById(R.id.all_clients_rv_items)
 
@@ -46,5 +49,15 @@ class ClientListActivity : AppCompatActivity(), PurchaserListContract.View {
 
     override fun populateItems(purchasers: List<Purchaser>) {
         purchaserAdapter.updateItems(purchasers)
+    }
+
+    private fun initTopBarFragment() {
+        val fragment = TopBarFragment.newInstance(
+            getString(R.string.all_clients_activity_title),
+            R.drawable.ic_baseline_people_24
+        )
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.top_bar_fragment_container, fragment)
+            .commit()
     }
 }

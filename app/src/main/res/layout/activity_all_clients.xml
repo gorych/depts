@@ -4,16 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/page_title_padding_top"
-        android:paddingBottom="@dimen/page_title_padding_bottom"
-        android:fontFamily="google-sans"
-        android:gravity="center_horizontal"
-        android:text="@string/all_clients_activity_title"
-        android:textColor="@color/white"
-        android:textSize="@dimen/page_title_size"/>
+        android:id="@+id/top_bar_fragment_container"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_clients_rv_items"
