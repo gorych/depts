@@ -38,9 +38,6 @@ class PurchaserItemAdapter :
         override fun bind(item: Purchaser) {
             val itemViewContext = itemView.context
             clientFullNameView.text = item.fullName()
-            if (item.id == 14L) {
-                clientFullNameView.text = item.fullName()
-            }
             when {
                 item.phoneNumber != null -> {
                     clientPhoneView.text =
