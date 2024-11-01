@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginBottom="14dp"
         android:layout_marginLeft="@dimen/view_item_padding_horizontal"
         android:layout_marginRight="@dimen/view_item_padding_horizontal">
 
@@ -46,9 +47,8 @@
     <!--Debts layout-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="34dp"
         android:paddingStart="@dimen/view_item_padding_horizontal"
-        android:paddingTop="14dp"
         android:paddingEnd="@dimen/view_item_padding_horizontal"
         android:paddingBottom="@dimen/view_item_title_padding_bottom">
 
