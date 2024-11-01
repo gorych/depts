@@ -6,16 +6,18 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/top_bar_fragment_container"/>
+        android:layout_height="wrap_content" />
 
+    <!--Phone layout-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/client_details_c_layout_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/view_item_padding_horizontal">
+        android:layout_marginLeft="@dimen/view_item_padding_horizontal"
+        android:layout_marginRight="@dimen/view_item_padding_horizontal">
 
         <ImageView
             android:id="@+id/client_info_iv_contact_phone_icon"
@@ -41,19 +43,21 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--Debts layout-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="48dp"
+        android:paddingStart="@dimen/view_item_padding_horizontal"
+        android:paddingTop="14dp"
+        android:paddingEnd="@dimen/view_item_padding_horizontal"
+        android:paddingBottom="@dimen/view_item_title_padding_bottom">
 
         <TextView
             android:id="@+id/client_info_tv_debts_label"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fontFamily="google-sans-medium"
-            android:paddingStart="@dimen/view_item_padding_horizontal"
-            android:paddingTop="14dp"
-            android:paddingEnd="@dimen/view_item_padding_horizontal"
-            android:paddingBottom="@dimen/view_item_title_padding_bottom"
+            android:paddingTop="@dimen/client_info_tv_debts_label_padding_top"
             android:text="@string/client_debts_view_title"
             android:textColor="@color/white"
             android:textSize="@dimen/view_item_title_size"
@@ -63,19 +67,15 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/client_info_mcb_active_debts_only"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/view_item_padding_horizontal"
+            android:layout_height="match_parent"
             android:checked="true"
             android:fontFamily="google-sans-medium"
-            android:paddingTop="@dimen/view_item_title_padding_top"
-            android:paddingBottom="@dimen/view_item_title_padding_bottom"
             android:text="@string/client_debts_cb_text"
             android:textColor="@color/white"
             android:textSize="@dimen/view_item_title_size"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <View
         android:layout_width="match_parent"

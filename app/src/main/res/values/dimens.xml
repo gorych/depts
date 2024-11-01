@@ -84,4 +84,5 @@ A
   <dimen name="active_debts_count_view_padding">10dp</dimen>
   <dimen name="active_debts_count_view_layout_margin">12dp</dimen>
   <dimen name="active_debts_count_view_text_size">36sp</dimen>
+  <dimen name="client_info_tv_debts_label_padding_top">4dp</dimen>
 </resources>
