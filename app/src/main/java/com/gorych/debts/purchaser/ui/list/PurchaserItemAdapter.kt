@@ -12,6 +12,7 @@ import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.ui.detail.ClientDetailActivity
 import com.gorych.debts.utility.hide
+import com.gorych.debts.utility.show
 
 class PurchaserItemAdapter :
     BaseAdapter<Purchaser, PurchaserItemAdapter.PurchaserItemViewHolder>() {
@@ -20,7 +21,7 @@ class PurchaserItemAdapter :
         return PurchaserItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(
-                    R.layout.all_clients_activity_item, parent, false
+                    R.layout.item_activity_all_clients, parent, false
                 )
         )
     }
@@ -37,6 +38,9 @@ class PurchaserItemAdapter :
         override fun bind(item: Purchaser) {
             val itemViewContext = itemView.context
             clientFullNameView.text = item.fullName()
+            if (item.id == 14L) {
+                clientFullNameView.text = item.fullName()
+            }
             when {
                 item.phoneNumber != null -> {
                     clientPhoneView.text =
@@ -44,6 +48,7 @@ class PurchaserItemAdapter :
                             R.string.client_phone_view_prefix,
                             item.phoneNumber
                         )
+                    clientPhoneView.show()
                 }
 
                 else -> {

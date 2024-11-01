@@ -16,7 +16,7 @@ class DebtRecyclerViewAdapter :
         return DebtItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(
-                    R.layout.client_detailed_info_activity_item, parent, false
+                    R.layout.item_activity_client_info_debts, parent, false
                 )
         )
     }

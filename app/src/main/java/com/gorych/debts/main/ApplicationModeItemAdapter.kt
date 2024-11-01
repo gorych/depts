@@ -19,7 +19,7 @@ class ApplicationModeItemAdapter :
         return ApplicationModeItmViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(
-                    R.layout.application_mode_item, parent, false
+                    R.layout.item_main_activity_modes, parent, false
                 )
         )
     }

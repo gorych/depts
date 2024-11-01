@@ -32,20 +32,26 @@ class ClientListActivity : TopBarActivity(), PurchaserListContract.View {
         }
 
         purchaserAdapter = PurchaserItemAdapter()
-        val activityContext = this@ClientListActivity
+        purchaserListPresenter = PurchaserListPresenter(this)
 
-        initTopBarFragment(R.string.all_clients_activity_title, R.drawable.ic_baseline_people_24)
-        itemsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activityContext)
-            adapter = purchaserAdapter
-            setHasFixedSize(true)
-        }
+        initTopBarFragment(
+            R.string.all_clients_activity_title,
+            R.drawable.ic_baseline_people_24
+        )
+        initItemsView()
 
-        purchaserListPresenter = PurchaserListPresenter(activityContext)
         purchaserListPresenter.loadInitialList()
     }
 
     override fun populateItems(purchasers: List<Purchaser>) {
         purchaserAdapter.updateItems(purchasers)
+    }
+
+    private fun initItemsView() {
+        itemsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@ClientListActivity)
+            adapter = purchaserAdapter
+            setHasFixedSize(true)
+        }
     }
 }
