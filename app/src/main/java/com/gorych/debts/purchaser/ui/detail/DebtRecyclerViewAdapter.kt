@@ -21,11 +21,11 @@ class DebtRecyclerViewAdapter :
         )
     }
 
-    inner class DebtItemViewHolder(view: View) : BaseViewHolder<Debt>(view) {
-        private val debtNameView: TextView = view.findViewById(R.id.client_info_tv_debt_name)
-        private val debtSellerView: TextView = view.findViewById(R.id.client_info_tv_debt_seller)
+    inner class DebtItemViewHolder(itemView: View) : BaseViewHolder<Debt>(itemView) {
+        private val debtNameView: TextView = itemView.findViewById(R.id.client_info_tv_debt_name)
+        private val debtSellerView: TextView = itemView.findViewById(R.id.client_info_tv_debt_seller)
         private val debtCreationDateView: TextView =
-            view.findViewById(R.id.client_info_tv_debt_creation_date)
+            itemView.findViewById(R.id.client_info_tv_debt_creation_date)
 
         override fun bind(item: Debt) {
             debtNameView.text = item.name

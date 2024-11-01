@@ -26,7 +26,7 @@ class PurchaserItemAdapter :
         )
     }
 
-    inner class PurchaserItemViewHolder(view: View) : BaseViewHolder<Purchaser>(view) {
+    inner class PurchaserItemViewHolder(itemVIew: View) : BaseViewHolder<Purchaser>(itemVIew) {
 
         private val clientPhoneView: TextView =
             itemView.findViewById(R.id.all_clients_item_tv_phone)
