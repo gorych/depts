@@ -28,7 +28,7 @@ class MainActivity : TopBarActivity(), ApplicationModeContract.View {
         applicationModeAdapter = ApplicationModeItemAdapter()
         applicationModePresenter = ApplicationModePresenter(this)
 
-        initTopBarFragment(R.string.app_name, R.drawable.baseline_attach_money_24)
+        initTopBarFragment(R.string.app_name, R.drawable.ic_baseline_attach_money_24)
         initDebtsCountView()
         initModeRecyclerView()
 

@@ -2,10 +2,12 @@
     <string name="app_name">Debts</string>
 
     <!-- Application modes. -->
-    <string name="mode_barcode_live_title">Barcode Scanning</string>
-    <string name="mode_barcode_live_subtitle">Read data encoded in most standard barcode formats.</string>
+    <string name="mode_good_search_title">Good search</string>
+    <string name="mode_good_search_subtitle">Search goods by scanned barcode</string>
     <string name="mode_show_all_clients_title">Clients</string>
     <string name="mode_show_all_clients_subtitle">Shows detailed info about all clients</string>
+    <string name="mode_add_new_client_title">Add new client</string>
+    <string name="mode_add_new_client_subtitle">Adds new client to DB</string>
     <string name="mode_show_all_goods_title">Goods</string>
     <string name="mode_show_all_goods_subtitle">Shows detailed info about all goods</string>
 
@@ -53,7 +55,6 @@
     <string name="copied">Copied</string>
     <string name="debts_count">Count of all debts: %d</string>
     <string name="active_debts_count_text">Active debts count</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_client_activity_title">Add new purchaser</string>
 
 </resources>

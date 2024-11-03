@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.gorych.debts.R
 import com.gorych.debts.adapter.BaseAdapter
@@ -28,14 +29,22 @@ class ApplicationModeItemAdapter :
 
         private val titleView: TextView = view.findViewById(R.id.main_tv_mode_title)
         private val subtitleView: TextView = view.findViewById(R.id.main_tv_mode_subtitle)
+        private val iconView: ImageView = view.findViewById(R.id.main_iv_item_icon)
 
         override fun bind(item: ApplicationMode) {
+            val mode = ApplicationMode.entries.first { it == item }
+
             subtitleView.setText(item.subtitleResId)
             titleView.setText(item.titleResId)
+            iconView.apply {
+                setImageResource(mode.iconResId)
+                contentDescription = titleView.text
+            }
+
             itemView.setOnClickListener {
                 val context = itemView.context
                 val activityClass =
-                    ApplicationMode.entries.first { it == item }.activityClass
+                    mode.activityClass
                 context.startActivity(Intent(context, activityClass))
             }
         }

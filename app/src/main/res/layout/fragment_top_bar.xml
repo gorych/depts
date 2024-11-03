@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/page_title_padding_top"
     android:paddingEnd="@dimen/view_item_padding_horizontal"
     android:paddingBottom="@dimen/page_title_padding_bottom"
-    tools:context=".TopBarFragment">
+    tools:context=".fragment.TopBarFragment">
 
     <TextView
         android:id="@+id/top_bar_fragment_title"

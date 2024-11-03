@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
 import com.gorych.debts.TopBarActivity
 import com.gorych.debts.debt.Debt

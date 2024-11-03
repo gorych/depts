@@ -1,4 +1,4 @@
-package com.gorych.debts
+package com.gorych.debts.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.gorych.debts.R
 
 private const val ARG_TITLE = "title"
 private const val ARG_ICON_RESOURCE_ID = "iconResourceId"

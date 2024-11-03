@@ -2,33 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/view_item_padding_horizontal"
-    android:paddingEnd="@dimen/view_item_padding_horizontal"
     android:background="?android:attr/selectableItemBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingStart="@dimen/view_item_padding_horizontal"
+    android:paddingEnd="@dimen/view_item_padding_horizontal">
 
-  <TextView
-      android:id="@+id/main_tv_mode_title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="@dimen/home_page_mode_item_title_padding_top"
-      android:paddingBottom="@dimen/home_page_mode_item_title_padding_bottom"
-      android:fontFamily="google-sans-medium"
-      android:textColor="@color/white"
-      android:textSize="@dimen/home_page_mode_item_title_size"/>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:columnCount="2"
+        android:rowCount="1">
 
-  <TextView
-      android:id="@+id/main_tv_mode_subtitle"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingBottom="@dimen/home_page_mode_item_subtitle_padding_bottom"
-      android:fontFamily="sans-serif"
-      android:textColor="@color/list_item_subtitle"
-      android:textSize="@dimen/home_page_mode_item_subtitle_size"/>
+        <ImageView
+            android:id="@+id/main_iv_item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_gravity="center"
+            android:paddingEnd="@dimen/main_view_item_icon_padding" />
 
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"
-      android:background="#40FFFFFF"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_columnWeight="100"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_tv_mode_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="google-sans-medium"
+                android:textColor="@color/white"
+                android:textSize="@dimen/home_page_mode_item_title_size" />
+
+            <TextView
+                android:id="@+id/main_tv_mode_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingTop="4dp"
+                android:textColor="@color/list_item_subtitle"
+                android:textSize="@dimen/home_page_mode_item_subtitle_size" />
+        </LinearLayout>
+    </GridLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="#40FFFFFF" />
 
 </LinearLayout>

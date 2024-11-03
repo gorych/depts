@@ -1,16 +1,19 @@
 package com.gorych.debts.purchaser.ui.list
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
 import com.gorych.debts.TopBarActivity
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
+import com.gorych.debts.purchaser.ui.add.AddClientActivity
 
 class ClientListActivity : TopBarActivity(), PurchaserListContract.View {
 
@@ -41,6 +44,10 @@ class ClientListActivity : TopBarActivity(), PurchaserListContract.View {
         initItemsView()
 
         purchaserListPresenter.loadInitialList()
+
+        findViewById<FloatingActionButton>(R.id.all_clients_fab_add_person).setOnClickListener {
+            this.startActivity(Intent(this, AddClientActivity::class.java))
+        }
     }
 
     override fun populateItems(purchasers: List<Purchaser>) {
