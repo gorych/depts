@@ -46,4 +46,5 @@
     <string name="add_client_txt_enter_first_name_label">Введите имя</string>
     <string name="add_client_txt_enter_last_name_label">Введите фамилию</string>
     <string name="add_client_txt_enter_phone_label">Введите телефон</string>
+    <string name="all_clients_search_bar_hint_text">Поиск по имени, фамилии или телефону</string>
 </resources>

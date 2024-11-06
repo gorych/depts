@@ -60,5 +60,6 @@
     <string name="add_client_txt_enter_first_name_label">Enter first name</string>
     <string name="add_client_txt_enter_last_name_label">Enter last name</string>
     <string name="add_client_txt_enter_phone_label">Enter phone</string>
+    <string name="all_clients_search_bar_hint_text">Search</string>
 
 </resources>
