@@ -62,7 +62,7 @@
             android:layout_marginBottom="12dp"
             android:layout_marginStart="12dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_money_24"
+            android:src="@drawable/ic_add_debt_24"
             android:tooltipText="@string/clients_activity_create_new_receipt_tooltip_text" />
     </GridLayout>
 

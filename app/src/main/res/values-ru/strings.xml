@@ -42,4 +42,8 @@
     <string name="add_client_activity_title">Добавление покупателя</string>
     <string name="mode_add_new_client_title">Добавление покупателя</string>
     <string name="mode_add_new_client_subtitle">Добавляет нового покупателя в базу данных</string>
+    <string name="add_client_btn_text">Добавить</string>
+    <string name="add_client_txt_enter_first_name_label">Введите имя</string>
+    <string name="add_client_txt_enter_last_name_label">Введите фамилию</string>
+    <string name="add_client_txt_enter_phone_label">Введите телефон</string>
 </resources>

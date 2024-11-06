@@ -56,5 +56,9 @@
     <string name="debts_count">Count of all debts: %d</string>
     <string name="active_debts_count_text">Active debts count</string>
     <string name="add_client_activity_title">Add new purchaser</string>
+    <string name="add_client_btn_text">Add</string>
+    <string name="add_client_txt_enter_first_name_label">Enter first name</string>
+    <string name="add_client_txt_enter_last_name_label">Enter last name</string>
+    <string name="add_client_txt_enter_phone_label">Enter phone</string>
 
 </resources>
