@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "2.0.21-1.0.26"
 }
 
 android {
@@ -50,6 +51,11 @@ dependencies {
 
     implementation(libs.barcode.scanning)
     implementation(libs.objectdetection.common)
+
+    ksp (libs.androidx.room.room.compiler)
+    implementation (libs.androidx.room.runtime)
+
+    runtimeOnly(libs.paging.runtime.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
