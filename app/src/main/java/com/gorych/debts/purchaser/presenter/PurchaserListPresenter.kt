@@ -5,7 +5,7 @@ import com.gorych.debts.purchaser.repository.PurchaserRepository
 
 class PurchaserListPresenter(
     private val view: PurchaserListContract.View,
-    private val purchaserRepository: PurchaserRepository = PurchaserRepository(),
+    private val purchaserRepository: PurchaserRepository,
 ) : PurchaserListContract.Presenter {
 
     override fun loadInitialList() {
