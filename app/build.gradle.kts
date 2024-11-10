@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.gorych.debts"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.gorych.debts"
         minSdk = 30
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
