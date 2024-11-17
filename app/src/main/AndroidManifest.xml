@@ -5,6 +5,7 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".DebtsApplication"
@@ -31,7 +32,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".barcode.activity.LiveBarcodeScanningActivity"
+            android:name=".barcode.ui.LiveBarcodeScanningActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

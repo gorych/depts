@@ -4,7 +4,7 @@ import com.gorych.debts.debt.Debt
 import com.gorych.debts.debt.Debt.Status
 import com.gorych.debts.good.Good
 import com.gorych.debts.purchaser.Purchaser
-import java.time.LocalDate.now
+import java.time.LocalDateTime.now
 
 class PurchaserDebtRepository {
 

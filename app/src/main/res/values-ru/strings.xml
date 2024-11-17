@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Долги</string>
-    <string name="mode_good_search_title">Поиск товара</string>
-    <string name="mode_good_search_subtitle">Ищет товар в базе данных по штрихкоду</string>
+    <string name="mode_barcode_scanning_title">Сканирование штрихкода</string>
+    <string name="mode_barcode_scanning_subtitle">Считывает данные зашифрованные в штрихкоде</string>
     <string name="mode_show_all_clients_title">Покупатели</string>
     <string name="mode_show_all_clients_subtitle">Отображает детальную информацию о покупателях</string>
     <string name="settings_title">Настройки</string>

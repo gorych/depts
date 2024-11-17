@@ -10,9 +10,7 @@ import com.google.mlkit.vision.barcode.common.Barcode
 class WorkflowModel(application: Application) : AndroidViewModel(application) {
 
     val workflowState = MutableLiveData<WorkflowState>()
-    val detectedBarcode = MutableLiveData<Barcode>()
-
-    private val objectIdsToSearch = HashSet<Int>()
+    val detectedBarcode = MutableLiveData<Pair<Barcode, ByteArray>>()
 
     var isCameraLive = false
         private set
@@ -36,7 +34,6 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
 
     fun markCameraLive() {
         isCameraLive = true
-        objectIdsToSearch.clear()
     }
 
     fun markCameraFrozen() {

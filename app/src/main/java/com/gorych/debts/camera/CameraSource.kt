@@ -294,7 +294,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
      * associated processing is done for the previous frame, detection on the mostly recently received
      * frame will immediately start on the same thread.
      */
-    private inner class FrameProcessingRunnable internal constructor() : Runnable {
+    private inner class FrameProcessingRunnable() : Runnable {
 
         // This lock guards all of the member variables below.
         private val lock = Object()
@@ -304,7 +304,7 @@ class CameraSource(private val graphicOverlay: GraphicOverlay) {
         private var pendingFrameData: ByteBuffer? = null
 
         /** Marks the runnable as active/not active. Signals any blocked threads to continue.  */
-        internal fun setActive(active: Boolean) {
+        fun setActive(active: Boolean) {
             synchronized(lock) {
                 this.active = active
                 lock.notifyAll()

@@ -5,14 +5,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
-import java.util.UUID
+import java.time.LocalDateTime
 
 @Parcelize
 @Entity(tableName = "good")
 data class Good(
-    @PrimaryKey val id: UUID = UUID.randomUUID(),
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo val name: String?,
     @ColumnInfo val barcode: String,
-    @ColumnInfo val created: LocalDate = LocalDate.now()
+    @ColumnInfo val createdAt: LocalDateTime = LocalDateTime.now()
 ) : Parcelable

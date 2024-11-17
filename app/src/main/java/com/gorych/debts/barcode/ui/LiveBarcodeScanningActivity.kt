@@ -1,4 +1,4 @@
-package com.gorych.debts.barcode.activity
+package com.gorych.debts.barcode.ui
 
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
@@ -16,7 +16,6 @@ import com.google.android.material.chip.Chip
 import com.gorych.debts.R
 import com.gorych.debts.barcode.BarcodeField
 import com.gorych.debts.barcode.BarcodeProcessor
-import com.gorych.debts.barcode.BarcodeResultFragment
 import com.gorych.debts.camera.CameraSource
 import com.gorych.debts.camera.CameraSourcePreview
 import com.gorych.debts.camera.GraphicOverlay
@@ -141,7 +140,7 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun setUpWorkflowModel() {
-        workflowModel = ViewModelProviders.of(this).get(WorkflowModel::class.java)
+        workflowModel = ViewModelProviders.of(this)[WorkflowModel::class.java]
 
         // Observes the workflow state changes, if happens, update the overlay view indicators and
         // camera preview state.
@@ -189,16 +188,21 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener {
             }
         })
 
+        processDetectedBarcode()
+    }
+
+    private fun processDetectedBarcode() {
         workflowModel?.detectedBarcode?.observe(this) { barcode ->
             if (barcode != null) {
                 val barcodeFieldList = ArrayList<BarcodeField>()
                 barcodeFieldList.add(
                     BarcodeField(
                         getString(R.string.barcode_field_label_title),
-                        barcode.rawValue ?: ""
+                        barcode.first.rawValue ?: ""
                     )
                 )
                 BarcodeResultFragment.show(supportFragmentManager, barcodeFieldList)
+                //TODO Search barcode in DB and show info about a good or save it to DB
             }
         }
     }

@@ -2,8 +2,8 @@
     <string name="app_name">Debts</string>
 
     <!-- Application modes. -->
-    <string name="mode_good_search_title">Good search</string>
-    <string name="mode_good_search_subtitle">Search goods by scanned barcode</string>
+    <string name="mode_barcode_scanning_title">Barcode scanning</string>
+    <string name="mode_barcode_scanning_subtitle">Read data encoded in most standard barcode formats</string>
     <string name="mode_show_all_clients_title">Clients</string>
     <string name="mode_show_all_clients_subtitle">Shows detailed info about all clients</string>
     <string name="mode_add_new_client_title">Add new client</string>

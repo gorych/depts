@@ -4,13 +4,13 @@ import android.os.Parcelable
 import com.gorych.debts.good.Good
 import com.gorych.debts.purchaser.Purchaser
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Parcelize
 data class Debt(
     val id: Long,
     val name: String,
-    val created: LocalDate,
+    val created: LocalDateTime,
     val status: Status,
     val purchaser: Purchaser,
     val goods: List<Good>,

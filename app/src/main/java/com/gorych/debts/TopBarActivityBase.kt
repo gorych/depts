@@ -3,7 +3,7 @@ package com.gorych.debts
 import androidx.appcompat.app.AppCompatActivity
 import com.gorych.debts.fragment.TopBarFragment
 
-abstract class TopBarActivity : AppCompatActivity() {
+abstract class TopBarActivityBase : AppCompatActivity() {
 
     fun initTopBarFragment(titleResourceId: Int, iconResourceId: Int) {
         initTopBarFragment(

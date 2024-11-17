@@ -9,13 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
-import com.gorych.debts.TopBarActivity
+import com.gorych.debts.TopBarActivityBase
+import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
+import com.gorych.debts.purchaser.repository.PurchaserRepository
 import com.gorych.debts.purchaser.ui.add.AddClientActivity
 
-class ClientListActivity : TopBarActivity(), PurchaserListContract.View {
+class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
 
     private lateinit var purchaserListPresenter: PurchaserListContract.Presenter
     private lateinit var itemsRecyclerView: RecyclerView
@@ -35,7 +37,8 @@ class ClientListActivity : TopBarActivity(), PurchaserListContract.View {
         }
 
         purchaserAdapter = PurchaserItemAdapter()
-        purchaserListPresenter = PurchaserListPresenter(this)
+        val purchaserDao = AppDatabase.getDatabase(this).purchaserDao()
+        purchaserListPresenter = PurchaserListPresenter(this, PurchaserRepository(purchaserDao))
 
         initTopBarFragment(
             R.string.all_clients_activity_title,

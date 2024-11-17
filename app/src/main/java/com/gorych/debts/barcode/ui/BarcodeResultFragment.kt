@@ -1,4 +1,4 @@
-package com.gorych.debts.barcode
+package com.gorych.debts.barcode.ui
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.gorych.debts.R
+import com.gorych.debts.barcode.BarcodeField
 import com.gorych.debts.camera.WorkflowModel
 import com.gorych.debts.camera.WorkflowModel.*
 

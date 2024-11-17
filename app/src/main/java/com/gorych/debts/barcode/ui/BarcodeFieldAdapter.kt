@@ -1,4 +1,4 @@
-package com.gorych.debts.barcode
+package com.gorych.debts.barcode.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.R
-import com.gorych.debts.barcode.BarcodeFieldAdapter.BarcodeFieldViewHolder
+import com.gorych.debts.barcode.BarcodeField
+import com.gorych.debts.barcode.ui.BarcodeFieldAdapter.BarcodeFieldViewHolder
 
 /** Presents a list of field info in the detected barcode.  */
 internal class BarcodeFieldAdapter(private val barcodeFieldList: List<BarcodeField>) :

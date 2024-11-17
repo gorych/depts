@@ -25,7 +25,7 @@ object ScreenUtils {
      */
     const val ASPECT_RATIO_TOLERANCE = 0.01f
 
-    private const val TAG = "Utils"
+    private const val TAG = "ScreenUtils"
 
     fun isPortraitMode(context: Context): Boolean =
         context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT

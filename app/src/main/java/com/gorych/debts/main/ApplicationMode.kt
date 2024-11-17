@@ -2,7 +2,7 @@ package com.gorych.debts.main
 
 import androidx.appcompat.app.AppCompatActivity
 import com.gorych.debts.R
-import com.gorych.debts.barcode.activity.LiveBarcodeScanningActivity
+import com.gorych.debts.barcode.ui.LiveBarcodeScanningActivity
 import com.gorych.debts.purchaser.ui.add.AddClientActivity
 import com.gorych.debts.purchaser.ui.list.ClientListActivity
 
@@ -30,10 +30,10 @@ enum class ApplicationMode(
         R.drawable.ic_baseline_goods_24,
         ClientListActivity::class.java
     ),
-    GOOD_SEARCH(
-        R.string.mode_good_search_title,
-        R.string.mode_good_search_subtitle,
-        R.drawable.ic_baseline_good_search_24,
+    BARCODE_SCANNING(
+        R.string.mode_barcode_scanning_title,
+        R.string.mode_barcode_scanning_subtitle,
+        R.drawable.ic_baseline_barcode_reader_24,
         LiveBarcodeScanningActivity::class.java
     )
 }

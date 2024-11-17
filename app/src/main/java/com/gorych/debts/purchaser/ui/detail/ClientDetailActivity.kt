@@ -9,9 +9,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
-import com.gorych.debts.TopBarActivity
+import com.gorych.debts.TopBarActivityBase
 import com.gorych.debts.debt.Debt
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
@@ -22,7 +21,7 @@ import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.textAsString
 
-class ClientDetailActivity : TopBarActivity(), PurchaserDetailContract.View {
+class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View {
 
     private lateinit var topBarTitle: String
     private lateinit var tvPhone: TextView
