@@ -36,7 +36,7 @@ data class Good(
         null
     )
 
-    constructor(barcode: String, name: String?, imageData: ByteArray) : this(
+    constructor(barcode: String, name: String?, imageData: ByteArray?) : this(
         0,
         name,
         barcode,

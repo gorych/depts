@@ -16,8 +16,8 @@ import com.google.android.gms.common.internal.Objects
 import com.google.android.material.chip.Chip
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.gorych.debts.R
-import com.gorych.debts.barcode.BarcodeField
 import com.gorych.debts.barcode.BarcodeProcessor
+import com.gorych.debts.barcode.BarcodeResultCard
 import com.gorych.debts.barcode.contract.BarcodeDetectionContract
 import com.gorych.debts.barcode.presenter.BarcodePresenter
 import com.gorych.debts.camera.CameraSource
@@ -83,7 +83,7 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
 
     override fun onPostResume() {
         super.onPostResume()
-        BarcodeResultFragment.dismiss(supportFragmentManager)
+        BarcodeResultCardFragment.dismiss(supportFragmentManager)
     }
 
     override fun onPause() {
@@ -245,11 +245,8 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
     }
 
     override fun showBarcodeDetectionResult(barcodeData: Pair<Barcode, ByteArray>, good: Good?) {
-        val barcodeField = BarcodeField.of(
-            label = getString(R.string.barcode_field_label_title),
-            barcodeData = barcodeData
-        )
-        BarcodeResultFragment.show(supportFragmentManager, barcodeField, good)
+        val card = BarcodeResultCard(barcodeData.first.rawValue ?: "", good, barcodeData.second)
+        BarcodeResultCardFragment.show(supportFragmentManager, card)
     }
 
     companion object {
