@@ -1,6 +1,6 @@
-package com.gorych.debts.main
+package com.gorych.debts.home
 
-import com.gorych.debts.purchaser.contract.ApplicationModeContract
+import com.gorych.debts.ApplicationMode
 
 class ApplicationModePresenter(
     private val view: ApplicationModeContract.View,

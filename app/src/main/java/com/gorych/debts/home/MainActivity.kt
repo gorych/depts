@@ -1,14 +1,14 @@
-package com.gorych.debts.main
+package com.gorych.debts.home
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gorych.debts.ApplicationMode
 import com.gorych.debts.R
 import com.gorych.debts.TopBarActivityBase
 import com.gorych.debts.debt.repository.DebtRepository
-import com.gorych.debts.purchaser.contract.ApplicationModeContract
 import com.gorych.debts.utility.PermissionUtils.allPermissionsGranted
 import com.gorych.debts.utility.PermissionUtils.requestRuntimePermissions
 import com.gorych.debts.utility.ToastUtils.Companion.toast

@@ -1,6 +1,6 @@
-package com.gorych.debts.purchaser.contract
+package com.gorych.debts.home
 
-import com.gorych.debts.main.ApplicationMode
+import com.gorych.debts.ApplicationMode
 
 interface ApplicationModeContract {
 
