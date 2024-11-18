@@ -1,8 +1,8 @@
-package com.gorych.debts.main
+package com.gorych.debts
 
 import androidx.appcompat.app.AppCompatActivity
-import com.gorych.debts.R
 import com.gorych.debts.barcode.ui.LiveBarcodeScanningActivity
+import com.gorych.debts.good.ui.list.GoodListActivity
 import com.gorych.debts.purchaser.ui.add.AddClientActivity
 import com.gorych.debts.purchaser.ui.list.ClientListActivity
 
@@ -28,7 +28,7 @@ enum class ApplicationMode(
         R.string.mode_show_all_goods_title,
         R.string.mode_show_all_goods_subtitle,
         R.drawable.ic_baseline_goods_24,
-        ClientListActivity::class.java
+        GoodListActivity::class.java
     ),
     BARCODE_SCANNING(
         R.string.mode_barcode_scanning_title,

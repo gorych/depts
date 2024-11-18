@@ -11,7 +11,7 @@
     <string name="mode_show_all_goods_title">Goods</string>
     <string name="mode_show_all_goods_subtitle">Shows detailed info about all goods</string>
 
-    <string name="clients_activity_create_new_receipt_tooltip_text">Create new receipt</string>
+    <string name="all_clients_tooltip_create_new_receipt_text">Create new receipt</string>
     <string name="barcode_field_label_title">Detected barcode</string>
     <string name="client_phone_view_prefix">Phone: %1$s</string>
     <string name="client_debts_text_view_YES_value">Active debts: yes</string>
@@ -61,5 +61,9 @@
     <string name="add_client_txt_enter_last_name_label">Enter last name</string>
     <string name="add_client_txt_enter_phone_label">Enter phone</string>
     <string name="all_clients_search_bar_hint_text">Search</string>
+    <string name="all_goods_search_bar_hint_text">Search by barcode</string>
+    <string name="add_good_btn_text">Add good</string>
+    <string name="add_good_txt_enter_name_label">Enter name</string>
+    <string name="good_detail_text">Good representation</string>
 
 </resources>

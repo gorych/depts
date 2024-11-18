@@ -18,7 +18,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name=".home.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -47,6 +47,11 @@
             android:name=".settings.activity.SettingsActivity"
             android:exported="false"
             android:label="@string/settings_title"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".good.ui.list.GoodListActivity"
+            android:exported="false"
+            android:label="@string/mode_show_all_goods_title"
             android:screenOrientation="portrait" />
     </application>
 
