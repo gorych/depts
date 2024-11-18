@@ -14,10 +14,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.internal.Objects
 import com.google.android.material.chip.Chip
+import com.google.mlkit.vision.barcode.common.Barcode
 import com.gorych.debts.R
 import com.gorych.debts.barcode.BarcodeField
 import com.gorych.debts.barcode.BarcodeProcessor
 import com.gorych.debts.barcode.contract.BarcodeDetectionContract
+import com.gorych.debts.barcode.presenter.BarcodePresenter
 import com.gorych.debts.camera.CameraSource
 import com.gorych.debts.camera.CameraSourcePreview
 import com.gorych.debts.camera.GraphicOverlay
@@ -25,7 +27,7 @@ import com.gorych.debts.camera.WorkflowModel
 import com.gorych.debts.camera.WorkflowModel.WorkflowState
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.good.Good
-import com.gorych.debts.good.dao.GoodDao
+import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.settings.activity.SettingsActivity
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.isGone
@@ -37,31 +39,33 @@ import java.io.IOException
 class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
     BarcodeDetectionContract.View {
 
+    private var workflowModel: WorkflowModel? = null
+    private var currentWorkflowState: WorkflowState? = null
+
     private var cameraSource: CameraSource? = null
+    private lateinit var graphicOverlay: GraphicOverlay
     private lateinit var preview: CameraSourcePreview
-    private var graphicOverlay: GraphicOverlay? = null
+
     private lateinit var settingsButton: View
     private lateinit var flashButton: View
     private lateinit var promptChip: Chip
     private lateinit var promptChipAnimator: AnimatorSet
-    private var workflowModel: WorkflowModel? = null
-    private var currentWorkflowState: WorkflowState? = null
 
-    private val goodDao: GoodDao by lazy {
+    private lateinit var barcodePresenter: BarcodeDetectionContract.Presenter
+
+    private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
-        database.goodDao()
+        GoodRepository(database.goodDao())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        barcodePresenter = BarcodePresenter(this, goodRepository)
+
         setContentView(R.layout.activity_live_barcode)
         preview = findViewById(R.id.barcode_csp_camera_preview)
-        graphicOverlay = findViewById<GraphicOverlay>(R.id.camera_preview_graphic_overlay).apply {
-            setOnClickListener(this@LiveBarcodeScanningActivity)
-            cameraSource = CameraSource(this)
-        }
-
+        initGraphicOverlay()
         initPromptChip()
         initCameraPreviewTopBarButtons()
         setUpWorkflowModel()
@@ -73,7 +77,7 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
         workflowModel?.markCameraFrozen()
         settingsButton.isEnabled = true
         currentWorkflowState = WorkflowState.NOT_STARTED
-        cameraSource?.setFrameProcessor(BarcodeProcessor(graphicOverlay!!, workflowModel!!))
+        cameraSource?.setFrameProcessor(BarcodeProcessor(graphicOverlay, workflowModel!!))
         workflowModel?.setWorkflowState(WorkflowState.DETECTING)
     }
 
@@ -123,6 +127,13 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
     override fun refreshWhenWorkflowStatusIsDetected() {
         promptChip.hide()
         stopCameraPreview()
+    }
+
+    private fun initGraphicOverlay() {
+        graphicOverlay = findViewById<GraphicOverlay>(R.id.camera_preview_graphic_overlay).apply {
+            setOnClickListener(this@LiveBarcodeScanningActivity)
+            cameraSource = CameraSource(this)
+        }
     }
 
     private fun initPromptChip() {
@@ -224,29 +235,21 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
     }
 
     override fun processDetectedBarcodes() {
-        workflowModel?.detectedBarcode?.observe(this) { barcode ->
-            if (barcode != null) {
-                val barcodeFieldList = ArrayList<BarcodeField>()
-                barcodeFieldList.add(
-                    BarcodeField(
-                        label = getString(R.string.barcode_field_label_title),
-                        value = barcode.first.rawValue ?: "",
-                        imageData = barcode.second
-                    )
-                )
-
-                //TODO what if several barcodes found???
-
+        workflowModel?.detectedBarcode?.observe(this) { barcodeData ->
+            barcodeData.let {
                 lifecycleScope.launch {
-                    val barcodeRawValue = barcode.first.rawValue!!
-                    val foundGood: Good? = goodDao.findByBarcode(barcodeRawValue)
-
-                    BarcodeResultFragment.show(supportFragmentManager, barcodeFieldList, foundGood)
+                    barcodePresenter.processDetectedBarcode(barcodeData)
                 }
-
-                //TODO Search barcode in DB and show info about a good or save it to DB
             }
         }
+    }
+
+    override fun showBarcodeDetectionResult(barcodeData: Pair<Barcode, ByteArray>, good: Good?) {
+        val barcodeField = BarcodeField.of(
+            label = getString(R.string.barcode_field_label_title),
+            barcodeData = barcodeData
+        )
+        BarcodeResultFragment.show(supportFragmentManager, barcodeField, good)
     }
 
     companion object {
