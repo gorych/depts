@@ -34,7 +34,6 @@ class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel
         results: List<Barcode>,
         graphicOverlay: GraphicOverlay
     ) {
-
         if (!workflowModel.isCameraLive) return
 
         Log.d(TAG, "Barcode result size: ${results.size}")
