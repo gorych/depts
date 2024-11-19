@@ -4,7 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Path
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.gorych.debts.camera.GraphicOverlay
-import com.gorych.debts.settings.PreferenceUtils
+import com.gorych.debts.utility.PreferenceUtils
 
 /** Guides user to move camera closer to confirm the detected barcode.  */
 internal class BarcodeConfirmingGraphic(overlay: GraphicOverlay, private val barcode: Barcode) :

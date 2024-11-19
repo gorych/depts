@@ -11,7 +11,7 @@ import android.graphics.RectF
 import androidx.core.content.ContextCompat
 import com.gorych.debts.R
 import com.gorych.debts.camera.GraphicOverlay
-import com.gorych.debts.settings.PreferenceUtils
+import com.gorych.debts.utility.PreferenceUtils
 
 internal abstract class BarcodeGraphicBase(overlay: GraphicOverlay) : GraphicOverlay.Graphic(overlay) {
 

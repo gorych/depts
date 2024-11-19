@@ -14,12 +14,16 @@ import com.gorych.debts.camera.GraphicOverlay
 import com.gorych.debts.camera.InputInfo
 import com.gorych.debts.camera.WorkflowModel
 import com.gorych.debts.camera.WorkflowModel.WorkflowState
-import com.gorych.debts.settings.PreferenceUtils
 import com.gorych.debts.utility.BitmapUtils
+import com.gorych.debts.utility.PreferenceUtils
 import java.io.IOException
 
 /** A processor to run the barcode detector.  */
-class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel: WorkflowModel) :
+class BarcodeProcessor(
+    graphicOverlay: GraphicOverlay,
+    private val workflowModel: WorkflowModel,
+    private val barcodeImageViewHeight: Int
+) :
     FrameProcessorBase<List<Barcode>>() {
 
     private val scanner = BarcodeScanning.getClient()
@@ -89,11 +93,12 @@ class BarcodeProcessor(graphicOverlay: GraphicOverlay, private val workflowModel
         }
     }
 
-    private fun getBarcodeBitmapAsBytes(
-        inputInfo: InputInfo,
-        barcodeBoundingBox: Rect
-    ): ByteArray {
-        val croppedBitmap = BitmapUtils.cropBitmap(inputInfo.getBitmap(), barcodeBoundingBox)
+    private fun getBarcodeBitmapAsBytes(inputInfo: InputInfo, barcodeBoundingBox: Rect): ByteArray {
+        val croppedBitmap = BitmapUtils.cropBitmap(
+            inputInfo.getBitmap(),
+            barcodeBoundingBox,
+            barcodeImageViewHeight
+        )
         return BitmapUtils.getBitmapAsBytes(croppedBitmap)
     }
 

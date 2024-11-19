@@ -59,5 +59,7 @@
     <string name="good_detail_text">Изображеие товара</string>
     <string name="barcode_image_description">Изображение штрихкода</string>
     <string name="barcode_result_card_btn_add">Добавить</string>
-    <string name="barcode_result_card_btn_ok">ОК</string>
+    <string name="barcode_result_card_btn_ok">Скрыть</string>
+    <string name="good_added_text">Товар сохранен</string>
+    <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите имя если хотите сохранить</string>
 </resources>

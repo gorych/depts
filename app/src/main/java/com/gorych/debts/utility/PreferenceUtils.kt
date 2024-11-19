@@ -1,4 +1,4 @@
-package com.gorych.debts.settings
+package com.gorych.debts.utility
 
 import android.content.Context
 import android.graphics.RectF

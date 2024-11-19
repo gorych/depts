@@ -22,5 +22,15 @@ class ToastUtils private constructor(application: Application) {
                 Toast.makeText(it.appContext, message, duration).show()
             }
         }
+
+        fun toast(messageResourceId: Int) {
+            instance?.let {
+                Toast.makeText(
+                    it.appContext,
+                    it.appContext.getString(messageResourceId),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }

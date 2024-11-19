@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.gorych.debts.barcode.BarcodeResultCard
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
@@ -20,6 +21,14 @@ data class Good(
     @ColumnInfo val createdAt: LocalDateTime,
     @ColumnInfo val imageData: ByteArray?
 ) : Parcelable {
+    init {
+        //TODO
+        //Make first letter of the name capital
+        name?.let { itName ->
+            name.replaceFirstChar { itName[0].uppercaseChar() }
+        }
+    }
+
     constructor(id: Long, name: String?, barcode: String) : this(
         id,
         name,
@@ -68,5 +77,15 @@ data class Good(
 
     override fun toString(): String {
         return "Good(id=$id, name=$name, barcode='$barcode', createdAt=$createdAt)"
+    }
+
+    companion object {
+        fun of(card: BarcodeResultCard, name: String): Good {
+            return Good(
+                barcode = card.barcodeRawValue,
+                name = name,
+                imageData = card.imgData
+            )
+        }
     }
 }

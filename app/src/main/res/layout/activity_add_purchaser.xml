@@ -56,10 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:hint="@string/add_client_txt_enter_phone_label"
-            app:helperText="+375"
-            app:placeholderText="29 1594702"
             app:counterEnabled="true"
-            app:counterMaxLength="10">
+            app:counterMaxLength="10"
+            app:placeholderText="+375 29 1514801"
+            app:prefixText="+375">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -72,11 +72,11 @@
             android:id="@+id/material_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_client_btn_text"
             android:paddingVertical="10dp"
+            android:text="@string/add_client_btn_text"
             app:backgroundTint="@color/purple_lighten_2"
             app:icon="@drawable/ic_baseline_person_add_24"
             app:iconGravity="textStart"
-            app:iconPadding="8dp"/>
+            app:iconPadding="8dp" />
     </LinearLayout>
 </LinearLayout>
