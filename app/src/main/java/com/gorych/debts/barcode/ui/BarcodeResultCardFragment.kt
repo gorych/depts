@@ -1,8 +1,6 @@
 package com.gorych.debts.barcode.ui
 
 import android.content.DialogInterface
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +12,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.gorych.debts.R
 import com.gorych.debts.barcode.BarcodeResultCard
 import com.gorych.debts.camera.WorkflowModel
@@ -21,15 +21,21 @@ import com.gorych.debts.camera.WorkflowModel.WorkflowState
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.dao.GoodDao
+import com.gorych.debts.utility.BitmapUtils.convertBytesToBitmap
+import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
+import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
+import com.gorych.debts.utility.textAsString
 import kotlinx.coroutines.launch
 
 class BarcodeResultCardFragment : BottomSheetDialogFragment() {
 
-    private lateinit var goodImgView: ImageView
-
     private lateinit var titleTextView: TextView
+
+    private lateinit var goodImgView: ImageView
+    private lateinit var goodNameTextInput: TextInputEditText
+    private lateinit var goodNameTextInputLayout: TextInputLayout
 
     private lateinit var secondaryTextView: TextView
     private lateinit var supportingTextView: TextView
@@ -48,26 +54,28 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
         val view = layoutInflater.inflate(R.layout.barcode_result_sheet, viewGroup)
 
         goodImgView = view.findViewById(R.id.barcode_result_card_img)
+        goodNameTextInput = view.findViewById(R.id.barcode_result_card_txt_good_name)
+        goodNameTextInputLayout = view.findViewById(R.id.barcode_result_card_txt_layout_good_name)
 
         titleTextView = view.findViewById(R.id.barcode_result_card_tv_title)
         secondaryTextView = view.findViewById(R.id.barcode_result_card_tv_secondary_text)
         supportingTextView = view.findViewById(R.id.barcode_result_card_tv_supporting_text)
 
-        //TODO problem after the act btns are clicked + color + img size +
-
         addGoodBtn = view.findViewById(R.id.barcode_result_card_btn_add)
-        okBtn = view.findViewById(R.id.barcode_result_card_btn_ok)
+        okBtn = view.findViewById<MaterialButton?>(R.id.barcode_result_card_btn_ok)
+            .apply { setOnClickListener { dismiss() } }
 
         val barcodeResultCard: BarcodeResultCard? =
             arguments?.getParcelable(ARG_BARCODE_RESULT_CARD)
 
+        //TODO Refactor to MVP
         barcodeResultCard?.let { card ->
             titleTextView.text = card.barcodeRawValue
 
             val associatedGood: Good? = card.associatedGood
             associatedGood?.let { good ->
                 goodImgView.setImageBitmap(createBitmapFromGood(good))
-                goodImgView.show()
+                goodNameTextInputLayout.hide()
 
                 secondaryTextView.text = good.name
                 secondaryTextView.show()
@@ -78,24 +86,14 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
                 addGoodBtn.hide()
                 okBtn.show()
             } ?: run {
-                goodImgView.hide()
+                goodImgView.setImageBitmap(convertBytesToBitmap(card.imgData))
+                goodNameTextInputLayout.show()
 
                 secondaryTextView.hide()
                 supportingTextView.hide()
 
                 addGoodBtn.show()
-                addGoodBtn.setOnClickListener {
-                    lifecycleScope.launch {
-                        goodRepository.add(
-                            //TODO add entered name
-                            Good(
-                                barcode = card.barcodeRawValue,
-                                name = "Test Good Name 1",
-                                imageData = card.imgData
-                            )
-                        )
-                    }
-                }
+                addGoodBtn.setOnClickListener { onClickAddGoodBtn(card) }
                 okBtn.hide()
             }
         }
@@ -103,12 +101,19 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
         return view
     }
 
-    private fun createBitmapFromGood(goodIt: Good): Bitmap? =
-        BitmapFactory.decodeByteArray(
-            goodIt.imageData,
-            0,
-            goodIt.imageData?.size ?: 0
-        )
+    private fun onClickAddGoodBtn(card: BarcodeResultCard) {
+        lifecycleScope.launch {
+            val name = goodNameTextInput.textAsString()
+            if (name.isNotEmpty()) {
+                name[0].uppercaseChar()
+            }
+            goodRepository.add(
+                Good.of(card, name)
+            )
+        }
+        toast(R.string.good_added_text)
+        dismiss()
+    }
 
     override fun onDismiss(dialogInterface: DialogInterface) {
         activity?.let {
