@@ -77,7 +77,15 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
         workflowModel?.markCameraFrozen()
         settingsButton.isEnabled = true
         currentWorkflowState = WorkflowState.NOT_STARTED
-        cameraSource?.setFrameProcessor(BarcodeProcessor(graphicOverlay, workflowModel!!))
+        val barcodeCardHeight =
+            resources.getDimensionPixelOffset(R.dimen.barcode_result_card_media_height)
+        cameraSource?.setFrameProcessor(
+            BarcodeProcessor(
+                graphicOverlay,
+                workflowModel!!,
+                barcodeCardHeight
+            )
+        )
         workflowModel?.setWorkflowState(WorkflowState.DETECTING)
     }
 
@@ -245,8 +253,10 @@ class LiveBarcodeScanningActivity : AppCompatActivity(), OnClickListener,
     }
 
     override fun showBarcodeDetectionResult(barcodeData: Pair<Barcode, ByteArray>, good: Good?) {
-        val card = BarcodeResultCard(barcodeData.first.rawValue ?: "", good, barcodeData.second)
-        BarcodeResultCardFragment.show(supportFragmentManager, card)
+        BarcodeResultCardFragment.show(
+            supportFragmentManager,
+            BarcodeResultCard.of(barcodeData, good)
+        )
     }
 
     companion object {
