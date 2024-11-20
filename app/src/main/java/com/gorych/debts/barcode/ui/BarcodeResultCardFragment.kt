@@ -76,7 +76,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
 
                 goodNameTextInputLayout.hide()
 
-                secondaryTextView.text = good.createdAt.toString()
+                secondaryTextView.text = good.createdAtFormatted
                 secondaryTextView.show()
 
                 if (good.name.isNullOrEmpty()) {
@@ -151,12 +151,8 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
 
     private fun onClickAddGoodBtn(card: BarcodeResultCard) {
         lifecycleScope.launch {
-            val name = goodNameTextInput.textAsString()
-            if (name.isNotEmpty()) {
-                name[0].uppercaseChar()
-            }
             goodRepository.add(
-                Good.of(card, name)
+                Good.of(card, name = goodNameTextInput.textAsString())
             )
         }
         toast(R.string.good_added_text)
@@ -165,12 +161,8 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
 
     private fun onClickUpdateGoodBtn(existingGood: Good) {
         lifecycleScope.launch {
-            val name = goodNameTextInput.textAsString()
-            if (name.isNotEmpty()) {
-                name[0].uppercaseChar()
-            }
             goodRepository.update(
-                existingGood.copy(name = name, updatedAt = now())
+                existingGood.copy(name = goodNameTextInput.textAsString(), updatedAt = now())
             )
         }
         toast(R.string.good_updated_text)

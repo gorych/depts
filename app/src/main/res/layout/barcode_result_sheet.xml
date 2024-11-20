@@ -73,7 +73,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/barcode_result_card_txt_good_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapSentences" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
