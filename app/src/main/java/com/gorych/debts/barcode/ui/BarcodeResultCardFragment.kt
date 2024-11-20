@@ -76,23 +76,23 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
 
                 goodNameTextInputLayout.hide()
 
-                supportingTextView.text = good.createdAt.toString()
-                supportingTextView.show()
+                secondaryTextView.text = good.createdAt.toString()
+                secondaryTextView.show()
 
                 if (good.name.isNullOrEmpty()) {
                     goodNameTextInputLayout.hint =
                         getString(R.string.barcode_result_card_txt_input_good_name_update_hint)
                     goodNameTextInputLayout.show()
 
-                    secondaryTextView.hide()
+                    supportingTextView.hide()
 
                     updateBtn.setOnClickListener { onClickUpdateGoodBtn(good) }
                     hideActionButtonsExceptOf(updateBtn)
                 } else {
                     goodNameTextInputLayout.hide()
 
-                    secondaryTextView.text = good.name
-                    secondaryTextView.show()
+                    supportingTextView.text = good.name
+                    supportingTextView.show()
 
                     hideActionButtonsExceptOf(okBtn)
                 }

@@ -43,23 +43,6 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
-                <!-- Good name input when the good was not found in DB-->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/barcode_result_card_txt_layout_good_name"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/barcode_result_card_txt_input_good_name_hint"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="64">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/barcode_result_card_txt_good_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <TextView
                     android:id="@+id/barcode_result_card_tv_secondary_text"
                     android:layout_width="wrap_content"
@@ -75,6 +58,24 @@
                     android:layout_marginTop="8dp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
+
+                <!-- Good name input-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/barcode_result_card_txt_layout_good_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:hint="@string/barcode_result_card_txt_input_good_name_hint"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="64">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/barcode_result_card_txt_good_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
