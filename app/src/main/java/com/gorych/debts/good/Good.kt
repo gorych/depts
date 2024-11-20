@@ -38,8 +38,8 @@ data class Good(
     val createdAtFormatted: String
         get() = createdAt.format(DD_MM_YYYY_HH_MM_SS_SSS_FORMATER).toString()
 
-    val updatedAtFormatted: String
-        get() = updatedAt?.format(DD_MM_YYYY_HH_MM_SS_SSS_FORMATER).toString()
+    val updatedAtFormatted: String?
+        get() = updatedAt?.format(DD_MM_YYYY_HH_MM_SS_SSS_FORMATER)
 
     constructor(id: Long, name: String?, barcode: String) : this(
         id,

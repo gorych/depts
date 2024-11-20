@@ -8,6 +8,8 @@ import com.gorych.debts.R
 import com.gorych.debts.adapter.BaseAdapter
 import com.gorych.debts.adapter.BaseViewHolder
 import com.gorych.debts.good.Good
+import com.gorych.debts.utility.hide
+import com.gorych.debts.utility.show
 
 class GoodItemAdapter : BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() {
 
@@ -24,15 +26,20 @@ class GoodItemAdapter : BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() 
 
         private val barcodeView: TextView =
             itemView.findViewById(R.id.all_goods_item_tv_barcode)
-        private val nameView: TextView =
-            itemView.findViewById(R.id.all_goods_item_tv_name)
         private val createdAtView: TextView =
             itemView.findViewById(R.id.all_goods_item_tv_createdAt)
+        private val nameView: TextView =
+            itemView.findViewById(R.id.all_goods_item_tv_name)
 
         override fun bind(item: Good) {
             barcodeView.text = item.barcode
-            nameView.text = item.name ?: ""
-            createdAtView.text = item.createdAt.toString()
+            createdAtView.text = item.createdAtFormatted
+            item.name?.let {
+                nameView.text = item.name
+                nameView.show()
+            } ?: run {
+                nameView.hide()
+            }
         }
     }
 
