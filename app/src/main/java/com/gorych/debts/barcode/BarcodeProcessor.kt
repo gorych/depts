@@ -21,8 +21,7 @@ import java.io.IOException
 /** A processor to run the barcode detector.  */
 class BarcodeProcessor(
     graphicOverlay: GraphicOverlay,
-    private val workflowModel: WorkflowModel,
-    private val barcodeImageViewHeight: Int
+    private val workflowModel: WorkflowModel
 ) :
     FrameProcessorBase<List<Barcode>>() {
 
@@ -96,8 +95,7 @@ class BarcodeProcessor(
     private fun getBarcodeBitmapAsBytes(inputInfo: InputInfo, barcodeBoundingBox: Rect): ByteArray {
         val croppedBitmap = BitmapUtils.cropBitmap(
             inputInfo.getBitmap(),
-            barcodeBoundingBox,
-            barcodeImageViewHeight
+            barcodeBoundingBox
         )
         return BitmapUtils.getBitmapAsBytes(croppedBitmap)
     }

@@ -16,22 +16,21 @@ object BitmapUtils {
 
     fun cropBitmap(
         originalBitmap: Bitmap,
-        barcodeBoundingBox: Rect,
-        imgViewHeight: Int
+        barcodeBoundingBox: Rect
     ): Bitmap {
-        val heightRatio = 1.7f //TODO might differ on different screens
-        val croppedImgHeight: Int = Math.round(heightRatio * imgViewHeight)
-
-        val boundingBoxCenterY: Int = Math.round(barcodeBoundingBox.top / 2f)
-        val croppedImgRatioY = 1.3f
-        val croppedImgTop = Math.round(croppedImgRatioY * (boundingBoxCenterY + imgViewHeight / 2))
-
+        val delta = 20
+        val potentialCroppedBitmapHeight = barcodeBoundingBox.height() + delta
+        val croppedBitmapHeight =
+            when {
+                potentialCroppedBitmapHeight <= originalBitmap.height -> potentialCroppedBitmapHeight
+                else -> barcodeBoundingBox.height()
+            }
         return Bitmap.createBitmap(
             originalBitmap,
             0,
-            croppedImgTop,
+            barcodeBoundingBox.top - delta,
             originalBitmap.width,
-            croppedImgHeight
+            croppedBitmapHeight
         )
     }
 

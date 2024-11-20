@@ -58,8 +58,14 @@
     <string name="add_good_txt_enter_name_label">Введите имя товара</string>
     <string name="good_detail_text">Изображеие товара</string>
     <string name="barcode_image_description">Изображение штрихкода</string>
+
     <string name="barcode_result_card_btn_add">Добавить</string>
     <string name="barcode_result_card_btn_ok">Скрыть</string>
+    <string name="barcode_result_card_btn_update">Обновить</string>
+
     <string name="good_added_text">Товар сохранен</string>
-    <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите имя если хотите сохранить</string>
+    <string name="good_updated_text">Товар обновлен</string>
+
+    <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите название для сохранения</string>
+    <string name="barcode_result_card_txt_input_good_name_update_hint">Название товара не задано. Введите название для лучшей читаемости</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 import com.gorych.debts.barcode.BarcodeResultCard
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
+import java.time.LocalDateTime.now
 
 @Parcelize
 @Entity(
@@ -19,6 +20,7 @@ data class Good(
     @ColumnInfo val name: String?,
     @ColumnInfo val barcode: String,
     @ColumnInfo val createdAt: LocalDateTime,
+    @ColumnInfo val updatedAt: LocalDateTime?,
     @ColumnInfo val imageData: ByteArray?
 ) : Parcelable {
     init {
@@ -33,23 +35,17 @@ data class Good(
         id,
         name,
         barcode,
-        LocalDateTime.now(),
-        null
-    )
-
-    constructor(barcode: String) : this(
-        0,
+        now(),
         null,
-        barcode,
-        LocalDateTime.now(),
         null
     )
 
-    constructor(barcode: String, name: String?, imageData: ByteArray?) : this(
+    private constructor(barcode: String, name: String?, imageData: ByteArray?) : this(
         0,
         name,
         barcode,
-        LocalDateTime.now(),
+        now(),
+        null,
         imageData
     )
 

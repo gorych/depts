@@ -1,6 +1,7 @@
 package com.gorych.debts.barcode.ui
 
 import android.content.DialogInterface
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,20 +29,23 @@ import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
 import com.gorych.debts.utility.textAsString
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime.now
 
 class BarcodeResultCardFragment : BottomSheetDialogFragment() {
 
-    private lateinit var titleTextView: TextView
+    private lateinit var barcodeImgView: ImageView
 
-    private lateinit var goodImgView: ImageView
     private lateinit var goodNameTextInput: TextInputEditText
     private lateinit var goodNameTextInputLayout: TextInputLayout
 
+    private lateinit var titleTextView: TextView
     private lateinit var secondaryTextView: TextView
     private lateinit var supportingTextView: TextView
 
     private lateinit var addGoodBtn: MaterialButton
     private lateinit var okBtn: MaterialButton
+    private lateinit var updateBtn: MaterialButton
+    private lateinit var cardActionButtons: List<MaterialButton>
 
     private val goodRepository: GoodDao by lazy {
         val database = AppDatabase.getDatabase(requireContext())
@@ -53,18 +57,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
     ): View {
         val view = layoutInflater.inflate(R.layout.barcode_result_sheet, viewGroup)
 
-        goodImgView = view.findViewById(R.id.barcode_result_card_img)
-        goodNameTextInput = view.findViewById(R.id.barcode_result_card_txt_good_name)
-        goodNameTextInputLayout = view.findViewById(R.id.barcode_result_card_txt_layout_good_name)
+        initTextInputs(view)
+        initTextViews(view)
+        initActionButtons(view)
 
-        titleTextView = view.findViewById(R.id.barcode_result_card_tv_title)
-        secondaryTextView = view.findViewById(R.id.barcode_result_card_tv_secondary_text)
-        supportingTextView = view.findViewById(R.id.barcode_result_card_tv_supporting_text)
-
-        addGoodBtn = view.findViewById(R.id.barcode_result_card_btn_add)
-        okBtn = view.findViewById<MaterialButton?>(R.id.barcode_result_card_btn_ok)
-            .apply { setOnClickListener { dismiss() } }
-
+        barcodeImgView = view.findViewById(R.id.barcode_result_card_img)
         val barcodeResultCard: BarcodeResultCard? =
             arguments?.getParcelable(ARG_BARCODE_RESULT_CARD)
 
@@ -74,31 +71,82 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
 
             val associatedGood: Good? = card.associatedGood
             associatedGood?.let { good ->
-                goodImgView.setImageBitmap(createBitmapFromGood(good))
-                goodNameTextInputLayout.hide()
+                val barcodeBitmap = createBitmapFromGood(good)
+                updateBarcodeImageView(barcodeBitmap)
 
-                secondaryTextView.text = good.name
-                secondaryTextView.show()
+                goodNameTextInputLayout.hide()
 
                 supportingTextView.text = good.createdAt.toString()
                 supportingTextView.show()
 
-                addGoodBtn.hide()
-                okBtn.show()
+                if (good.name.isNullOrEmpty()) {
+                    goodNameTextInputLayout.hint =
+                        getString(R.string.barcode_result_card_txt_input_good_name_update_hint)
+                    goodNameTextInputLayout.show()
+
+                    secondaryTextView.hide()
+
+                    updateBtn.setOnClickListener { onClickUpdateGoodBtn(good) }
+                    hideActionButtonsExceptOf(updateBtn)
+                } else {
+                    goodNameTextInputLayout.hide()
+
+                    secondaryTextView.text = good.name
+                    secondaryTextView.show()
+
+                    hideActionButtonsExceptOf(okBtn)
+                }
             } ?: run {
-                goodImgView.setImageBitmap(convertBytesToBitmap(card.imgData))
+                val barcodeBitmap = convertBytesToBitmap(card.imgData)
+                updateBarcodeImageView(barcodeBitmap)
+
                 goodNameTextInputLayout.show()
 
                 secondaryTextView.hide()
                 supportingTextView.hide()
 
-                addGoodBtn.show()
                 addGoodBtn.setOnClickListener { onClickAddGoodBtn(card) }
-                okBtn.hide()
+                hideActionButtonsExceptOf(addGoodBtn)
             }
         }
 
         return view
+    }
+
+    private fun initTextInputs(view: View) {
+        goodNameTextInput = view.findViewById(R.id.barcode_result_card_txt_good_name)
+        goodNameTextInputLayout =
+            view.findViewById<TextInputLayout?>(R.id.barcode_result_card_txt_layout_good_name)
+                .apply { hint = getString(R.string.barcode_result_card_txt_input_good_name_hint) }
+    }
+
+    private fun initTextViews(view: View) {
+        titleTextView = view.findViewById(R.id.barcode_result_card_tv_title)
+        secondaryTextView = view.findViewById(R.id.barcode_result_card_tv_secondary_text)
+        supportingTextView = view.findViewById(R.id.barcode_result_card_tv_supporting_text)
+    }
+
+    private fun initActionButtons(view: View) {
+        addGoodBtn = view.findViewById(R.id.barcode_result_card_btn_add)
+        okBtn = view.findViewById<MaterialButton?>(R.id.barcode_result_card_btn_ok)
+            .apply { setOnClickListener { dismiss() } }
+        updateBtn = view.findViewById(R.id.barcode_result_card_btn_update)
+        cardActionButtons = listOf(addGoodBtn, okBtn, updateBtn)
+    }
+
+    private fun updateBarcodeImageView(barcodeBitmap: Bitmap?) {
+        barcodeImgView.setImageBitmap(barcodeBitmap)
+        barcodeBitmap?.let {
+            barcodeImgView.setImageBitmap(barcodeBitmap)
+            barcodeImgView.layoutParams.height = barcodeBitmap.height
+        }
+    }
+
+    private fun hideActionButtonsExceptOf(excludedBtn: MaterialButton) {
+        cardActionButtons
+            .filterNot { it == excludedBtn }
+            .forEach { it.hide() }
+        excludedBtn.show()
     }
 
     private fun onClickAddGoodBtn(card: BarcodeResultCard) {
@@ -112,6 +160,20 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
             )
         }
         toast(R.string.good_added_text)
+        dismiss()
+    }
+
+    private fun onClickUpdateGoodBtn(existingGood: Good) {
+        lifecycleScope.launch {
+            val name = goodNameTextInput.textAsString()
+            if (name.isNotEmpty()) {
+                name[0].uppercaseChar()
+            }
+            goodRepository.update(
+                existingGood.copy(name = name, updatedAt = now())
+            )
+        }
+        toast(R.string.good_updated_text)
         dismiss()
     }
 
