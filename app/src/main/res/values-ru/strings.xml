@@ -68,4 +68,5 @@
 
     <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите название для сохранения</string>
     <string name="barcode_result_card_txt_input_good_name_update_hint">Название товара не задано. Введите название для лучшей читаемости</string>
+    <string name="name_length_error_text">Некорректное наименование товара</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.gorych.debts.good.ui.list
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
@@ -14,6 +16,7 @@ import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
+import com.gorych.debts.purchaser.ui.add.AddClientActivity
 import kotlinx.coroutines.launch
 
 class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
@@ -40,7 +43,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             insets
         }
 
-        goodItemAdapter = GoodItemAdapter()
+        goodItemAdapter = GoodItemAdapter { onItemCLick() }
         goodListPresenter = GoodListPresenter(this, goodRepository)
 
         initTopBarFragment(
@@ -52,6 +55,13 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         lifecycleScope.launch {
             goodListPresenter.loadInitialList()
         }
+    }
+
+    private fun onItemCLick() {
+        val options = ActivityOptions.makeSceneTransitionAnimation(this)
+        //TODO implement item transition
+        val intent = Intent(this, AddClientActivity::class.java)
+        startActivity(intent, options.toBundle())
     }
 
     override fun populateItems(goods: List<Good>) {

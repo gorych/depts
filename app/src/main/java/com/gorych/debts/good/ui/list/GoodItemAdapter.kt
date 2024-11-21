@@ -11,7 +11,8 @@ import com.gorych.debts.good.Good
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
 
-class GoodItemAdapter : BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() {
+class GoodItemAdapter(private val itemClickAction: () -> Unit) :
+    BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodItemViewHolder {
         return GoodItemViewHolder(
@@ -39,6 +40,9 @@ class GoodItemAdapter : BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() 
                 nameView.show()
             } ?: run {
                 nameView.hide()
+            }
+            itemView.setOnClickListener {
+                itemClickAction()
             }
         }
     }

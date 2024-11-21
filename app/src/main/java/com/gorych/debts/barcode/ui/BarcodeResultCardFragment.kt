@@ -113,6 +113,14 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
         return view
     }
 
+    override fun onDismiss(dialogInterface: DialogInterface) {
+        activity?.let {
+            // Back to working state after the bottom sheet is dismissed.
+            ViewModelProviders.of(it)[WorkflowModel::class.java].setWorkflowState(WorkflowState.DETECTING)
+        }
+        super.onDismiss(dialogInterface)
+    }
+
     private fun initTextInputs(view: View) {
         goodNameTextInput = view.findViewById(R.id.barcode_result_card_txt_good_name)
         goodNameTextInputLayout =
@@ -150,6 +158,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
     }
 
     private fun onClickAddGoodBtn(card: BarcodeResultCard) {
+        if (!isValidGoodNameLength()) {
+            toast(R.string.name_length_error_text)
+            return
+        }
+
         lifecycleScope.launch {
             goodRepository.add(
                 Good.of(card, name = goodNameTextInput.textAsString())
@@ -160,6 +173,10 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
     }
 
     private fun onClickUpdateGoodBtn(existingGood: Good) {
+        if (!isValidGoodNameLength()) {
+            toast(R.string.name_length_error_text)
+            return
+        }
         lifecycleScope.launch {
             goodRepository.update(
                 existingGood.copy(name = goodNameTextInput.textAsString(), updatedAt = now())
@@ -169,12 +186,10 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
         dismiss()
     }
 
-    override fun onDismiss(dialogInterface: DialogInterface) {
-        activity?.let {
-            // Back to working state after the bottom sheet is dismissed.
-            ViewModelProviders.of(it)[WorkflowModel::class.java].setWorkflowState(WorkflowState.DETECTING)
-        }
-        super.onDismiss(dialogInterface)
+    private fun isValidGoodNameLength(): Boolean {
+        val goodName = goodNameTextInput.textAsString()
+        return goodName.isEmpty()
+                || goodName.length <= goodNameTextInputLayout.counterMaxLength
     }
 
     companion object {
