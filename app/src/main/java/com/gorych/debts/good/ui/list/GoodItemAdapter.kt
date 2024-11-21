@@ -11,7 +11,7 @@ import com.gorych.debts.good.Good
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
 
-class GoodItemAdapter(private val itemClickAction: () -> Unit) :
+class GoodItemAdapter(private val itemClickAction: (selectedGood: Good) -> Unit) :
     BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodItemViewHolder {
@@ -24,7 +24,6 @@ class GoodItemAdapter(private val itemClickAction: () -> Unit) :
     }
 
     inner class GoodItemViewHolder(itemView: View) : BaseViewHolder<Good>(itemView) {
-
         private val barcodeView: TextView =
             itemView.findViewById(R.id.all_goods_item_tv_barcode)
         private val createdAtView: TextView =
@@ -42,7 +41,7 @@ class GoodItemAdapter(private val itemClickAction: () -> Unit) :
                 nameView.hide()
             }
             itemView.setOnClickListener {
-                itemClickAction()
+                itemClickAction(item)
             }
         }
     }

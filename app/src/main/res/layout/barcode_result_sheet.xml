@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/barcode_result_card_img"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/barcode_result_card_media_height"
+                android:layout_height="@dimen/barcode_media_height"
                 android:contentDescription="@string/barcode_image_description"
                 android:scaleType="fitXY" />
 
@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="@string/barcode_result_card_btn_ok" />
+                    android:text="@string/hide_text" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/barcode_result_card_btn_update"

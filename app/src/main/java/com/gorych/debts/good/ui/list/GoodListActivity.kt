@@ -1,14 +1,16 @@
 package com.gorych.debts.good.ui.list
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gorych.debts.R
 import com.gorych.debts.TopBarActivityBase
 import com.gorych.debts.config.db.AppDatabase
@@ -16,7 +18,7 @@ import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
-import com.gorych.debts.purchaser.ui.add.AddClientActivity
+import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import kotlinx.coroutines.launch
 
 class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
@@ -43,7 +45,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             insets
         }
 
-        goodItemAdapter = GoodItemAdapter { onItemCLick() }
+        goodItemAdapter = GoodItemAdapter { good -> onItemClick(good) }
         goodListPresenter = GoodListPresenter(this, goodRepository)
 
         initTopBarFragment(
@@ -57,11 +59,44 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         }
     }
 
-    private fun onItemCLick() {
-        val options = ActivityOptions.makeSceneTransitionAnimation(this)
-        //TODO implement item transition
-        val intent = Intent(this, AddClientActivity::class.java)
-        startActivity(intent, options.toBundle())
+    private fun onItemClick(selectedGood: Good) {
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setNegativeButton(R.string.hide_text) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialogView: View = layoutInflater.inflate(R.layout.good_detail_dialog_view, null);
+        dialog.setView(dialogView)
+
+        val barcodeImgView: ImageView = dialogView.findViewById(R.id.good_details_barcode_img)
+        val barcodeBitmap = createBitmapFromGood(selectedGood)
+        barcodeImgView.setImageBitmap(barcodeBitmap)
+        barcodeBitmap?.let {
+            barcodeImgView.setImageBitmap(barcodeBitmap)
+            barcodeImgView.layoutParams.height = barcodeBitmap.height
+        }
+
+        dialogView.findViewById<TextView?>(R.id.good_details_tv_barcode).apply {
+            text = selectedGood.barcode
+        }
+
+        dialogView.findViewById<TextView?>(R.id.good_details_tv_created).apply {
+            text = "Cоздан: " + selectedGood.createdAtFormatted
+        }
+
+        selectedGood.updatedAt?.let {
+            dialogView.findViewById<TextView?>(R.id.good_details_tv_updated).apply {
+                text = "Обновлен: " + selectedGood.updatedAtFormatted
+            }
+        }
+
+        if (!selectedGood.name.isNullOrBlank()) {
+            dialogView.findViewById<TextView?>(R.id.good_details_tv_name).apply {
+                text = "Наименование: " + selectedGood.name
+            }
+        }
+
+        dialog.show()
     }
 
     override fun populateItems(goods: List<Good>) {

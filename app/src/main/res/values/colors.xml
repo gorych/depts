@@ -33,4 +33,5 @@
     <color name="teal_lighten_3">#80cbc4</color>
     <color name="purple_lighten_3">#ce93d8</color>
     <color name="purple_lighten_2">#ba68c8</color>
+    <color name="stroke_color">#40FFFFFF</color>
 </resources>
