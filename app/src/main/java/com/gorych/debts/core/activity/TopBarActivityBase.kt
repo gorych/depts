@@ -1,7 +1,8 @@
-package com.gorych.debts
+package com.gorych.debts.core.activity
 
 import androidx.appcompat.app.AppCompatActivity
-import com.gorych.debts.fragment.TopBarFragment
+import com.gorych.debts.R
+import com.gorych.debts.core.fragment.TopBarFragment
 
 abstract class TopBarActivityBase : AppCompatActivity() {
 

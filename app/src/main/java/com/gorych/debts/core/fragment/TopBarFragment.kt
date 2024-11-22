@@ -1,4 +1,4 @@
-package com.gorych.debts.fragment
+package com.gorych.debts.core.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

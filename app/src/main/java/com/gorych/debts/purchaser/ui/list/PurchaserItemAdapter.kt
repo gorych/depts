@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.gorych.debts.R
-import com.gorych.debts.adapter.BaseAdapter
-import com.gorych.debts.adapter.BaseViewHolder
+import com.gorych.debts.core.adapter.BaseAdapter
+import com.gorych.debts.core.adapter.BaseViewHolder
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.ui.detail.ClientDetailActivity

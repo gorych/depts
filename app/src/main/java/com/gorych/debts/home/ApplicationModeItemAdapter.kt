@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.gorych.debts.ApplicationMode
 import com.gorych.debts.R
-import com.gorych.debts.adapter.BaseAdapter
-import com.gorych.debts.adapter.BaseViewHolder
+import com.gorych.debts.core.adapter.BaseAdapter
+import com.gorych.debts.core.adapter.BaseViewHolder
 
 class ApplicationModeItemAdapter :
     BaseAdapter<ApplicationMode, ApplicationModeItemAdapter.ApplicationModeItmViewHolder>() {

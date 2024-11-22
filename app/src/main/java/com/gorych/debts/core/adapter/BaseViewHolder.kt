@@ -1,4 +1,4 @@
-package com.gorych.debts.adapter
+package com.gorych.debts.core.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

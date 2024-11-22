@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gorych.debts.R
-import com.gorych.debts.TopBarActivityBase
 import com.gorych.debts.config.db.AppDatabase
+import com.gorych.debts.core.activity.TopBarActivityBase
+import com.gorych.debts.core.adapter.BaseAdapter
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
@@ -25,7 +26,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
 
     private lateinit var goodListPresenter: GoodListContract.Presenter
     private lateinit var itemsRecyclerView: RecyclerView
-    private lateinit var goodItemAdapter: GoodItemAdapter
+    private lateinit var goodItemAdapter: BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>
 
     private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
@@ -65,6 +66,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
                 dialog.dismiss()
             }
 
+        //TODO work on UI
         val dialogView: View = layoutInflater.inflate(R.layout.good_detail_dialog_view, null);
         dialog.setView(dialogView)
 
@@ -80,6 +82,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             text = selectedGood.barcode
         }
 
+        //TODO i18n
         dialogView.findViewById<TextView?>(R.id.good_details_tv_created).apply {
             text = "Cоздан: " + selectedGood.createdAtFormatted
         }

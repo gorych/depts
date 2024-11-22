@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
-import com.gorych.debts.TopBarActivityBase
+import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract

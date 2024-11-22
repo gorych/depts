@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.gorych.debts.R
-import com.gorych.debts.adapter.BaseAdapter
-import com.gorych.debts.adapter.BaseViewHolder
+import com.gorych.debts.core.adapter.BaseAdapter
+import com.gorych.debts.core.adapter.BaseViewHolder
 import com.gorych.debts.debt.Debt
 
 class DebtRecyclerViewAdapter :

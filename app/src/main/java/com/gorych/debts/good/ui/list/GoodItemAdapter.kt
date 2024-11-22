@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.gorych.debts.R
-import com.gorych.debts.adapter.BaseAdapter
-import com.gorych.debts.adapter.BaseViewHolder
+import com.gorych.debts.core.adapter.BaseAdapter
+import com.gorych.debts.core.adapter.BaseViewHolder
 import com.gorych.debts.good.Good
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
@@ -32,6 +32,9 @@ class GoodItemAdapter(private val itemClickAction: (selectedGood: Good) -> Unit)
             itemView.findViewById(R.id.all_goods_item_tv_name)
 
         override fun bind(item: Good) {
+            itemView.setOnClickListener {
+                itemClickAction(item)
+            }
             barcodeView.text = item.barcode
             createdAtView.text = item.createdAtFormatted
             item.name?.let {
@@ -39,9 +42,6 @@ class GoodItemAdapter(private val itemClickAction: (selectedGood: Good) -> Unit)
                 nameView.show()
             } ?: run {
                 nameView.hide()
-            }
-            itemView.setOnClickListener {
-                itemClickAction(item)
             }
         }
     }

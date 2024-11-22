@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gorych.debts.ApplicationMode
 import com.gorych.debts.R
-import com.gorych.debts.TopBarActivityBase
+import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.debt.repository.DebtRepository
 import com.gorych.debts.utility.PermissionUtils.allPermissionsGranted
 import com.gorych.debts.utility.PermissionUtils.requestRuntimePermissions

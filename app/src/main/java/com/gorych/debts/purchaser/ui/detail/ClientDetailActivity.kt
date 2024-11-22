@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.gorych.debts.R
-import com.gorych.debts.TopBarActivityBase
+import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.debt.Debt
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
