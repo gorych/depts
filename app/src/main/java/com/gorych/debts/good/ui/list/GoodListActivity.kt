@@ -75,7 +75,6 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         barcodeImgView.setImageBitmap(barcodeBitmap)
         barcodeBitmap?.let {
             barcodeImgView.setImageBitmap(barcodeBitmap)
-            barcodeImgView.layoutParams.height = barcodeBitmap.height
         }
 
         dialogView.findViewById<TextView?>(R.id.good_details_tv_barcode).apply {
@@ -84,7 +83,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
 
         //TODO i18n
         dialogView.findViewById<TextView?>(R.id.good_details_tv_created).apply {
-            text = "Cоздан: " + selectedGood.createdAtFormatted
+            text =   "Cоздан: " + selectedGood.createdAtFormatted
         }
 
         selectedGood.updatedAt?.let {
