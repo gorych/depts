@@ -20,6 +20,8 @@ import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
+import com.gorych.debts.utility.hide
+import com.gorych.debts.utility.show
 import kotlinx.coroutines.launch
 
 class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
@@ -27,6 +29,13 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     private lateinit var goodListPresenter: GoodListContract.Presenter
     private lateinit var itemsRecyclerView: RecyclerView
     private lateinit var goodItemAdapter: BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>
+
+    private lateinit var goodDetailDialogBuilder: MaterialAlertDialogBuilder
+    private lateinit var imgBarcode: ImageView
+    private lateinit var tvBarcodeValue: TextView
+    private lateinit var tvGoodName: TextView
+    private lateinit var tvCreatedAt: TextView
+    private lateinit var tvUpdatedAt: TextView
 
     private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
@@ -53,52 +62,84 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             R.string.mode_show_all_goods_title,
             R.drawable.ic_baseline_goods_24
         )
+
         initItemsView()
 
         lifecycleScope.launch {
             goodListPresenter.loadInitialList()
         }
+
+        layoutInflater.inflate(R.layout.good_detail_dialog_view, null).apply {
+            initGoodDetailDialogBuilder(this)
+            initGoodDetailDialogComponents(this)
+        }
     }
 
-    private fun onItemClick(selectedGood: Good) {
-        val dialog = MaterialAlertDialogBuilder(this)
+    private fun initGoodDetailDialogComponents(dialogView: View) {
+        imgBarcode = dialogView.findViewById(R.id.good_details_barcode_img)
+        tvBarcodeValue = dialogView.findViewById(R.id.good_details_tv_barcode)
+        tvCreatedAt = dialogView.findViewById(R.id.good_details_tv_created)
+        tvUpdatedAt = dialogView.findViewById(R.id.good_details_tv_updated)
+        tvGoodName = dialogView.findViewById(R.id.good_details_tv_name)
+    }
+
+    private fun initGoodDetailDialogBuilder(dialogView: View) {
+        goodDetailDialogBuilder = MaterialAlertDialogBuilder(this)
+            .setView(dialogView)
             .setNegativeButton(R.string.hide_text) { dialog, _ ->
                 dialog.dismiss()
             }
+    }
 
-        //TODO work on UI
-        val dialogView: View = layoutInflater.inflate(R.layout.good_detail_dialog_view, null);
-        dialog.setView(dialogView)
+    private fun onItemClick(selectedGood: Good) {
+        configureDialogBarcodeImage(selectedGood)
 
-        val barcodeImgView: ImageView = dialogView.findViewById(R.id.good_details_barcode_img)
-        val barcodeBitmap = createBitmapFromGood(selectedGood)
-        barcodeImgView.setImageBitmap(barcodeBitmap)
-        barcodeBitmap?.let {
-            barcodeImgView.setImageBitmap(barcodeBitmap)
-        }
-
-        dialogView.findViewById<TextView?>(R.id.good_details_tv_barcode).apply {
+        tvBarcodeValue.apply {
             text = selectedGood.barcode
         }
 
-        //TODO i18n
-        dialogView.findViewById<TextView?>(R.id.good_details_tv_created).apply {
-            text =   "Cоздан: " + selectedGood.createdAtFormatted
+        tvCreatedAt.apply {
+            text = getString(R.string.created_at_template_string, selectedGood.createdAtFormatted)
         }
 
-        selectedGood.updatedAt?.let {
-            dialogView.findViewById<TextView?>(R.id.good_details_tv_updated).apply {
-                text = "Обновлен: " + selectedGood.updatedAtFormatted
-            }
-        }
+        configureDialogGoodUpdatedAt(selectedGood)
+        configureDialogGoodName(selectedGood)
 
+        goodDetailDialogBuilder.show()
+    }
+
+    private fun configureDialogGoodName(selectedGood: Good) {
         if (!selectedGood.name.isNullOrBlank()) {
-            dialogView.findViewById<TextView?>(R.id.good_details_tv_name).apply {
-                text = "Наименование: " + selectedGood.name
-            }
+            tvGoodName
+                .apply {
+                    text = getString(R.string.name_template_string, selectedGood.name)
+                }.show()
+        } else {
+            tvGoodName.hide()
         }
+    }
 
-        dialog.show()
+    private fun configureDialogGoodUpdatedAt(selectedGood: Good) {
+        selectedGood.updatedAt?.let {
+            tvUpdatedAt
+                .apply {
+                    text =
+                        getString(
+                            R.string.updated_at_template_string,
+                            selectedGood.updatedAtFormatted
+                        )
+                }.show()
+        } ?: run {
+            tvUpdatedAt.hide()
+        }
+    }
+
+    private fun configureDialogBarcodeImage(selectedGood: Good) {
+        val barcodeBitmap = createBitmapFromGood(selectedGood)
+        imgBarcode.setImageBitmap(barcodeBitmap)
+        barcodeBitmap?.let {
+            imgBarcode.setImageBitmap(barcodeBitmap)
+        }
     }
 
     override fun populateItems(goods: List<Good>) {
