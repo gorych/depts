@@ -17,11 +17,12 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.gorych.debts.R
 import com.gorych.debts.barcode.BarcodeResultCard
+import com.gorych.debts.barcode.contract.BarcodeResultContract
 import com.gorych.debts.camera.WorkflowModel
 import com.gorych.debts.camera.WorkflowModel.WorkflowState
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.good.Good
-import com.gorych.debts.good.dao.GoodDao
+import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.utility.BitmapUtils.convertBytesToBitmap
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import com.gorych.debts.utility.ToastUtils.Companion.toast
@@ -31,7 +32,7 @@ import com.gorych.debts.utility.textAsString
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime.now
 
-class BarcodeResultCardFragment : BottomSheetDialogFragment() {
+class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultContract.View {
 
     private lateinit var barcodeImgView: ImageView
 
@@ -47,9 +48,9 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
     private lateinit var updateBtn: MaterialButton
     private lateinit var cardActionButtons: List<MaterialButton>
 
-    private val goodRepository: GoodDao by lazy {
+    private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(requireContext())
-        database.goodDao()
+        GoodRepository(database.goodDao())
     }
 
     override fun onCreateView(
@@ -62,55 +63,26 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
         initActionButtons(view)
 
         barcodeImgView = view.findViewById(R.id.barcode_result_card_img)
+
+        configureBarcodeResultCard()
+
+        return view
+    }
+
+    override fun configureBarcodeResultCard() {
         val barcodeResultCard: BarcodeResultCard? =
             arguments?.getParcelable(ARG_BARCODE_RESULT_CARD)
 
-        //TODO Refactor to MVP
         barcodeResultCard?.let { card ->
             titleTextView.text = card.barcodeRawValue
 
             val associatedGood: Good? = card.associatedGood
             associatedGood?.let { good ->
-                val barcodeBitmap = createBitmapFromGood(good)
-                updateBarcodeImageView(barcodeBitmap)
-
-                goodNameTextInputLayout.hide()
-
-                secondaryTextView.text = good.createdAtFormatted
-                secondaryTextView.show()
-
-                if (good.name.isNullOrEmpty()) {
-                    goodNameTextInputLayout.hint =
-                        getString(R.string.barcode_result_card_txt_input_good_name_update_hint)
-                    goodNameTextInputLayout.show()
-
-                    supportingTextView.hide()
-
-                    updateBtn.setOnClickListener { onClickUpdateGoodBtn(good) }
-                    hideActionButtonsExceptOf(updateBtn)
-                } else {
-                    goodNameTextInputLayout.hide()
-
-                    supportingTextView.text = good.name
-                    supportingTextView.show()
-
-                    hideActionButtonsExceptOf(okBtn)
-                }
+                configureComponentsForExistingGood(good)
             } ?: run {
-                val barcodeBitmap = convertBytesToBitmap(card.imgData)
-                updateBarcodeImageView(barcodeBitmap)
-
-                goodNameTextInputLayout.show()
-
-                secondaryTextView.hide()
-                supportingTextView.hide()
-
-                addGoodBtn.setOnClickListener { onClickAddGoodBtn(card) }
-                hideActionButtonsExceptOf(addGoodBtn)
+                configureComponentsForNotExistingGood(card)
             }
         }
-
-        return view
     }
 
     override fun onDismiss(dialogInterface: DialogInterface) {
@@ -119,6 +91,54 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
             ViewModelProviders.of(it)[WorkflowModel::class.java].setWorkflowState(WorkflowState.DETECTING)
         }
         super.onDismiss(dialogInterface)
+    }
+
+    private fun configureComponentsForExistingGood(good: Good) {
+        val barcodeBitmap = createBitmapFromGood(good)
+        updateBarcodeImageView(barcodeBitmap)
+
+        goodNameTextInputLayout.hide()
+
+        secondaryTextView.text = good.createdAtFormatted
+        secondaryTextView.show()
+
+        when {
+            good.name.isNullOrEmpty() -> configureComponentsForExistingGoodWithoutName(good)
+            else -> configureComponentsForExistingGoodWithName(good)
+        }
+    }
+
+    private fun configureComponentsForExistingGoodWithoutName(good: Good) {
+        goodNameTextInputLayout.hint =
+            getString(R.string.barcode_result_card_txt_input_good_name_update_hint)
+        goodNameTextInputLayout.show()
+
+        supportingTextView.hide()
+
+        updateBtn.setOnClickListener { onClickUpdateGoodBtn(good) }
+        hideActionButtonsExceptOf(updateBtn)
+    }
+
+    private fun configureComponentsForExistingGoodWithName(good: Good) {
+        goodNameTextInputLayout.hide()
+
+        supportingTextView.text = good.name
+        supportingTextView.show()
+
+        hideActionButtonsExceptOf(okBtn)
+    }
+
+    private fun configureComponentsForNotExistingGood(card: BarcodeResultCard) {
+        val barcodeBitmap = convertBytesToBitmap(card.imgData)
+        updateBarcodeImageView(barcodeBitmap)
+
+        goodNameTextInputLayout.show()
+
+        secondaryTextView.hide()
+        supportingTextView.hide()
+
+        addGoodBtn.setOnClickListener { onClickAddGoodBtn(card) }
+        hideActionButtonsExceptOf(addGoodBtn)
     }
 
     private fun initTextInputs(view: View) {
@@ -146,7 +166,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment() {
         barcodeImgView.setImageBitmap(barcodeBitmap)
         barcodeBitmap?.let {
             barcodeImgView.setImageBitmap(barcodeBitmap)
-            barcodeImgView.layoutParams.height = barcodeBitmap.height
+            //barcodeImgView.layoutParams.height = barcodeBitmap.height
         }
     }
 

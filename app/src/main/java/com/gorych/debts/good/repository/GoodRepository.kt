@@ -13,4 +13,12 @@ class GoodRepository(private val goodDao: GoodDao) {
     suspend fun findByBarcode(barcode: Barcode): Good? {
         return goodDao.findByBarcode(barcode.rawValue ?: "")
     }
+
+    suspend fun add(good: Good) {
+        goodDao.add(good)
+    }
+
+    suspend fun update(updatedGood: Good) {
+        goodDao.update(updatedGood)
+    }
 }
