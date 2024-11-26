@@ -54,7 +54,7 @@
         app:showSeekBarValue="true"/>
 
     <androidx.preference.SwitchPreferenceCompat
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="@string/pref_key_delay_loading_barcode_result"
         android:persistent="true"
         android:summary="@string/pref_summary_delay_loading_barcode_result"

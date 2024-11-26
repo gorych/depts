@@ -44,7 +44,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".settings.activity.SettingsActivity"
+            android:name=".settings.ui.SettingsActivity"
             android:exported="false"
             android:label="@string/settings_title"
             android:screenOrientation="portrait" />

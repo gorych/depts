@@ -47,7 +47,7 @@ object PreferenceUtils {
   }
 
   fun shouldDelayLoadingBarcodeResult(context: Context): Boolean =
-    getBooleanPref(context, R.string.pref_key_delay_loading_barcode_result, true)
+    getBooleanPref(context, R.string.pref_key_delay_loading_barcode_result, false)
 
   private fun getIntPref(context: Context, @StringRes prefKeyId: Int, defaultValue: Int): Int {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
