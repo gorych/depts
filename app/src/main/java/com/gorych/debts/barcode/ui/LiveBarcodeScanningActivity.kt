@@ -28,7 +28,7 @@ import com.gorych.debts.camera.WorkflowModel.WorkflowState
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.repository.GoodRepository
-import com.gorych.debts.settings.activity.SettingsActivity
+import com.gorych.debts.settings.ui.SettingsActivity
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.isGone
 import com.gorych.debts.utility.isVisible
