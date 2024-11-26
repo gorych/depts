@@ -1,4 +1,4 @@
-package com.gorych.debts.settings
+package com.gorych.debts.settings.ui
 
 import android.hardware.Camera
 import android.os.Bundle
