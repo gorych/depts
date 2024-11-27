@@ -32,13 +32,6 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     private lateinit var goodListPresenter: GoodListContract.Presenter
     private lateinit var goodItemAdapter: BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>
 
-    private lateinit var goodDetailDialogBuilder: MaterialAlertDialogBuilder
-    private lateinit var imgBarcode: ImageView
-    private lateinit var tvBarcodeValue: TextView
-    private lateinit var tvGoodName: TextView
-    private lateinit var tvCreatedAt: TextView
-    private lateinit var tvUpdatedAt: TextView
-
     private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
         GoodRepository(database.goodDao())
@@ -71,53 +64,48 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         lifecycleScope.launch {
             goodListPresenter.loadInitialList()
         }
-
-        layoutInflater.inflate(R.layout.good_detail_dialog_view, null).apply {
-            initGoodDetailDialogBuilder(this)
-            initGoodDetailDialogComponents(this)
-        }
     }
 
     private fun initGoodItemAdapter() {
         goodItemAdapter = GoodItemAdapter({ good -> onItemClick(good) }, this)
-        val itemTouchHelper = ItemTouchHelper(RecyclerViewItemRightSwipeCallback(goodItemAdapter))
-        itemTouchHelper.attachToRecyclerView(itemsRecyclerView)
+        ItemTouchHelper(
+            RecyclerViewItemRightSwipeCallback(
+                goodItemAdapter,
+                this,
+                R.drawable.ic_delete_forever_24
+            )
+        ).apply { attachToRecyclerView(itemsRecyclerView) }
     }
 
-    private fun initGoodDetailDialogComponents(dialogView: View) {
-        imgBarcode = dialogView.findViewById(R.id.good_details_barcode_img)
-        tvBarcodeValue = dialogView.findViewById(R.id.good_details_tv_barcode)
-        tvCreatedAt = dialogView.findViewById(R.id.good_details_tv_created)
-        tvUpdatedAt = dialogView.findViewById(R.id.good_details_tv_updated)
-        tvGoodName = dialogView.findViewById(R.id.good_details_tv_name)
-    }
+    private fun onItemClick(selectedGood: Good) {
+        val dialogView = layoutInflater.inflate(R.layout.good_detail_dialog_view, null)
 
-    private fun initGoodDetailDialogBuilder(dialogView: View) {
-        goodDetailDialogBuilder = MaterialAlertDialogBuilder(this)
+        val goodDetailDialogBuilder = MaterialAlertDialogBuilder(this)
             .setView(dialogView)
             .setNegativeButton(R.string.hide_text) { dialog, _ ->
                 dialog.dismiss()
             }
-    }
 
-    private fun onItemClick(selectedGood: Good) {
-        configureDialogBarcodeImage(selectedGood)
+        configureDialogBarcodeImage(selectedGood, dialogView)
 
+        val tvBarcodeValue: TextView = dialogView.findViewById(R.id.good_details_tv_barcode)
         tvBarcodeValue.apply {
             text = selectedGood.barcode
         }
 
+        val tvCreatedAt: TextView = dialogView.findViewById(R.id.good_details_tv_created)
         tvCreatedAt.apply {
             text = getString(R.string.created_at_template_string, selectedGood.createdAtFormatted)
         }
 
-        configureDialogGoodUpdatedAt(selectedGood)
-        configureDialogGoodName(selectedGood)
+        configureDialogGoodUpdatedAt(selectedGood, dialogView)
+        configureDialogGoodName(selectedGood, dialogView)
 
         goodDetailDialogBuilder.show()
     }
 
-    private fun configureDialogGoodName(selectedGood: Good) {
+    private fun configureDialogGoodName(selectedGood: Good, dialogView: View) {
+        val tvGoodName: TextView = dialogView.findViewById(R.id.good_details_tv_name)
         if (!selectedGood.name.isNullOrBlank()) {
             tvGoodName
                 .apply {
@@ -128,7 +116,8 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         }
     }
 
-    private fun configureDialogGoodUpdatedAt(selectedGood: Good) {
+    private fun configureDialogGoodUpdatedAt(selectedGood: Good, dialogView: View) {
+        val tvUpdatedAt: TextView = dialogView.findViewById(R.id.good_details_tv_updated)
         selectedGood.updatedAt?.let {
             tvUpdatedAt
                 .apply {
@@ -143,8 +132,9 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         }
     }
 
-    private fun configureDialogBarcodeImage(selectedGood: Good) {
+    private fun configureDialogBarcodeImage(selectedGood: Good, dialogView: View) {
         val barcodeBitmap = createBitmapFromGood(selectedGood)
+        val imgBarcode: ImageView = dialogView.findViewById(R.id.good_details_barcode_img)
         imgBarcode.setImageBitmap(barcodeBitmap)
         barcodeBitmap?.let {
             imgBarcode.setImageBitmap(barcodeBitmap)
