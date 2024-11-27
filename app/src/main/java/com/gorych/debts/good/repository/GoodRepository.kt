@@ -21,4 +21,8 @@ class GoodRepository(private val goodDao: GoodDao) {
     suspend fun update(updatedGood: Good) {
         goodDao.update(updatedGood)
     }
+
+    suspend fun remove(good: Good) {
+        goodDao.remove(good)
+    }
 }

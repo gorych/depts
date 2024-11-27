@@ -1,6 +1,7 @@
 package com.gorych.debts.good.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -14,6 +15,9 @@ interface GoodDao {
 
     @Update
     suspend fun update(good: Good)
+
+    @Delete
+    suspend fun remove(good: Good)
 
     @Query("SELECT * FROM good WHERE barcode = :barcode")
     suspend fun findByBarcode(barcode: String): Good?

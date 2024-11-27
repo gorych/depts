@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -15,6 +16,7 @@ import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.adapter.BaseAdapter
+import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeCallback
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
@@ -26,8 +28,8 @@ import kotlinx.coroutines.launch
 
 class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
 
-    private lateinit var goodListPresenter: GoodListContract.Presenter
     private lateinit var itemsRecyclerView: RecyclerView
+    private lateinit var goodListPresenter: GoodListContract.Presenter
     private lateinit var goodItemAdapter: BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>
 
     private lateinit var goodDetailDialogBuilder: MaterialAlertDialogBuilder
@@ -55,8 +57,9 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             insets
         }
 
-        goodItemAdapter = GoodItemAdapter { good -> onItemClick(good) }
         goodListPresenter = GoodListPresenter(this, goodRepository)
+
+        initGoodItemAdapter()
 
         initTopBarFragment(
             R.string.mode_show_all_goods_title,
@@ -73,6 +76,12 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             initGoodDetailDialogBuilder(this)
             initGoodDetailDialogComponents(this)
         }
+    }
+
+    private fun initGoodItemAdapter() {
+        goodItemAdapter = GoodItemAdapter({ good -> onItemClick(good) }, this)
+        val itemTouchHelper = ItemTouchHelper(RecyclerViewItemRightSwipeCallback(goodItemAdapter))
+        itemTouchHelper.attachToRecyclerView(itemsRecyclerView)
     }
 
     private fun initGoodDetailDialogComponents(dialogView: View) {
@@ -142,15 +151,21 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         }
     }
 
-    override fun populateItems(goods: List<Good>) {
-        goodItemAdapter.updateItems(goods)
-    }
-
     private fun initItemsView() {
         itemsRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@GoodListActivity)
             adapter = goodItemAdapter
             setHasFixedSize(true)
+        }
+    }
+
+    override fun populateItems(goods: List<Good>) {
+        goodItemAdapter.updateItems(goods)
+    }
+
+    override fun removeItem(good: Good) {
+        lifecycleScope.launch {
+            goodRepository.remove(good)
         }
     }
 }

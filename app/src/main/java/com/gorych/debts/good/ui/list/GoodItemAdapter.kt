@@ -8,10 +8,14 @@ import com.gorych.debts.R
 import com.gorych.debts.core.adapter.BaseAdapter
 import com.gorych.debts.core.adapter.BaseViewHolder
 import com.gorych.debts.good.Good
+import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
 
-class GoodItemAdapter(private val itemClickAction: (selectedGood: Good) -> Unit) :
+class GoodItemAdapter(
+    private val itemClickAction: (selectedGood: Good) -> Unit,
+    private val view: GoodListContract.View
+) :
     BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodItemViewHolder {
@@ -21,6 +25,12 @@ class GoodItemAdapter(private val itemClickAction: (selectedGood: Good) -> Unit)
                     R.layout.item_activity_all_goods, parent, false
                 )
         )
+    }
+
+    override fun removeItem(position: Int) {
+        val selectedGood = items[position]
+        view.removeItem(selectedGood)
+        super.removeItem(position)
     }
 
     inner class GoodItemViewHolder(itemView: View) : BaseViewHolder<Good>(itemView) {

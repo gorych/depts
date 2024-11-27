@@ -7,8 +7,8 @@ import com.gorych.debts.core.adapter.BaseViewHolder
 
 private const val NOT_SUPPORTED_DRAG_AND_DROP = 0
 
-class RecyclerViewItemSwipeCallback<T>(
-    val adapter: BaseAdapter<T, BaseViewHolder<T>>,
+open class RecyclerViewItemSwipeCallback<T>(
+    val adapter: BaseAdapter<out T, out BaseViewHolder<T>>,
     swipeDirs: Int
 ) : ItemTouchHelper.SimpleCallback(NOT_SUPPORTED_DRAG_AND_DROP, swipeDirs) {
 

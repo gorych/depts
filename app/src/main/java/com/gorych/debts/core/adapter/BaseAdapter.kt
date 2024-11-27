@@ -2,8 +2,9 @@ package com.gorych.debts.core.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(private var items: MutableList<T> = mutableListOf()) :
-    RecyclerView.Adapter<VH>() {
+abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
+    var items: MutableList<T> = mutableListOf()
+) : RecyclerView.Adapter<VH>() {
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.bind(items[position])
@@ -16,7 +17,7 @@ abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(private var items: Mutable
         notifyDataSetChanged()
     }
 
-    fun removeItem(position: Int) {
+    open fun removeItem(position: Int) {
         items.removeAt(position)
         notifyItemRemoved(position)
     }

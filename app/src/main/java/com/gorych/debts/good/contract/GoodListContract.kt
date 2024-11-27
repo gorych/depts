@@ -6,6 +6,7 @@ class GoodListContract {
 
     interface View {
         fun populateItems(goods: List<Good>)
+        fun removeItem(good: Good)
     }
 
     interface Presenter {
