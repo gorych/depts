@@ -5,17 +5,18 @@ import android.graphics.Canvas
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.gorych.debts.core.adapter.BaseAdapter
-import com.gorych.debts.core.adapter.BaseViewHolder
 
-class RecyclerViewItemRightSwipeCallback<T>(
-    adapter: BaseAdapter<out T, out BaseViewHolder<T>>,
+class RecyclerViewItemRightSwipeCallback(
     private val context: Context,
     private val iconResId: Int,
-) : RecyclerViewItemSwipeCallback<T>(
-    adapter,
-    ItemTouchHelper.RIGHT
-) {
+    private val swipeAction: (position: Int) -> Unit
+) : RecyclerViewItemSwipeCallback(ItemTouchHelper.RIGHT) {
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        val position = viewHolder.adapterPosition
+        swipeAction(position)
+    }
+
     override fun onChildDraw(
         canvas: Canvas,
         recyclerView: RecyclerView,
@@ -39,6 +40,7 @@ class RecyclerViewItemRightSwipeCallback<T>(
                 val iconRight = itemView.left + iconMargin + icon.intrinsicWidth
                 icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
             }
+
             else -> {
                 icon.setBounds(0, 0, 0, 0)
             }

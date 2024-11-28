@@ -75,7 +75,7 @@
             android:paddingVertical="10dp"
             android:text="@string/add_client_btn_text"
             app:backgroundTint="@color/purple_lighten_2"
-            app:icon="@drawable/ic_baseline_person_add_24"
+            app:icon="@drawable/ic_person_add_24"
             app:iconGravity="textStart"
             app:iconPadding="8dp" />
     </LinearLayout>

@@ -42,7 +42,7 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
 
         initTopBarFragment(
             R.string.all_clients_activity_title,
-            R.drawable.ic_baseline_people_24
+            R.drawable.ic_people_24
         )
         initItemsView()
 

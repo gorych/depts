@@ -22,6 +22,7 @@ import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
+import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
 import kotlinx.coroutines.launch
@@ -50,61 +51,111 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             insets
         }
 
-        goodListPresenter = GoodListPresenter(this, goodRepository)
-
         initGoodItemAdapter()
 
         initTopBarFragment(
             R.string.mode_show_all_goods_title,
-            R.drawable.ic_baseline_goods_24
+            R.drawable.ic_item_list_24
         )
 
         initItemsView()
 
+        goodListPresenter = GoodListPresenter(this, goodRepository)
         lifecycleScope.launch {
             goodListPresenter.loadInitialList()
         }
+    }
+
+    override fun populateItems(goods: List<Good>) {
+        goodItemAdapter.updateItems(goods)
     }
 
     private fun initGoodItemAdapter() {
         goodItemAdapter = GoodItemAdapter({ good -> onItemClick(good) }, this)
         ItemTouchHelper(
             RecyclerViewItemRightSwipeCallback(
-                goodItemAdapter,
                 this,
                 R.drawable.ic_delete_forever_24
-            )
+            ) { position -> showConfirmationRemovalDialog(position) }
         ).apply { attachToRecyclerView(itemsRecyclerView) }
     }
 
-    private fun onItemClick(selectedGood: Good) {
-        val dialogView = layoutInflater.inflate(R.layout.good_detail_dialog_view, null)
+    private fun showConfirmationRemovalDialog(position: Int) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.good_removal_confirmation_text)
+            .setMessage(R.string.good_removal_confirmation_question)
+            .setNegativeButton(R.string.no_text) { dialog, _ ->
+                goodItemAdapter.notifyItemChanged(position)
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.yes_text) { dialog, _ ->
+                goodItemAdapter.removeItem(position)
+                toast(R.string.good_removed_text)
+                dialog.dismiss()
+            }
+            .show()
+    }
 
-        val goodDetailDialogBuilder = MaterialAlertDialogBuilder(this)
+    private fun initItemsView() {
+        itemsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@GoodListActivity)
+            adapter = goodItemAdapter
+            setHasFixedSize(true)
+        }
+    }
+
+    private fun onItemClick(selectedGood: Good) {
+        val dialogView = buildGoodDetailDialogView(selectedGood)
+        MaterialAlertDialogBuilder(this)
             .setView(dialogView)
             .setNegativeButton(R.string.hide_text) { dialog, _ ->
                 dialog.dismiss()
             }
+            .show()
+    }
 
-        configureDialogBarcodeImage(selectedGood, dialogView)
-
-        val tvBarcodeValue: TextView = dialogView.findViewById(R.id.good_details_tv_barcode)
-        tvBarcodeValue.apply {
-            text = selectedGood.barcode
+    override fun removeItem(good: Good) {
+        lifecycleScope.launch {
+            goodRepository.remove(good)
         }
+    }
 
+    //region Good detail dialog
+
+    private fun buildGoodDetailDialogView(selectedGood: Good): View? {
+        return layoutInflater.inflate(R.layout.good_detail_dialog_view, null).also {
+            configureDialogBarcodeImage(it, selectedGood)
+            configureDialogBarcodeComponent(it, selectedGood)
+            configureDialogGoodCreatedAtComponent(it, selectedGood)
+            configureDialogGoodUpdatedAt(it, selectedGood)
+            configureDialogGoodName(it, selectedGood)
+        }
+    }
+
+    private fun configureDialogBarcodeImage(dialogView: View, selectedGood: Good) {
+        val barcodeBitmap = createBitmapFromGood(selectedGood)
+        val imgBarcode: ImageView = dialogView.findViewById(R.id.good_details_barcode_img)
+        imgBarcode.setImageBitmap(barcodeBitmap)
+        barcodeBitmap?.let {
+            imgBarcode.setImageBitmap(barcodeBitmap)
+        }
+    }
+
+    private fun configureDialogGoodCreatedAtComponent(dialogView: View, selectedGood: Good) {
         val tvCreatedAt: TextView = dialogView.findViewById(R.id.good_details_tv_created)
         tvCreatedAt.apply {
             text = getString(R.string.created_at_template_string, selectedGood.createdAtFormatted)
         }
-
-        configureDialogGoodUpdatedAt(selectedGood, dialogView)
-        configureDialogGoodName(selectedGood, dialogView)
-
-        goodDetailDialogBuilder.show()
     }
 
-    private fun configureDialogGoodName(selectedGood: Good, dialogView: View) {
+    private fun configureDialogBarcodeComponent(dialogView: View, selectedGood: Good) {
+        val tvBarcodeValue: TextView = dialogView.findViewById(R.id.good_details_tv_barcode)
+        tvBarcodeValue.apply {
+            text = selectedGood.barcode
+        }
+    }
+
+    private fun configureDialogGoodName(dialogView: View, selectedGood: Good) {
         val tvGoodName: TextView = dialogView.findViewById(R.id.good_details_tv_name)
         if (!selectedGood.name.isNullOrBlank()) {
             tvGoodName
@@ -116,7 +167,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         }
     }
 
-    private fun configureDialogGoodUpdatedAt(selectedGood: Good, dialogView: View) {
+    private fun configureDialogGoodUpdatedAt(dialogView: View, selectedGood: Good) {
         val tvUpdatedAt: TextView = dialogView.findViewById(R.id.good_details_tv_updated)
         selectedGood.updatedAt?.let {
             tvUpdatedAt
@@ -132,30 +183,5 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         }
     }
 
-    private fun configureDialogBarcodeImage(selectedGood: Good, dialogView: View) {
-        val barcodeBitmap = createBitmapFromGood(selectedGood)
-        val imgBarcode: ImageView = dialogView.findViewById(R.id.good_details_barcode_img)
-        imgBarcode.setImageBitmap(barcodeBitmap)
-        barcodeBitmap?.let {
-            imgBarcode.setImageBitmap(barcodeBitmap)
-        }
-    }
-
-    private fun initItemsView() {
-        itemsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@GoodListActivity)
-            adapter = goodItemAdapter
-            setHasFixedSize(true)
-        }
-    }
-
-    override fun populateItems(goods: List<Good>) {
-        goodItemAdapter.updateItems(goods)
-    }
-
-    override fun removeItem(good: Good) {
-        lifecycleScope.launch {
-            goodRepository.remove(good)
-        }
-    }
+    //endregion
 }

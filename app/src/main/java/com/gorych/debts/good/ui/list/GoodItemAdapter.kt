@@ -15,8 +15,7 @@ import com.gorych.debts.utility.show
 class GoodItemAdapter(
     private val itemClickAction: (selectedGood: Good) -> Unit,
     private val view: GoodListContract.View
-) :
-    BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() {
+) : BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoodItemViewHolder {
         return GoodItemViewHolder(

@@ -19,7 +19,7 @@
         app:endIconMode="clear_text"
         app:hintEnabled="true"
         app:startIconContentDescription="@string/all_goods_search_bar_hint_text"
-        app:startIconDrawable="@drawable/ic_baseline_search_24">
+        app:startIconDrawable="@drawable/ic_search_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/all_goods_search_bar"

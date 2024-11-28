@@ -53,7 +53,7 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
         selectedPurchaser?.let {
             populatePersonalInfo(it)
 
-            initTopBarFragment(topBarTitle, R.drawable.ic_baseline_person_24)
+            initTopBarFragment(topBarTitle, R.drawable.ic_person_24)
             initPhoneView(it)
             initActiveDebtsOnlyCheckBox(it)
             initDebtsView()

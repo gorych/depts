@@ -2,13 +2,10 @@ package com.gorych.debts.core.callback
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.gorych.debts.core.adapter.BaseAdapter
-import com.gorych.debts.core.adapter.BaseViewHolder
 
 private const val NOT_SUPPORTED_DRAG_AND_DROP = 0
 
-open class RecyclerViewItemSwipeCallback<T>(
-    val adapter: BaseAdapter<out T, out BaseViewHolder<T>>,
+abstract class RecyclerViewItemSwipeCallback(
     swipeDirs: Int
 ) : ItemTouchHelper.SimpleCallback(NOT_SUPPORTED_DRAG_AND_DROP, swipeDirs) {
 
@@ -18,10 +15,5 @@ open class RecyclerViewItemSwipeCallback<T>(
         target: RecyclerView.ViewHolder
     ): Boolean {
         return false // Not handling movement
-    }
-
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        val position = viewHolder.adapterPosition
-        adapter.removeItem(position)
     }
 }
