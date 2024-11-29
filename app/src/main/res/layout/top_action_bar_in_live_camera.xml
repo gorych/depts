@@ -32,6 +32,6 @@
       android:layout_toStartOf="@id/barcode_iv_settings_button"
       android:padding="@dimen/top_action_button_padding"
       android:contentDescription="@string/cd_flash_button"
-      app:srcCompat="@drawable/camera_flash"/>
+      app:srcCompat="@drawable/ic_camera_flash"/>
 
 </RelativeLayout>
