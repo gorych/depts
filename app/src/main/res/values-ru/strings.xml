@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Долги</string>
 
+    <!-- Application modes. -->
     <string name="mode_barcode_scanning_title">Сканирование штрихкода</string>
     <string name="mode_barcode_scanning_subtitle">Считывает данные зашифрованные в штрихкоде</string>
     <string name="mode_show_all_clients_title">Покупатели</string>
@@ -11,73 +12,83 @@
     <string name="mode_show_all_goods_title">Товары</string>
     <string name="mode_show_all_goods_subtitle">Отображает детальную информацию о товарах</string>
 
+    <!-- Common strings -->
+    <string name="contact_phone_text">Контактный телефон</string>
+
+    <string name="yes_text">Да</string>
+    <string name="no_text">Нет</string>
+    <string name="hide_text">Скрыть</string>
+    <string name="save_text">Сохранить</string>
+    <string name="update_text">Обновить</string>
+    <string name="copied_text">Скопировано</string>
+    <string name="enter_name_txt">Введите имя товара</string>
+
+    <string name="search_text">Поиск по имени, фамилии или телефону</string>
+    <string name="search_by_barcode_text">Поиск по штрихкоду</string>
+
+    <string name="barcode_image_description">Изображение штрихкода</string>
+
+    <!-- Common string templates -->
+    <string name="name_template_string">Наименование: %s</string>
+    <string name="created_at_template_string">Создан: %s</string>
+    <string name="updated_at_template_string">Обновлен: %s</string>
+
+    <!-- Common good strings -->
+    <string name="good_added_text">Товар сохранен</string>
+    <string name="good_updated_text">Товар обновлен</string>
+    <string name="good_removed_text">Товар удален</string>
+    <string name="add_good_text">Добавить товар</string>
+
+    <!-- Common validation strings -->
+    <string name="wrong_length_text">Некорректное наименование товара</string>
+
+    <!-- Debts -->
+    <string name="client_debts_view_title">Долги</string>
+    <string name="client_debts_cb_text">Только активные</string>
+    <string name="client_debts_text_view_YES_value">Активные долги: да</string>
+    <string name="client_debts_text_view_NO_value">Активные долги: нет</string>
+    <string name="all_debts_count">Всего долгов: %d</string>
+    <string name="active_debts_count_text">Active debts count</string>
+
+    <!-- Purchaser (aka Client) -->
     <string name="all_clients_tooltip_create_new_receipt_text">Создать новый чек</string>
+    <string name="client_phone_view_prefix">Телефон: %1$s</string>
+    <string name="add_client_activity_title">Добавление покупателя</string>
+    <string name="add_client_btn_text">Добавить</string>
+    <string name="add_client_txt_enter_first_name_label">Введите имя</string>
+    <string name="add_client_txt_enter_last_name_label">Введите фамилию</string>
+    <string name="add_client_txt_enter_phone_label">Введите телефон</string>
+
+    <!-- Goods-->
+    <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите название для сохранения</string>
+    <string name="barcode_result_card_txt_input_good_name_update_hint">Название товара не задано. Введите название для лучшей читаемости</string>
+
+    <string name="good_removal_confirmation_text">Подтвердите удаление товара</string>
+    <string name="good_removal_confirmation_question">Вы действительно хотите удалить товар?</string>
+
+    <!-- Settings -->
     <string name="settings_title">Настройки</string>
     <string name="cd_settings_button">Настройки</string>
     <string name="cd_close_button">Назад</string>
     <string name="cd_flash_button">Включить вспышку</string>
     <string name="prompt_point_at_a_barcode">Наведите камеру на штрихкод</string>
-    <string name="all_clients_activity_title">Список покупателей</string>
-    <string name="pref_category_barcode_detection">Обнаружение штрихкода</string>
-    <string name="prompt_searching">Поиск&#8230;</string>
     <string name="prompt_move_camera_closer">Поднестите камеру ближе к штрихкоду</string>
 
+    <!-- Strings for camera settings -->
     <string name="pref_category_camera">Камера</string>
     <string name="pref_title_rear_camera_preview_size">Размер окна предпросмотра</string>
+
+    <!-- Strings for barcode detection settings -->
+    <string name="pref_category_barcode_detection">Обнаружение штрихкода</string>
     <string name="pref_title_barcode_reticle_width">Ширина сетки штрихкода</string>
-    <string name="pref_summary_barcode_reticle_width">Относительно поля зрения камеры (50%-95%)</string>
     <string name="pref_title_barcode_reticle_height">Высота сетки штрихкода</string>
-    <string name="pref_summary_barcode_reticle_height">Относительно поля зрения камеры (20%-80%)</string>
     <string name="pref_title_enable_barcode_size_check">Проверка размера штрихкода</string>
-    <string name="pref_summary_enable_barcode_size_check">Подсказывает пользователю приблизить камеру, если размер штрихкода слишком маленький</string>
     <string name="pref_title_minimum_barcode_width">Минимальная ширина штрихкода</string>
-    <string name="pref_summary_minimum_barcode_width">Относительно ширины сетки, диапазон составляет от 20% до 80% (применимо только при включенной проверке размера штрихкода)</string>
     <string name="pref_title_delay_loading_barcode_result">Задержка загрузки штрихкода</string>
+    <string name="pref_summary_enable_barcode_size_check">Подсказывает пользователю приблизить камеру, если размер штрихкода слишком маленький</string>
     <string name="pref_summary_delay_loading_barcode_result">Отображает элемент загрузки в течение 2с</string>
-
-    <string name="barcode_field_label_title">Обнаруженый штрихкод</string>
-    <string name="client_phone_view_prefix">Телефон: %1$s</string>
-    <string name="client_debts_text_view_YES_value">Активные долги: да</string>
-    <string name="client_debts_text_view_NO_value">Активные долги: нет</string>
-    <string name="client_debts_view_title">Долги</string>
-    <string name="client_debts_cb_text">Только активные</string>
-    <string name="contact_phone">Контактный телефон</string>
-    <string name="copied">Скопировано</string>
-    <string name="debts_count">Всего долгов: %d</string>
-    <string name="active_debts_count_text">Active debts count</string>
-    <string name="add_client_activity_title">Добавление покупателя</string>
-
-    <string name="add_client_btn_text">Добавить</string>
-    <string name="add_client_txt_enter_first_name_label">Введите имя</string>
-    <string name="add_client_txt_enter_last_name_label">Введите фамилию</string>
-    <string name="add_client_txt_enter_phone_label">Введите телефон</string>
-    <string name="all_clients_search_bar_hint_text">Поиск по имени, фамилии или телефону</string>
-
-    <string name="all_goods_search_bar_hint_text">Поиск по штрихкоду</string>
-    <string name="add_good_btn_text">Добавить товар</string>
-    <string name="add_good_txt_enter_name_label">Введите имя товара</string>
-    <string name="good_detail_text">Изображеие товара</string>
-    <string name="barcode_image_description">Изображение штрихкода</string>
-
-    <string name="barcode_result_card_btn_add">Сохранить</string>
-    <string name="hide_text">Скрыть</string>
-    <string name="barcode_result_card_btn_update">Обновить</string>
-
-    <!-- Goods-->
-    <string name="good_added_text">Товар сохранен</string>
-    <string name="good_updated_text">Товар обновлен</string>
-    <string name="good_removed_text">Товар удален</string>
-
-    <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите название для сохранения</string>
-    <string name="barcode_result_card_txt_input_good_name_update_hint">Название товара не задано. Введите название для лучшей читаемости</string>
-    <string name="name_length_error_text">Некорректное наименование товара</string>
-
-    <string name="name_template_string">Наименование: %s</string>
-    <string name="created_at_template_string">Создан: %s</string>
-    <string name="updated_at_template_string">Обновлен: %s</string>
-
-    <string name="good_removal_confirmation_text">Подтвердите удаление товара</string>
-    <string name="good_removal_confirmation_question">Вы действительно хотите удалить товар?</string>
-    <string name="yes_text">Да</string>
-    <string name="no_text">Нет</string>
+    <string name="pref_summary_barcode_reticle_width">Относительно поля зрения камеры (50%-95%)</string>
+    <string name="pref_summary_barcode_reticle_height">Относительно поля зрения камеры (20%-80%)</string>
+    <string name="pref_summary_minimum_barcode_width">Относительно ширины сетки, диапазон составляет от 20% до 80% (применимо только при включенной проверке размера штрихкода)</string>
+    <string name="prompt_searching">Поиск&#8230;</string>
 </resources>

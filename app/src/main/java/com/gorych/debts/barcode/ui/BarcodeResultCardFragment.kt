@@ -179,7 +179,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
     private fun onClickAddGoodBtn(card: BarcodeResultCard) {
         if (!isValidGoodNameLength()) {
-            toast(R.string.name_length_error_text)
+            toast(R.string.wrong_length_text)
             return
         }
 
@@ -194,7 +194,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
     private fun onClickUpdateGoodBtn(existingGood: Good) {
         if (!isValidGoodNameLength()) {
-            toast(R.string.name_length_error_text)
+            toast(R.string.wrong_length_text)
             return
         }
         lifecycleScope.launch {

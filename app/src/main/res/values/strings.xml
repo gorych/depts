@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Debts</string>
 
-    <!-- Application modes. -->
+    <!-- Application modes -->
     <string name="mode_barcode_scanning_title">Barcode scanning</string>
     <string name="mode_barcode_scanning_subtitle">Read data encoded in most standard barcode formats</string>
     <string name="mode_show_all_clients_title">Clients</string>
@@ -11,80 +12,91 @@
     <string name="mode_show_all_goods_title">Goods</string>
     <string name="mode_show_all_goods_subtitle">Shows detailed info about all goods</string>
 
-    <string name="all_clients_tooltip_create_new_receipt_text">Create new receipt</string>
-    <string name="barcode_field_label_title">Detected barcode</string>
-    <string name="client_phone_view_prefix">Phone: %1$s</string>
+    <!-- Common strings -->
+    <string name="contact_phone_text">Contact phone</string>
+
+    <string name="yes_text">Yes</string>
+    <string name="no_text">No</string>
+    <string name="hide_text">Hide</string>
+    <string name="save_text">Save</string>
+    <string name="update_text">Update</string>
+    <string name="copied_text">Copied</string>
+    <string name="enter_name_txt">Enter name</string>
+
+    <string name="search_text">Search</string>
+    <string name="search_by_barcode_text">Search by barcode</string>
+
+    <string name="barcode_image_description">Barcode image</string>
+
+    <!-- Common string templates -->
+    <string name="name_template_string">Name: %s</string>
+    <string name="created_at_template_string">Created at: %s</string>
+    <string name="updated_at_template_string">Updated at: %s</string>
+
+    <!-- Common good strings -->
+    <string name="good_added_text">Good added</string>
+    <string name="good_updated_text">Good updated</string>
+    <string name="good_removed_text">Good removed</string>
+    <string name="add_good_text">Add good</string>
+
+    <!-- Common validation strings -->
+    <string name="wrong_length_text">Wrong length</string>
+
+    <!-- Debts -->
+    <string name="client_debts_view_title">Debts</string>
+    <string name="client_debts_cb_text">Active debts only</string>
     <string name="client_debts_text_view_YES_value">Active debts: yes</string>
     <string name="client_debts_text_view_NO_value">Active debts: no</string>
+    <string name="all_debts_count">Count of all debts: %d</string>
+    <string name="active_debts_count_text">Active debts count</string>
 
+    <!-- Purchaser (aka Client) -->
+    <string name="all_clients_tooltip_create_new_receipt_text">Create new receipt</string>
+    <string name="client_phone_view_prefix">Phone: %d</string>
+    <string name="add_client_activity_title">Add new purchaser</string>
+    <string name="add_client_btn_text">Add</string>
+    <string name="add_client_txt_enter_first_name_label">Enter first name</string>
+    <string name="add_client_txt_enter_last_name_label">Enter last name</string>
+    <string name="add_client_txt_enter_phone_label">Enter phone</string>
+
+    <!-- Good -->
+    <string name="barcode_result_card_txt_input_good_name_hint">Good not fond. Enter name if want to save</string>
+    <string name="barcode_result_card_txt_input_good_name_update_hint">Good does not have name. Enter name to improve readability</string>
+
+    <string name="good_removal_confirmation_text">Confirm good removal</string>
+    <string name="good_removal_confirmation_question">Are you sure you want to remove the good?</string>
+
+    <!-- Settings -->
     <string name="settings_title">Debts Settings</string>
     <string name="cd_settings_button">Settings</string>
     <string name="cd_close_button">Back</string>
     <string name="cd_flash_button">Toggle camera flash</string>
     <string name="prompt_point_at_a_barcode">Point your camera at a barcode</string>
     <string name="prompt_move_camera_closer">Move closer to search</string>
-    <string name="all_clients_activity_title">All clients</string>
 
-    <!-- Strings for camera settings. -->
+    <!-- Strings for camera settings -->
     <string name="pref_category_camera">Camera</string>
-    <string name="pref_key_rear_camera_preview_size" translatable="false">rcpvs</string>
-    <string name="pref_key_rear_camera_picture_size" translatable="false">rcpts</string>
     <string name="pref_title_rear_camera_preview_size">Rear camera preview size</string>
 
-    <!-- Strings for barcode detection settings. -->
+    <!-- Strings for barcode detection settings -->
     <string name="pref_category_barcode_detection">Barcode detection</string>
-    <string name="pref_key_barcode_reticle_width" translatable="false">barcode_brw</string>
     <string name="pref_title_barcode_reticle_width">Barcode reticle width</string>
-    <string name="pref_summary_barcode_reticle_width" formatted="false">Relative to the camera view width, ranges from 50% to 95%</string>
-    <string name="pref_key_barcode_reticle_height" translatable="false">barcode_brh</string>
     <string name="pref_title_barcode_reticle_height">Barcode reticle height</string>
-    <string name="pref_summary_barcode_reticle_height" formatted="false">Relative to the camera view height, ranges from 20% to 80%</string>
-    <string name="pref_key_enable_barcode_size_check" translatable="false">barcode_ebsc</string>
     <string name="pref_title_enable_barcode_size_check">Enable barcode size check</string>
-    <string name="pref_summary_enable_barcode_size_check">Will prompt user to move camera closer if the detected barcode is too small</string>
-    <string name="pref_key_minimum_barcode_width" translatable="false">barcode_mbw</string>
     <string name="pref_title_minimum_barcode_width">Minimum barcode width</string>
-    <string name="pref_summary_minimum_barcode_width" formatted="false">Relative to the reticle width, ranges from 20% to 80% (only applicable when barcode size check enabled)</string>
-    <string name="pref_key_delay_loading_barcode_result" translatable="false">barcode_dlbr</string>
     <string name="pref_title_delay_loading_barcode_result">Delay loading barcode result</string>
+    <string name="pref_summary_enable_barcode_size_check">Will prompt user to move camera closer if the detected barcode is too small</string>
     <string name="pref_summary_delay_loading_barcode_result">Will show the loading spinner for 2s</string>
+    <string name="pref_summary_barcode_reticle_width" formatted="false">Relative to the camera view width, ranges from 50% to 95%</string>
+    <string name="pref_summary_barcode_reticle_height" formatted="false">Relative to the camera view height, ranges from 20% to 80%</string>
+    <string name="pref_summary_minimum_barcode_width" formatted="false">Relative to the reticle width, ranges from 20% to 80% (only applicable when barcode size check enabled)</string>
     <string name="prompt_searching">Searching&#8230;</string>
-    <string name="client_debts_view_title">Debts</string>
-    <string name="client_debts_cb_text">Active debts only</string>
-    <string name="contact_phone">Contact phone</string>
-    <string name="copied">Copied</string>
-    <string name="debts_count">Count of all debts: %d</string>
-    <string name="active_debts_count_text">Active debts count</string>
-    <string name="add_client_activity_title">Add new purchaser</string>
-    <string name="add_client_btn_text">Add</string>
-    <string name="add_client_txt_enter_first_name_label">Enter first name</string>
-    <string name="add_client_txt_enter_last_name_label">Enter last name</string>
-    <string name="add_client_txt_enter_phone_label">Enter phone</string>
-    <string name="all_clients_search_bar_hint_text">Search</string>
-    <string name="all_goods_search_bar_hint_text">Search by barcode</string>
-    <string name="add_good_btn_text">Add good</string>
-    <string name="add_good_txt_enter_name_label">Enter name</string>
-    <string name="good_detail_text">Good representation</string>
-    <string name="barcode_image_description">Barcode image</string>
 
-    <string name="barcode_result_card_btn_add">Save</string>
-    <string name="hide_text">Hide</string>
-    <string name="barcode_result_card_btn_update">Update</string>
-
-    <string name="good_added_text">Good added</string>
-    <string name="good_updated_text">Good updated</string>
-    <string name="good_removed_text">Good removed</string>
-
-    <string name="barcode_result_card_txt_input_good_name_hint">Good not fond. Enter name if want to save</string>
-    <string name="barcode_result_card_txt_input_good_name_update_hint">Good does not have name. Enter name to improve readability</string>
-    <string name="name_length_error_text">Wrong length</string>
-
-    <string name="name_template_string">Name: %s</string>
-    <string name="created_at_template_string">Created at: %s</string>
-    <string name="updated_at_template_string">Updated at: %s</string>
-    <string name="good_removal_confirmation_text">Confirm good removal</string>
-    <string name="good_removal_confirmation_question">Are you sure you want to remove the good?</string>
-    <string name="yes_text">Yes</string>
-    <string name="no_text">No</string>
-
+    <string name="pref_key_rear_camera_preview_size" translatable="false">rcpvs</string>
+    <string name="pref_key_rear_camera_picture_size" translatable="false">rcpts</string>
+    <string name="pref_key_barcode_reticle_width" translatable="false">barcode_brw</string>
+    <string name="pref_key_barcode_reticle_height" translatable="false">barcode_brh</string>
+    <string name="pref_key_enable_barcode_size_check" translatable="false">barcode_ebsc</string>
+    <string name="pref_key_minimum_barcode_width" translatable="false">barcode_mbw</string>
+    <string name="pref_key_delay_loading_barcode_result" translatable="false">barcode_dlbr</string>
 </resources>

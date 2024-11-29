@@ -24,7 +24,7 @@
             android:id="@+id/client_info_iv_contact_phone_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:contentDescription="@string/contact_phone"
+            android:contentDescription="@string/contact_phone_text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_contact_phone_24" />

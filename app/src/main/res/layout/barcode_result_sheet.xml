@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="@string/barcode_result_card_btn_add" />
+                    android:text="@string/save_text" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/barcode_result_card_btn_ok"
@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="@string/barcode_result_card_btn_update"
+                    android:text="@string/update_text"
                     android:visibility="gone" />
 
             </LinearLayout>

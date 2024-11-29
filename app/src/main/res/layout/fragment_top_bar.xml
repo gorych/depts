@@ -29,7 +29,7 @@
         android:id="@+id/top_bar_fragment_right_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:contentDescription="@string/contact_phone"
+        android:contentDescription="@string/contact_phone_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

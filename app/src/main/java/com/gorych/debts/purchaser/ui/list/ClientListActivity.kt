@@ -41,7 +41,7 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
         purchaserListPresenter = PurchaserListPresenter(this, PurchaserRepository(purchaserDao))
 
         initTopBarFragment(
-            R.string.all_clients_activity_title,
+            R.string.mode_show_all_clients_title,
             R.drawable.ic_people_24
         )
         initItemsView()

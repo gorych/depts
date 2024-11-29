@@ -51,7 +51,7 @@ class MainActivity : TopBarActivityBase(), ApplicationModeContract.View {
             val allDebtsCount = debtRepository.getAllCount()
             text = allDebtsCount.toString()
             setOnClickListener {
-                toast(getString(R.string.debts_count, allDebtsCount))
+                toast(getString(R.string.all_debts_count, allDebtsCount))
             }
         }
     }

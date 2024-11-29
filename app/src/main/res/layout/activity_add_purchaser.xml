@@ -57,9 +57,9 @@
             android:layout_marginBottom="8dp"
             android:hint="@string/add_client_txt_enter_phone_label"
             app:counterEnabled="true"
-            app:counterMaxLength="10"
-            app:placeholderText="+375 29 1514801"
-            app:prefixText="+375">
+            app:counterMaxLength="9"
+            app:helperText="+375 291514801"
+            app:prefixText="+375 ">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
