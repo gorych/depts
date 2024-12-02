@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/add_purchaser"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,36 +22,46 @@
         android:paddingHorizontal="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_purchaser_layout_input_first_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:hint="@string/add_client_txt_enter_first_name_label"
             app:counterEnabled="true"
-            app:counterMaxLength="64">
+            app:counterMaxLength="64"
+            app:helperText="@string/required_text">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_purchaser_input_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapSentences" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_purchaser_layout_input_last_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:hint="@string/add_client_txt_enter_last_name_label"
             app:counterEnabled="true"
-            app:counterMaxLength="64">
+            app:counterMaxLength="64"
+            app:helperText="обязательно для заполнения">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_purchaser_input_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="textCapSentences" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_purchaser_layout_input_phone"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -62,6 +72,7 @@
             app:prefixText="+375 ">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_purchaser_input_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone" />
@@ -69,7 +80,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/material_button"
+            android:id="@+id/add_purchaser_btn_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"

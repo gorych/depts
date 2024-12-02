@@ -10,11 +10,12 @@ import com.gorych.debts.core.adapter.BaseAdapter
 import com.gorych.debts.core.adapter.BaseViewHolder
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
+import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.ui.detail.ClientDetailActivity
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
 
-class PurchaserItemAdapter :
+class PurchaserItemAdapter(private val view: PurchaserListContract.View) :
     BaseAdapter<Purchaser, PurchaserItemAdapter.PurchaserItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PurchaserItemViewHolder {
@@ -24,6 +25,12 @@ class PurchaserItemAdapter :
                     R.layout.item_activity_all_clients, parent, false
                 )
         )
+    }
+
+    override fun removeItem(position: Int) {
+        val selectedPurchaser = items[position]
+        view.removeItem(selectedPurchaser)
+        super.removeItem(position)
     }
 
     inner class PurchaserItemViewHolder(itemVIew: View) : BaseViewHolder<Purchaser>(itemVIew) {

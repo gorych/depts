@@ -17,12 +17,12 @@ import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.adapter.BaseAdapter
 import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeCallback
+import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
-import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
 import kotlinx.coroutines.launch
@@ -43,7 +43,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_all_goods)
 
-        itemsRecyclerView = findViewById(R.id.all_goods_rv_items)
+        initItemsRecyclerView()
 
         ViewCompat.setOnApplyWindowInsetsListener(itemsRecyclerView) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -51,7 +51,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             insets
         }
 
-        initGoodItemAdapter()
+        goodItemAdapter = GoodItemAdapter({ good -> onItemClick(good) }, this)
 
         initTopBarFragment(
             R.string.mode_show_all_goods_title,
@@ -70,8 +70,14 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         goodItemAdapter.updateItems(goods)
     }
 
-    private fun initGoodItemAdapter() {
-        goodItemAdapter = GoodItemAdapter({ good -> onItemClick(good) }, this)
+    override fun removeItem(good: Good) {
+        lifecycleScope.launch {
+            goodRepository.remove(good)
+        }
+    }
+
+    private fun initItemsRecyclerView() {
+        itemsRecyclerView = findViewById(R.id.all_goods_rv_items)
         ItemTouchHelper(
             RecyclerViewItemRightSwipeCallback(
                 this,
@@ -81,19 +87,14 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     }
 
     private fun showConfirmationRemovalDialog(position: Int) {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.good_removal_confirmation_text)
-            .setMessage(R.string.good_removal_confirmation_question)
-            .setNegativeButton(R.string.no_text) { dialog, _ ->
-                goodItemAdapter.notifyItemChanged(position)
-                dialog.dismiss()
-            }
-            .setPositiveButton(R.string.yes_text) { dialog, _ ->
-                goodItemAdapter.removeItem(position)
-                toast(R.string.good_removed_text)
-                dialog.dismiss()
-            }
-            .show()
+        RecyclerViewItemConfirmationRemovalDialog(
+            this,
+            goodItemAdapter,
+            position,
+            R.string.good_removal_confirmation_text,
+            R.string.good_removal_confirmation_question,
+            R.string.good_removed_text
+        ).show()
     }
 
     private fun initItemsView() {
@@ -112,12 +113,6 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
                 dialog.dismiss()
             }
             .show()
-    }
-
-    override fun removeItem(good: Good) {
-        lifecycleScope.launch {
-            goodRepository.remove(good)
-        }
     }
 
     //region Good detail dialog

@@ -8,7 +8,7 @@ class PurchaserListPresenter(
     private val purchaserRepository: PurchaserRepository,
 ) : PurchaserListContract.Presenter {
 
-    override fun loadInitialList() {
+    override suspend fun loadInitialList() {
         val items = purchaserRepository.getFirstBatch(BATCH_SIZE)
         view.populateItems(items)
     }

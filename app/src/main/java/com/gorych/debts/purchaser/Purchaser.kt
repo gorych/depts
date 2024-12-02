@@ -10,12 +10,19 @@ import java.util.UUID
 @Parcelize
 @Entity(tableName = "purchaser")
 data class Purchaser(
-    @PrimaryKey val id: UUID = UUID.randomUUID(),
+    @PrimaryKey val id: UUID,
     @ColumnInfo val name: String,
     @ColumnInfo val surname: String,
     @ColumnInfo val phoneNumber: String?
 ) : Parcelable {
-    fun fullName(): String = "$name $surname"
+    constructor(name: String, surname: String, phoneNumber: String?) : this(
+        UUID.randomUUID(),
+        name,
+        surname,
+        phoneNumber
+    )
+
+    fun fullName(): String = "$surname $name"
 
     //TODO
     fun hasActiveDebts(): Boolean = true

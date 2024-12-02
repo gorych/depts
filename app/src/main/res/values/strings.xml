@@ -33,14 +33,12 @@
     <string name="created_at_template_string">Created at: %s</string>
     <string name="updated_at_template_string">Updated at: %s</string>
 
-    <!-- Common good strings -->
-    <string name="good_added_text">Good added</string>
-    <string name="good_updated_text">Good updated</string>
-    <string name="good_removed_text">Good removed</string>
-    <string name="add_good_text">Add good</string>
-
     <!-- Common validation strings -->
     <string name="wrong_length_text">Wrong length</string>
+    <string name="required_text">required</string>
+    <string name="not_valid_first_name">Not valid first name provided</string>
+    <string name="not_valid_last_name">Not valid last name provided</string>
+    <string name="not_valid_phone">Not valid phone provided</string>
 
     <!-- Debts -->
     <string name="client_debts_view_title">Debts</string>
@@ -51,15 +49,25 @@
     <string name="active_debts_count_text">Active debts count</string>
 
     <!-- Purchaser (aka Client) -->
+    <string name="purchaser_added_txt">Purchaser added successfully</string>
+    <string name="purchaser_removed_text">Purchaser removed</string>
     <string name="all_clients_tooltip_create_new_receipt_text">Create new receipt</string>
-    <string name="client_phone_view_prefix">Phone: %d</string>
+    <string name="client_phone_view_prefix">Phone: %1$s</string>
     <string name="add_client_activity_title">Add new purchaser</string>
     <string name="add_client_btn_text">Add</string>
     <string name="add_client_txt_enter_first_name_label">Enter first name</string>
     <string name="add_client_txt_enter_last_name_label">Enter last name</string>
     <string name="add_client_txt_enter_phone_label">Enter phone</string>
+    <string name="add_one_more_purchaser_question">Do you want to add one more purchaser?</string>
+
+    <string name="purchaser_removal_confirmation_text">Confirm purchaser removal</string>
+    <string name="purchaser_removal_confirmation_question">Are you sure you want to remove the purchaser?</string>
 
     <!-- Good -->
+    <string name="good_added_text">Good added</string>
+    <string name="good_updated_text">Good updated</string>
+    <string name="good_removed_text">Good removed</string>
+    <string name="add_good_text">Add good</string>
     <string name="barcode_result_card_txt_input_good_name_hint">Good not fond. Enter name if want to save</string>
     <string name="barcode_result_card_txt_input_good_name_update_hint">Good does not have name. Enter name to improve readability</string>
 

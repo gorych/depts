@@ -33,14 +33,12 @@
     <string name="created_at_template_string">Создан: %s</string>
     <string name="updated_at_template_string">Обновлен: %s</string>
 
-    <!-- Common good strings -->
-    <string name="good_added_text">Товар сохранен</string>
-    <string name="good_updated_text">Товар обновлен</string>
-    <string name="good_removed_text">Товар удален</string>
-    <string name="add_good_text">Добавить товар</string>
-
     <!-- Common validation strings -->
     <string name="wrong_length_text">Некорректное наименование товара</string>
+    <string name="required_text">обязательно для заполнения</string>
+    <string name="not_valid_first_name">Имя введено неверно</string>
+    <string name="not_valid_last_name">Фамилия введена неверно</string>
+    <string name="not_valid_phone">Телефон введен неверно</string>
 
     <!-- Debts -->
     <string name="client_debts_view_title">Долги</string>
@@ -51,6 +49,8 @@
     <string name="active_debts_count_text">Active debts count</string>
 
     <!-- Purchaser (aka Client) -->
+    <string name="purchaser_added_txt">Покупатель успешно добавлен</string>
+    <string name="purchaser_removed_text">Покупатель удален</string>
     <string name="all_clients_tooltip_create_new_receipt_text">Создать новый чек</string>
     <string name="client_phone_view_prefix">Телефон: %1$s</string>
     <string name="add_client_activity_title">Добавление покупателя</string>
@@ -58,8 +58,15 @@
     <string name="add_client_txt_enter_first_name_label">Введите имя</string>
     <string name="add_client_txt_enter_last_name_label">Введите фамилию</string>
     <string name="add_client_txt_enter_phone_label">Введите телефон</string>
+    <string name="add_one_more_purchaser_question">Хотите добавить еще одного покупателя?</string>
+    <string name="purchaser_removal_confirmation_text">Подтвердите удаление покупателя</string>
+    <string name="purchaser_removal_confirmation_question">Вы действительно хотите удалить покупателя?</string>
 
-    <!-- Goods-->
+    <!-- Good-->
+    <string name="good_added_text">Товар сохранен</string>
+    <string name="good_updated_text">Товар обновлен</string>
+    <string name="good_removed_text">Товар удален</string>
+    <string name="add_good_text">Добавить товар</string>
     <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите название для сохранения</string>
     <string name="barcode_result_card_txt_input_good_name_update_hint">Название товара не задано. Введите название для лучшей читаемости</string>
 

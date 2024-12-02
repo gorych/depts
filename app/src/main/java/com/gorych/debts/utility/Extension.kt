@@ -2,6 +2,7 @@ package com.gorych.debts.utility
 
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.textfield.TextInputEditText
 
 fun View.hide() {
     visibility = View.GONE
@@ -21,4 +22,8 @@ fun View.isGone(): Boolean {
 
 fun TextView.textAsString(): String {
     return text.toString()
+}
+
+fun TextInputEditText.clearText() {
+    text = null
 }

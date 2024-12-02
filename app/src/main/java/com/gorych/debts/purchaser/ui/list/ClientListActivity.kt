@@ -5,17 +5,23 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
-import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.config.db.AppDatabase
+import com.gorych.debts.core.activity.TopBarActivityBase
+import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeCallback
+import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
+import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
 import com.gorych.debts.purchaser.repository.PurchaserRepository
 import com.gorych.debts.purchaser.ui.add.AddClientActivity
+import kotlinx.coroutines.launch
 
 class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
 
@@ -23,12 +29,17 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
     private lateinit var itemsRecyclerView: RecyclerView
     private lateinit var purchaserAdapter: PurchaserItemAdapter
 
+    private val purchaserRepository: PurchaserRepository by lazy {
+        val database = AppDatabase.getDatabase(applicationContext)
+        PurchaserRepository(database.purchaserDao())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         setContentView(R.layout.activity_all_clients)
 
-        itemsRecyclerView = findViewById(R.id.all_clients_rv_items)
+        initItemsRecyclerView()
 
         ViewCompat.setOnApplyWindowInsetsListener(itemsRecyclerView) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -36,9 +47,8 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
             insets
         }
 
-        purchaserAdapter = PurchaserItemAdapter()
-        val purchaserDao = AppDatabase.getDatabase(this).purchaserDao()
-        purchaserListPresenter = PurchaserListPresenter(this, PurchaserRepository(purchaserDao))
+        purchaserAdapter = PurchaserItemAdapter(this)
+        purchaserListPresenter = PurchaserListPresenter(this, purchaserRepository)
 
         initTopBarFragment(
             R.string.mode_show_all_clients_title,
@@ -46,15 +56,38 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
         )
         initItemsView()
 
-        purchaserListPresenter.loadInitialList()
+        lifecycleScope.launch {
+            purchaserListPresenter.loadInitialList()
+        }
 
         findViewById<FloatingActionButton>(R.id.all_clients_fab_add_person).setOnClickListener {
-            this.startActivity(Intent(this, AddClientActivity::class.java))
+            this.startActivity(Intent(this, AddClientActivity::class.java).apply {
+                putExtra(
+                    IntentExtras.PREVIOUS_ACTIVITY_NAME,
+                    this@ClientListActivity::class.java.name
+                )
+            })
         }
+    }
+
+    private fun initItemsRecyclerView() {
+        itemsRecyclerView = findViewById(R.id.all_clients_rv_items)
+        ItemTouchHelper(
+            RecyclerViewItemRightSwipeCallback(
+                this,
+                R.drawable.ic_delete_forever_24
+            ) { position -> showConfirmationRemovalDialog(position) }
+        ).apply { attachToRecyclerView(itemsRecyclerView) }
     }
 
     override fun populateItems(purchasers: List<Purchaser>) {
         purchaserAdapter.updateItems(purchasers)
+    }
+
+    override fun removeItem(purchaser: Purchaser) {
+        lifecycleScope.launch {
+            purchaserRepository.remove(purchaser)
+        }
     }
 
     private fun initItemsView() {
@@ -63,5 +96,16 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
             adapter = purchaserAdapter
             setHasFixedSize(true)
         }
+    }
+
+    private fun showConfirmationRemovalDialog(position: Int) {
+        RecyclerViewItemConfirmationRemovalDialog(
+            this,
+            purchaserAdapter,
+            position,
+            R.string.purchaser_removal_confirmation_text,
+            R.string.purchaser_removal_confirmation_question,
+            R.string.purchaser_removed_text
+        ).show()
     }
 }
