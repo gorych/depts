@@ -70,16 +70,6 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
         }
     }
 
-    private fun initItemsRecyclerView() {
-        itemsRecyclerView = findViewById(R.id.all_clients_rv_items)
-        ItemTouchHelper(
-            RecyclerViewItemRightSwipeCallback(
-                this,
-                R.drawable.ic_delete_forever_24
-            ) { position -> showConfirmationRemovalDialog(position) }
-        ).apply { attachToRecyclerView(itemsRecyclerView) }
-    }
-
     override fun populateItems(purchasers: List<Purchaser>) {
         purchaserAdapter.updateItems(purchasers)
     }
@@ -88,6 +78,16 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
         lifecycleScope.launch {
             purchaserRepository.remove(purchaser)
         }
+    }
+
+    private fun initItemsRecyclerView() {
+        itemsRecyclerView = findViewById(R.id.all_clients_rv_items)
+        ItemTouchHelper(
+            RecyclerViewItemRightSwipeCallback(
+                this,
+                R.drawable.ic_delete_forever_24
+            ) { position -> showConfirmationRemovalDialog(position) }
+        ).apply { attachToRecyclerView(itemsRecyclerView) }
     }
 
     private fun initItemsView() {
