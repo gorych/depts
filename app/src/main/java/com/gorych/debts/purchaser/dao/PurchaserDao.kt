@@ -23,7 +23,7 @@ interface PurchaserDao {
     @Query("SELECT * FROM purchaser WHERE id = :id")
     suspend fun findById(id: UUID): Purchaser?
 
-    @Query("SELECT * FROM purchaser")
-    suspend fun findAll(): List<Purchaser>
+    @Query("SELECT * FROM purchaser ORDER BY surname, name")
+    suspend fun findAllSortedBySurnameAndName(): List<Purchaser>
 
 }

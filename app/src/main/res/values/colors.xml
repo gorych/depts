@@ -34,4 +34,14 @@
     <color name="purple_lighten_3">#ce93d8</color>
     <color name="purple_lighten_2">#ba68c8</color>
     <color name="stroke_color">#40FFFFFF</color>
+    <color name="red_lighten_4">#FFCDD2</color>
+    <color name="red_lighten_3">#ef9a9a</color>
+    <color name="pink_lighten_1">#ec407a</color>
+    <color name="pink_lighten_2">#f06292</color>
+    <color name="red_lighten_2">#e57373</color>
+    <color name="red_lighten_5">#ffebee</color>
+    <color name="red_lighten_1">#ef5350</color>
+    <color name="red_accent_2">#ff5252</color>
+    <color name="red_darken_1">#e53935</color>
+    <color name="red">#f44336</color>
 </resources>

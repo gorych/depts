@@ -30,6 +30,7 @@
             android:hint="@string/add_client_txt_enter_first_name_label"
             app:counterEnabled="true"
             app:counterMaxLength="64"
+            app:endIconMode="clear_text"
             app:helperText="@string/required_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -49,7 +50,8 @@
             android:hint="@string/add_client_txt_enter_last_name_label"
             app:counterEnabled="true"
             app:counterMaxLength="64"
-            app:helperText="обязательно для заполнения">
+            app:endIconMode="clear_text"
+            app:helperText="@string/required_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/add_purchaser_input_last_name"
@@ -67,8 +69,9 @@
             android:layout_marginBottom="8dp"
             android:hint="@string/add_client_txt_enter_phone_label"
             app:counterEnabled="true"
-            app:counterMaxLength="9"
-            app:helperText="+375 291514801"
+            app:counterMaxLength="14"
+            app:endIconMode="clear_text"
+            app:helperText="@string/phone_example_text"
             app:prefixText="+375 ">
 
             <com.google.android.material.textfield.TextInputEditText

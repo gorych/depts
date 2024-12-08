@@ -13,7 +13,7 @@ class PurchaserRepository(private val purchaserDao: PurchaserDao) {
         purchaserDao.delete(purchaser)
     }
 
-    suspend fun getFirstBatch(size: Int): List<Purchaser> {
-        return purchaserDao.findAll()
+    suspend fun getAll(): List<Purchaser> {
+        return purchaserDao.findAllSortedBySurnameAndName()
     }
 }

@@ -16,7 +16,7 @@ import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.adapter.BaseAdapter
-import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeCallback
+import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeDeleteCallback
 import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
@@ -79,9 +79,8 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     private fun initItemsRecyclerView() {
         itemsRecyclerView = findViewById(R.id.all_goods_rv_items)
         ItemTouchHelper(
-            RecyclerViewItemRightSwipeCallback(
+            RecyclerViewItemRightSwipeDeleteCallback(
                 this,
-                R.drawable.ic_delete_forever_24
             ) { position -> showConfirmationRemovalDialog(position) }
         ).apply { attachToRecyclerView(itemsRecyclerView) }
     }

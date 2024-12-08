@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
-import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeCallback
+import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeDeleteCallback
 import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
@@ -83,9 +83,8 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
     private fun initItemsRecyclerView() {
         itemsRecyclerView = findViewById(R.id.all_clients_rv_items)
         ItemTouchHelper(
-            RecyclerViewItemRightSwipeCallback(
+            RecyclerViewItemRightSwipeDeleteCallback(
                 this,
-                R.drawable.ic_delete_forever_24
             ) { position -> showConfirmationRemovalDialog(position) }
         ).apply { attachToRecyclerView(itemsRecyclerView) }
     }

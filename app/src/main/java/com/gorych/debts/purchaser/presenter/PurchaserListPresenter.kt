@@ -9,11 +9,7 @@ class PurchaserListPresenter(
 ) : PurchaserListContract.Presenter {
 
     override suspend fun loadInitialList() {
-        val items = purchaserRepository.getFirstBatch(BATCH_SIZE)
+        val items = purchaserRepository.getAll()
         view.populateItems(items)
-    }
-
-    companion object {
-        const val BATCH_SIZE = 100
     }
 }

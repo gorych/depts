@@ -49,6 +49,7 @@
     <string name="active_debts_count_text">Active debts count</string>
 
     <!-- Purchaser (aka Client) -->
+    <string name="phone_example_text">например, +375 (xx) xxx-xx-xx</string>
     <string name="purchaser_added_txt">Покупатель успешно добавлен</string>
     <string name="purchaser_removed_text">Покупатель удален</string>
     <string name="all_clients_tooltip_create_new_receipt_text">Создать новый чек</string>

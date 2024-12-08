@@ -2,6 +2,7 @@ package com.gorych.debts.purchaser.ui.add
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,7 +14,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
-import com.gorych.debts.core.validation.OnTextChangedWatcher
+import com.gorych.debts.core.validation.TextInputValidator
+import com.gorych.debts.core.watcher.AbstractOnTextChangedWatcher
+import com.gorych.debts.core.watcher.OnTextChangedWatcher
 import com.gorych.debts.home.MainActivity
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
@@ -21,7 +24,7 @@ import com.gorych.debts.purchaser.repository.PurchaserRepository
 import com.gorych.debts.purchaser.validation.FirstNameValidator
 import com.gorych.debts.purchaser.validation.LastNameValidator
 import com.gorych.debts.purchaser.validation.PhoneValidator
-import com.gorych.debts.core.validation.TextInputValidator
+import com.gorych.debts.utility.PhoneNumberUtils
 import com.gorych.debts.utility.clearText
 import com.gorych.debts.utility.textAsString
 import kotlinx.coroutines.launch
@@ -33,6 +36,8 @@ class AddClientActivity : TopBarActivityBase() {
     private lateinit var inputFirstName: TextInputEditText
     private lateinit var inputLastName: TextInputEditText
     private lateinit var inputPhone: TextInputEditText
+
+    private lateinit var layoutPhoneInput: TextInputLayout
 
     private lateinit var inputFields: List<TextInputEditText>
     private var inputFieldValidators: MutableList<TextInputValidator> = mutableListOf()
@@ -89,8 +94,23 @@ class AddClientActivity : TopBarActivityBase() {
 
     private fun initPhoneComponents(view: View) {
         inputPhone = view.findViewById(R.id.add_purchaser_input_phone)
-        val layoutPhoneInput: TextInputLayout =
-            view.findViewById(R.id.add_purchaser_layout_input_phone)
+        inputPhone.addTextChangedListener(object : AbstractOnTextChangedWatcher() {
+            private var isFormatting: Boolean = false
+
+            override fun afterTextChanged(text: Editable?) {
+                if (isFormatting) {
+                    return
+                }
+                isFormatting = true
+
+                val formattedPhoneString = PhoneNumberUtils.format(text)
+                inputPhone.setText(formattedPhoneString)
+                inputPhone.setSelection(formattedPhoneString.length)
+
+                isFormatting = false
+            }
+        })
+        layoutPhoneInput = view.findViewById(R.id.add_purchaser_layout_input_phone)
 
         val phoneValidator: TextInputValidator =
             PhoneValidator(inputPhone, layoutPhoneInput, this)
@@ -115,6 +135,7 @@ class AddClientActivity : TopBarActivityBase() {
         inputFirstName = view.findViewById(R.id.add_purchaser_input_first_name)
         val layoutFirstNameInput: TextInputLayout =
             view.findViewById(R.id.add_purchaser_layout_input_first_name)
+        layoutFirstNameInput.prefixText
 
         val firstNameValidator: TextInputValidator =
             FirstNameValidator(inputFirstName, layoutFirstNameInput, this)
@@ -129,9 +150,17 @@ class AddClientActivity : TopBarActivityBase() {
                 Purchaser(
                     inputFirstName.textAsString(),
                     inputLastName.textAsString(),
-                    inputPhone.textAsString()
+                    getPhoneNumber()
                 )
             )
+        }
+    }
+
+    private fun getPhoneNumber(): String? {
+        val phone = inputPhone.text
+        return when {
+            phone.isNullOrEmpty() -> null
+            else -> "${layoutPhoneInput.prefixText}$phone"
         }
     }
 

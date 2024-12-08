@@ -1,7 +1,8 @@
-package com.gorych.debts.core.validation
+package com.gorych.debts.core.watcher
 
 import android.text.Editable
 import android.text.TextWatcher
+import com.gorych.debts.core.validation.TextInputValidator
 
 class OnTextChangedWatcher(private val validator: TextInputValidator) : TextWatcher {
     override fun afterTextChanged(s: Editable?) {
