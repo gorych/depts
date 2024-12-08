@@ -117,7 +117,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     //region Good detail dialog
 
     private fun buildGoodDetailDialogView(selectedGood: Good): View? {
-        return layoutInflater.inflate(R.layout.good_detail_dialog_view, null).also {
+        return layoutInflater.inflate(R.layout.dialog_good_detail_view, null).also {
             configureDialogBarcodeImage(it, selectedGood)
             configureDialogBarcodeComponent(it, selectedGood)
             configureDialogGoodCreatedAtComponent(it, selectedGood)
