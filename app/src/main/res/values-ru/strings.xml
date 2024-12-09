@@ -34,6 +34,7 @@
     <string name="name_template_string">Наименование: %s</string>
     <string name="created_at_template_string">Создан: %s</string>
     <string name="updated_at_template_string">Обновлен: %s</string>
+    <string name="measurement_unit_template_string">Ед. измерения: %s</string>
 
     <!-- Common validation strings -->
     <string name="wrong_length_text">Некорректное наименование товара</string>

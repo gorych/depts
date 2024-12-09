@@ -122,6 +122,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             configureDialogBarcodeComponent(it, selectedGood)
             configureDialogGoodCreatedAtComponent(it, selectedGood)
             configureDialogGoodUpdatedAt(it, selectedGood)
+            configureDialogGoodMeasurementUnit(it, selectedGood)
             configureDialogGoodName(it, selectedGood)
         }
     }
@@ -174,6 +175,18 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
                 }.show()
         } ?: run {
             tvUpdatedAt.hide()
+        }
+    }
+
+    private fun configureDialogGoodMeasurementUnit(dialogView: View, selectedGood: Good) {
+        val tvUnit: TextView = dialogView.findViewById(R.id.good_details_tv_measurement_unit)
+        selectedGood.measurementUnit.let {
+            tvUnit.apply {
+                text = getString(
+                    R.string.measurement_unit_template_string,
+                    getString(selectedGood.measurementUnit.stringResourceId()).lowercase()
+                )
+            }.show()
         }
     }
 
