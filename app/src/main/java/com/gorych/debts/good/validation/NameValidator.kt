@@ -13,7 +13,7 @@ class NameValidator(
     context: Context,
 ) : EditTextValidatorBase(input, inputLayout, context, R.string.wrong_length_text) {
 
-    override fun isValid(): Boolean {
+    override fun condition(): Boolean {
         val goodName = input.textAsString()
         return goodName.isEmpty()
                 || goodName.length <= inputLayout.counterMaxLength

@@ -9,10 +9,10 @@ import com.gorych.debts.core.validation.EditTextValidatorBase
 class PhoneValidator(
     private val input: TextInputEditText,
     private val inputLayout: TextInputLayout,
-    context: Context
+    context: Context,
 ) : EditTextValidatorBase(input, inputLayout, context, R.string.not_valid_phone) {
 
-    override fun isValid(): Boolean {
+    override fun condition(): Boolean {
         val text = input.text
         return text.isNullOrEmpty()
                 || (text.isNotBlank() && text.length == inputLayout.counterMaxLength)

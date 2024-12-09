@@ -47,14 +47,18 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     private lateinit var goodNameTextInputLayout: TextInputLayout
 
     private lateinit var goodMeasurementUnitDropdown: AutoCompleteTextView
+    private lateinit var goodMeasurementUnitDropdownLayout: TextInputLayout
     private lateinit var goodMeasurementUnitDropdownItems: List<GoodUnitDropdownItem>
 
+    private var goodInputLayouts: MutableList<TextInputLayout> = mutableListOf()
     private var inputFieldValidators: MutableList<TextInputValidator> = mutableListOf()
 
     private lateinit var titleTextView: TextView
     private lateinit var secondaryTextView: TextView
-    private lateinit var supportingTextView: TextView
+    private lateinit var supportingLine1TextView: TextView
+    private lateinit var secondLevelTextViews: List<TextView>
 
+    private lateinit var supportingLine2TextView: TextView
     private lateinit var addGoodBtn: MaterialButton
     private lateinit var okBtn: MaterialButton
     private lateinit var updateBtn: MaterialButton
@@ -72,6 +76,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
         initTextInputs(view)
         initMeasurementUnitDropdown(view)
+
         initTextViews(view)
         initActionButtons(view)
 
@@ -86,9 +91,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
     private fun initTextInputs(view: View) {
         goodNameTextInput = view.findViewById(R.id.barcode_result_card_txt_good_name)
+
         goodNameTextInputLayout =
-            view.findViewById<TextInputLayout?>(R.id.barcode_result_card_txt_layout_good_name)
+            view.findViewById<TextInputLayout>(R.id.barcode_result_card_txt_layout_good_name)
                 .apply { hint = getString(R.string.barcode_result_card_txt_input_good_name_hint) }
+        goodInputLayouts.add(goodNameTextInputLayout)
 
         val goodNameValidator =
             NameValidator(goodNameTextInput, goodNameTextInputLayout, requireContext())
@@ -108,14 +115,17 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
             goodMeasurementUnitDropdownItems
         )
 
-        val goodUnitDropdownLayout =
-            view.findViewById<TextInputLayout>(R.id.barcode_result_card_txt_layout_good_measurement_unit)
-        goodMeasurementUnitDropdown = goodUnitDropdownLayout.editText as AutoCompleteTextView
+        goodMeasurementUnitDropdownLayout =
+            view.findViewById(R.id.barcode_result_card_txt_layout_good_measurement_unit)
+        goodInputLayouts.add(goodMeasurementUnitDropdownLayout)
+
+        goodMeasurementUnitDropdown =
+            goodMeasurementUnitDropdownLayout.editText as AutoCompleteTextView
         goodMeasurementUnitDropdown.setAdapter(adapter)
 
         val unitValidator = MeasurementUnitValidator(
             goodMeasurementUnitDropdown,
-            goodUnitDropdownLayout,
+            goodMeasurementUnitDropdownLayout,
             requireContext()
         )
         inputFieldValidators.add(unitValidator)
@@ -125,7 +135,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     private fun initTextViews(view: View) {
         titleTextView = view.findViewById(R.id.barcode_result_card_tv_title)
         secondaryTextView = view.findViewById(R.id.barcode_result_card_tv_secondary_text)
-        supportingTextView = view.findViewById(R.id.barcode_result_card_tv_supporting_text)
+        supportingLine1TextView = view.findViewById(R.id.barcode_result_card_tv_supporting_line_1)
+        supportingLine2TextView = view.findViewById(R.id.barcode_result_card_tv_supporting_line_2)
+
+        secondLevelTextViews =
+            listOf(secondaryTextView, supportingLine1TextView, supportingLine2TextView)
     }
 
     private fun initActionButtons(view: View) {
@@ -160,7 +174,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         val barcodeBitmap = createBitmapFromGood(good)
         updateBarcodeImageView(barcodeBitmap)
 
-        goodNameTextInputLayout.hide()
+        goodInputLayouts.forEach(TextInputLayout::hide)
 
         secondaryTextView.text = good.createdAtFormatted
         secondaryTextView.show()
@@ -169,6 +183,9 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
             good.name.isNullOrEmpty() -> configureComponentsForExistingGoodWithoutName(good)
             else -> configureComponentsForExistingGoodWithName(good)
         }
+
+        supportingLine2TextView.text = getString(good.measurementUnit.stringResourceId())
+        supportingLine2TextView.show()
     }
 
     private fun configureComponentsForExistingGoodWithoutName(good: Good) {
@@ -176,7 +193,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
             getString(R.string.barcode_result_card_txt_input_good_name_update_hint)
         goodNameTextInputLayout.show()
 
-        supportingTextView.hide()
+        supportingLine1TextView.hide()
 
         updateBtn.setOnClickListener { onClickUpdateGoodBtn(good) }
         hideActionButtonsExceptOf(updateBtn)
@@ -185,8 +202,8 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     private fun configureComponentsForExistingGoodWithName(good: Good) {
         goodNameTextInputLayout.hide()
 
-        supportingTextView.text = good.name
-        supportingTextView.show()
+        supportingLine1TextView.text = good.name
+        supportingLine1TextView.show()
 
         hideActionButtonsExceptOf(okBtn)
     }
@@ -195,10 +212,8 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         val barcodeBitmap = convertBytesToBitmap(card.imgData)
         updateBarcodeImageView(barcodeBitmap)
 
-        goodNameTextInputLayout.show()
-
-        secondaryTextView.hide()
-        supportingTextView.hide()
+        goodInputLayouts.forEach(TextInputLayout::show)
+        secondLevelTextViews.forEach(TextView::hide)
 
         addGoodBtn.setOnClickListener { onClickAddGoodBtn(card) }
         hideActionButtonsExceptOf(addGoodBtn)
