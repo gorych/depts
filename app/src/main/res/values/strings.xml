@@ -15,16 +15,18 @@
     <!-- Common strings -->
     <string name="contact_phone_text">Contact phone</string>
 
-    <string name="yes_text">Yes</string>
-    <string name="no_text">No</string>
-    <string name="hide_text">Hide</string>
-    <string name="save_text">Save</string>
-    <string name="update_text">Update</string>
-    <string name="copied_text">Copied</string>
-    <string name="enter_name_txt">Enter name</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hide">Hide</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="copied">Copied</string>
+    <string name="enter_name">Enter name</string>
+    <string name="proceed">Continue</string>
+    <string name="cancel">Cancel</string>
 
-    <string name="search_text">Search</string>
-    <string name="search_by_barcode_text">Search by barcode</string>
+    <string name="search">Search</string>
+    <string name="search_by_barcode">Search by barcode</string>
 
     <string name="barcode_image_description">Barcode image</string>
 
@@ -47,8 +49,10 @@
     <string name="client_debts_text_view_NO_value">Active debts: no</string>
     <string name="all_debts_count">Count of all debts: %d</string>
     <string name="active_debts_count_text">Active debts count</string>
+    <string name="add_debt_activity_title">New debt creation</string>
 
     <!-- Purchaser (aka Client) -->
+    <string name="client_full_name_text">Client\'s full name</string>
     <string name="phone_example_text">example, +375 (xx) xxx-xx-xx</string>
     <string name="purchaser_added_txt">Purchaser added successfully</string>
     <string name="purchaser_removed_text">Purchaser removed</string>
@@ -69,11 +73,17 @@
     <string name="good_updated_text">Good updated</string>
     <string name="good_removed_text">Good removed</string>
     <string name="add_good_text">Add good</string>
-    <string name="barcode_result_card_txt_input_good_name_hint">Good not fond. Enter name if want to save</string>
+    <string name="add_good_options_text">Select adding method</string>
+    <string name="select_measurement_units_text">Select unit of measurement</string>
+    <string name="good_measurement_unit">Measurement unit</string>
+
+    <string name="barcode_result_card_txt_input_good_name_hint">Enter good name</string>
     <string name="barcode_result_card_txt_input_good_name_update_hint">Good does not have name. Enter name to improve readability</string>
 
     <string name="good_removal_confirmation_text">Confirm good removal</string>
     <string name="good_removal_confirmation_question">Are you sure you want to remove the good?</string>
+
+    <string name="total_goods_count_is_zero">Total goods count: 0</string>
 
     <!-- Settings -->
     <string name="settings_title">Debts Settings</string>
@@ -108,4 +118,7 @@
     <string name="pref_key_enable_barcode_size_check" translatable="false">barcode_ebsc</string>
     <string name="pref_key_minimum_barcode_width" translatable="false">barcode_mbw</string>
     <string name="pref_key_delay_loading_barcode_result" translatable="false">barcode_dlbr</string>
+    <string name="gram">Gram</string>
+    <string name="quantity">Quantity</string>
+    <string name="not_selected_unit_of_measurement">Not selected unit of measurement</string>
 </resources>

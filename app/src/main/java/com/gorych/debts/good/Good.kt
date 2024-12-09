@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.gorych.debts.R
 import com.gorych.debts.barcode.BarcodeResultCard
 import com.gorych.debts.utility.DateTimeUtils.DD_MM_YYYY_HH_MM_SS_SSS_FORMATER
 import kotlinx.parcelize.Parcelize
@@ -22,15 +23,17 @@ data class Good(
     @ColumnInfo val barcode: String,
     @ColumnInfo val createdAt: LocalDateTime,
     @ColumnInfo val updatedAt: LocalDateTime?,
-    @ColumnInfo val imageData: ByteArray?
+    @ColumnInfo val imageData: ByteArray?,
+    @ColumnInfo val measurementUnit: MeasurementUnit,
 ) : Parcelable {
 
     companion object {
-        fun of(card: BarcodeResultCard, name: String): Good {
+        fun of(card: BarcodeResultCard, name: String, unit: MeasurementUnit): Good {
             return Good(
-                barcode = card.barcodeRawValue,
-                name = name,
-                imageData = card.imgData
+                card.barcodeRawValue,
+                name,
+                card.imgData,
+                unit
             )
         }
     }
@@ -41,22 +44,29 @@ data class Good(
     val updatedAtFormatted: String?
         get() = updatedAt?.format(DD_MM_YYYY_HH_MM_SS_SSS_FORMATER)
 
-    constructor(id: Long, name: String?, barcode: String) : this(
+    constructor(id: Long, name: String?, barcode: String, unit: MeasurementUnit) : this(
         id,
         name,
         barcode,
         now(),
         null,
-        null
+        null,
+        unit
     )
 
-    private constructor(barcode: String, name: String?, imageData: ByteArray?) : this(
+    private constructor(
+        barcode: String,
+        name: String?,
+        imageData: ByteArray?,
+        unit: MeasurementUnit,
+    ) : this(
         0,
         name,
         barcode,
         now(),
         null,
-        imageData
+        imageData,
+        unit
     )
 
     override fun equals(other: Any?): Boolean {
@@ -69,11 +79,7 @@ data class Good(
         if (name != other.name) return false
         if (barcode != other.barcode) return false
         if (createdAt != other.createdAt) return false
-        if (updatedAt != other.updatedAt) return false
-        if (imageData != null) {
-            if (other.imageData == null) return false
-            if (!imageData.contentEquals(other.imageData)) return false
-        } else if (other.imageData != null) return false
+        if (measurementUnit != other.measurementUnit) return false
 
         return true
     }
@@ -83,13 +89,24 @@ data class Good(
         result = 31 * result + (name?.hashCode() ?: 0)
         result = 31 * result + barcode.hashCode()
         result = 31 * result + createdAt.hashCode()
-        result = 31 * result + (updatedAt?.hashCode() ?: 0)
-        result = 31 * result + (imageData?.contentHashCode() ?: 0)
+        result = 31 * result + measurementUnit.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "Good(id=$id, name=$name, barcode='$barcode', createdAt=$createdAt, updatedAt=$updatedAt)"
+        return "Good(" +
+                "id=$id, " +
+                "name=$name, " +
+                "barcode='$barcode', " +
+                "createdAt=$createdAt, " +
+                "updatedAt=$updatedAt, " +
+                "units=$measurementUnit)"
     }
 
+    enum class MeasurementUnit(private val stringResId: Int) {
+        GRAM(R.string.gram),
+        QUANTITY(R.string.quantity);
+
+        fun stringResourceId(): Int = stringResId
+    }
 }

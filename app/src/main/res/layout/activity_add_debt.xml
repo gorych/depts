@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_debt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".debt.ui.add.AddDebtActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/client_details_c_layout_client_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/view_item_padding_horizontal"
+        android:layout_marginRight="@dimen/view_item_padding_horizontal"
+        android:layout_marginBottom="14dp">
+
+        <ImageView
+            android:id="@+id/add_debt_iv_person_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/client_full_name_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_person_24" />
+
+        <TextView
+            android:id="@+id/add_debt_tv_client_full_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:fontFamily="google-sans-medium"
+            android:paddingStart="@dimen/view_item_padding_horizontal"
+            android:paddingEnd="@dimen/view_item_padding_horizontal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/view_item_title_size"
+            app:layout_constraintLeft_toRightOf="@+id/add_debt_iv_person_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/stroke_color" />
+
+    <Button
+        android:id="@+id/all_clients_item_btn_add_good"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:padding="10dp"
+        android:text="@string/add_good_text"
+        app:icon="@drawable/ic_add_24" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/stroke_color" />
+
+    <TextView
+        android:id="@+id/add_debt_tv_total_good_count"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="14dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:fontFamily="google-sans-medium"
+        android:paddingStart="@dimen/view_item_padding_horizontal"
+        android:paddingEnd="@dimen/view_item_padding_horizontal"
+        android:text="@string/total_goods_count_is_zero"
+        android:textColor="@color/white"
+        android:textSize="@dimen/view_item_title_size" />
+
+</LinearLayout>

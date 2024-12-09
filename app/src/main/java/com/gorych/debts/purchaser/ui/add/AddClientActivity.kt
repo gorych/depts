@@ -135,7 +135,6 @@ class AddClientActivity : TopBarActivityBase() {
         inputFirstName = view.findViewById(R.id.add_purchaser_input_first_name)
         val layoutFirstNameInput: TextInputLayout =
             view.findViewById(R.id.add_purchaser_layout_input_first_name)
-        layoutFirstNameInput.prefixText
 
         val firstNameValidator: TextInputValidator =
             FirstNameValidator(inputFirstName, layoutFirstNameInput, this)
@@ -168,12 +167,12 @@ class AddClientActivity : TopBarActivityBase() {
         MaterialAlertDialogBuilder(this@AddClientActivity)
             .setTitle(R.string.purchaser_added_txt)
             .setMessage(R.string.add_one_more_purchaser_question)
-            .setNegativeButton(R.string.no_text) { _, _ ->
+            .setNegativeButton(R.string.no) { _, _ ->
                 this.startActivity(
                     Intent(this, Class.forName(previousActivityClassName))
                 )
             }
-            .setPositiveButton(R.string.yes_text) { dialog, _ ->
+            .setPositiveButton(R.string.yes) { dialog, _ ->
                 inputFields.forEach(TextInputEditText::clearText)
                 inputFieldValidators.forEach { it.clearError() }
                 dialog.dismiss()

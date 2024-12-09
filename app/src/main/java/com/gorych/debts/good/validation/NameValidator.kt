@@ -1,20 +1,21 @@
-package com.gorych.debts.purchaser.validation
+package com.gorych.debts.good.validation
 
 import android.content.Context
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.gorych.debts.R
 import com.gorych.debts.core.validation.EditTextValidatorBase
+import com.gorych.debts.utility.textAsString
 
-class PhoneValidator(
+class NameValidator(
     private val input: TextInputEditText,
     private val inputLayout: TextInputLayout,
-    context: Context
-) : EditTextValidatorBase(input, inputLayout, context, R.string.not_valid_phone) {
+    context: Context,
+) : EditTextValidatorBase(input, inputLayout, context, R.string.wrong_length_text) {
 
     override fun isValid(): Boolean {
-        val text = input.text
-        return text.isNullOrEmpty()
-                || (text.isNotBlank() && text.length == inputLayout.counterMaxLength)
+        val goodName = input.textAsString()
+        return goodName.isEmpty()
+                || goodName.length <= inputLayout.counterMaxLength
     }
 }

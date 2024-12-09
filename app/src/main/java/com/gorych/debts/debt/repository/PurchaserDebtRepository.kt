@@ -14,8 +14,8 @@ class PurchaserDebtRepository {
 
     fun getAllDebtsOfPurchaser(purchaser: Purchaser): List<Debt> {
         val goods = listOf(
-            Good(1, "Колбаса", "123456789"),
-            Good(2, null.toString(), "987525543")
+            Good(1, "Колбаса", "123456789", Good.MeasurementUnit.GRAM),
+            Good(2, null.toString(), "987525543", Good.MeasurementUnit.QUANTITY)
         )
 
         val debts = listOf(

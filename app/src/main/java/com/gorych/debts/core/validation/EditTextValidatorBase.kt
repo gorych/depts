@@ -1,11 +1,11 @@
 package com.gorych.debts.core.validation
 
 import android.content.Context
-import com.google.android.material.textfield.TextInputEditText
+import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
 
-abstract class InputValidatorBase(
-    private val input: TextInputEditText,
+abstract class EditTextValidatorBase(
+    private val input: EditText,
     private val inputLayout: TextInputLayout,
     private val context: Context,
     private val errorStringResId: Int,

@@ -15,16 +15,18 @@
     <!-- Common strings -->
     <string name="contact_phone_text">Контактный телефон</string>
 
-    <string name="yes_text">Да</string>
-    <string name="no_text">Нет</string>
-    <string name="hide_text">Скрыть</string>
-    <string name="save_text">Сохранить</string>
-    <string name="update_text">Обновить</string>
-    <string name="copied_text">Скопировано</string>
-    <string name="enter_name_txt">Введите имя товара</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="hide">Скрыть</string>
+    <string name="save">Сохранить</string>
+    <string name="update">Обновить</string>
+    <string name="copied">Скопировано</string>
+    <string name="enter_name">Введите имя товара</string>
+    <string name="proceed">Продолжить</string>
+    <string name="cancel">Отменить</string>
 
-    <string name="search_text">Поиск по имени, фамилии или телефону</string>
-    <string name="search_by_barcode_text">Поиск по штрихкоду</string>
+    <string name="search">Поиск по имени, фамилии или телефону</string>
+    <string name="search_by_barcode">Поиск по штрихкоду</string>
 
     <string name="barcode_image_description">Изображение штрихкода</string>
 
@@ -46,9 +48,11 @@
     <string name="client_debts_text_view_YES_value">Активные долги: да</string>
     <string name="client_debts_text_view_NO_value">Активные долги: нет</string>
     <string name="all_debts_count">Всего долгов: %d</string>
-    <string name="active_debts_count_text">Active debts count</string>
+    <string name="active_debts_count_text">Количество активных долгов</string>
+    <string name="add_debt_activity_title">Создание нового чека</string>
 
     <!-- Purchaser (aka Client) -->
+    <string name="client_full_name_text">Имя и фамилия покупателя</string>
     <string name="phone_example_text">например, +375 (xx) xxx-xx-xx</string>
     <string name="purchaser_added_txt">Покупатель успешно добавлен</string>
     <string name="purchaser_removed_text">Покупатель удален</string>
@@ -68,11 +72,17 @@
     <string name="good_updated_text">Товар обновлен</string>
     <string name="good_removed_text">Товар удален</string>
     <string name="add_good_text">Добавить товар</string>
-    <string name="barcode_result_card_txt_input_good_name_hint">Товар не найден. Введите название для сохранения</string>
-    <string name="barcode_result_card_txt_input_good_name_update_hint">Название товара не задано. Введите название для лучшей читаемости</string>
+    <string name="add_good_options_text">Выберите способ добавления</string>
+    <string name="select_measurement_units_text">Выберите единицу измерения</string>
+    <string name="good_measurement_unit">Единица измерения</string>
+
+    <string name="barcode_result_card_txt_input_good_name_hint">Введите наименование товара</string>
+    <string name="barcode_result_card_txt_input_good_name_update_hint">Наименование товара не задано. Заполните поле для лучшей читаемости</string>
 
     <string name="good_removal_confirmation_text">Подтвердите удаление товара</string>
     <string name="good_removal_confirmation_question">Вы действительно хотите удалить товар?</string>
+
+    <string name="total_goods_count_is_zero">Всего товаров в чеке: 0</string>
 
     <!-- Settings -->
     <string name="settings_title">Настройки</string>
@@ -99,4 +109,7 @@
     <string name="pref_summary_barcode_reticle_height">Относительно поля зрения камеры (20%-80%)</string>
     <string name="pref_summary_minimum_barcode_width">Относительно ширины сетки, диапазон составляет от 20% до 80% (применимо только при включенной проверке размера штрихкода)</string>
     <string name="prompt_searching">Поиск&#8230;</string>
+    <string name="gram">Грамм</string>
+    <string name="quantity">Количество</string>
+    <string name="not_selected_unit_of_measurement">Не выбрана единица измерения</string>
 </resources>

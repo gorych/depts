@@ -19,11 +19,11 @@ class RecyclerViewItemConfirmationRemovalDialog<T>(
         MaterialAlertDialogBuilder(context)
             .setTitle(titleResId)
             .setMessage(messageResId)
-            .setNegativeButton(R.string.no_text) { dialog, _ ->
+            .setNegativeButton(R.string.no) { dialog, _ ->
                 adapter.notifyItemChanged(itemPosition)
                 dialog.dismiss()
             }
-            .setPositiveButton(R.string.yes_text) { dialog, _ ->
+            .setPositiveButton(R.string.yes) { dialog, _ ->
                 adapter.removeItem(itemPosition)
                 toast(toastResId)
                 dialog.dismiss()

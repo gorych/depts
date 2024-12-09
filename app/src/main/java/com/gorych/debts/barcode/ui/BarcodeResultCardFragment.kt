@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
@@ -21,8 +23,13 @@ import com.gorych.debts.barcode.contract.BarcodeResultContract
 import com.gorych.debts.camera.WorkflowModel
 import com.gorych.debts.camera.WorkflowModel.WorkflowState
 import com.gorych.debts.config.db.AppDatabase
+import com.gorych.debts.core.validation.TextInputValidator
+import com.gorych.debts.core.watcher.OnTextChangedWatcher
 import com.gorych.debts.good.Good
+import com.gorych.debts.good.Good.MeasurementUnit
 import com.gorych.debts.good.repository.GoodRepository
+import com.gorych.debts.good.validation.MeasurementUnitValidator
+import com.gorych.debts.good.validation.NameValidator
 import com.gorych.debts.utility.BitmapUtils.convertBytesToBitmap
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import com.gorych.debts.utility.ToastUtils.Companion.toast
@@ -39,6 +46,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     private lateinit var goodNameTextInput: TextInputEditText
     private lateinit var goodNameTextInputLayout: TextInputLayout
 
+    private lateinit var goodMeasurementUnitDropdown: AutoCompleteTextView
+    private lateinit var goodMeasurementUnitDropdownItems: List<GoodUnitDropdownItem>
+
+    private var inputFieldValidators: MutableList<TextInputValidator> = mutableListOf()
+
     private lateinit var titleTextView: TextView
     private lateinit var secondaryTextView: TextView
     private lateinit var supportingTextView: TextView
@@ -54,11 +66,12 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     }
 
     override fun onCreateView(
-        layoutInflater: LayoutInflater, viewGroup: ViewGroup?, bundle: Bundle?
+        layoutInflater: LayoutInflater, viewGroup: ViewGroup?, bundle: Bundle?,
     ): View {
         val view = layoutInflater.inflate(R.layout.barcode_result_sheet, viewGroup)
 
         initTextInputs(view)
+        initMeasurementUnitDropdown(view)
         initTextViews(view)
         initActionButtons(view)
 
@@ -68,6 +81,64 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
         return view
     }
+
+    //region Components initialization
+
+    private fun initTextInputs(view: View) {
+        goodNameTextInput = view.findViewById(R.id.barcode_result_card_txt_good_name)
+        goodNameTextInputLayout =
+            view.findViewById<TextInputLayout?>(R.id.barcode_result_card_txt_layout_good_name)
+                .apply { hint = getString(R.string.barcode_result_card_txt_input_good_name_hint) }
+
+        val goodNameValidator =
+            NameValidator(goodNameTextInput, goodNameTextInputLayout, requireContext())
+        inputFieldValidators.add(goodNameValidator)
+        goodNameTextInput.addTextChangedListener(OnTextChangedWatcher(goodNameValidator))
+    }
+
+    private fun initMeasurementUnitDropdown(view: View) {
+        goodMeasurementUnitDropdownItems = MeasurementUnit.entries
+            .map { GoodUnitDropdownItem(it, getString(it.stringResourceId())) }
+            .toList()
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.item_barcode_result_sheet_dropdown_units,
+            R.id.barcode_result_card_dropdown_measurement_unit_item,
+            goodMeasurementUnitDropdownItems
+        )
+
+        val goodUnitDropdownLayout =
+            view.findViewById<TextInputLayout>(R.id.barcode_result_card_txt_layout_good_measurement_unit)
+        goodMeasurementUnitDropdown = goodUnitDropdownLayout.editText as AutoCompleteTextView
+        goodMeasurementUnitDropdown.setAdapter(adapter)
+
+        val unitValidator = MeasurementUnitValidator(
+            goodMeasurementUnitDropdown,
+            goodUnitDropdownLayout,
+            requireContext()
+        )
+        inputFieldValidators.add(unitValidator)
+        goodMeasurementUnitDropdown.addTextChangedListener(OnTextChangedWatcher(unitValidator))
+    }
+
+    private fun initTextViews(view: View) {
+        titleTextView = view.findViewById(R.id.barcode_result_card_tv_title)
+        secondaryTextView = view.findViewById(R.id.barcode_result_card_tv_secondary_text)
+        supportingTextView = view.findViewById(R.id.barcode_result_card_tv_supporting_text)
+    }
+
+    private fun initActionButtons(view: View) {
+        addGoodBtn = view.findViewById(R.id.barcode_result_card_btn_add)
+        okBtn = view.findViewById<MaterialButton?>(R.id.barcode_result_card_btn_ok)
+            .apply { setOnClickListener { dismiss() } }
+        updateBtn = view.findViewById(R.id.barcode_result_card_btn_update)
+        cardActionButtons = listOf(addGoodBtn, okBtn, updateBtn)
+    }
+
+    //endregion
+
+    //region Barcode result card configuration
 
     override fun configureBarcodeResultCard() {
         val barcodeResultCard: BarcodeResultCard? =
@@ -83,14 +154,6 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
                 configureComponentsForNotExistingGood(card)
             }
         }
-    }
-
-    override fun onDismiss(dialogInterface: DialogInterface) {
-        activity?.let {
-            // Back to working state after the bottom sheet is dismissed.
-            ViewModelProviders.of(it)[WorkflowModel::class.java].setWorkflowState(WorkflowState.DETECTING)
-        }
-        super.onDismiss(dialogInterface)
     }
 
     private fun configureComponentsForExistingGood(good: Good) {
@@ -141,27 +204,6 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         hideActionButtonsExceptOf(addGoodBtn)
     }
 
-    private fun initTextInputs(view: View) {
-        goodNameTextInput = view.findViewById(R.id.barcode_result_card_txt_good_name)
-        goodNameTextInputLayout =
-            view.findViewById<TextInputLayout?>(R.id.barcode_result_card_txt_layout_good_name)
-                .apply { hint = getString(R.string.barcode_result_card_txt_input_good_name_hint) }
-    }
-
-    private fun initTextViews(view: View) {
-        titleTextView = view.findViewById(R.id.barcode_result_card_tv_title)
-        secondaryTextView = view.findViewById(R.id.barcode_result_card_tv_secondary_text)
-        supportingTextView = view.findViewById(R.id.barcode_result_card_tv_supporting_text)
-    }
-
-    private fun initActionButtons(view: View) {
-        addGoodBtn = view.findViewById(R.id.barcode_result_card_btn_add)
-        okBtn = view.findViewById<MaterialButton?>(R.id.barcode_result_card_btn_ok)
-            .apply { setOnClickListener { dismiss() } }
-        updateBtn = view.findViewById(R.id.barcode_result_card_btn_update)
-        cardActionButtons = listOf(addGoodBtn, okBtn, updateBtn)
-    }
-
     private fun updateBarcodeImageView(barcodeBitmap: Bitmap?) {
         barcodeImgView.setImageBitmap(barcodeBitmap)
         barcodeBitmap?.let {
@@ -177,39 +219,62 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         excludedBtn.show()
     }
 
-    private fun onClickAddGoodBtn(card: BarcodeResultCard) {
-        if (!isValidGoodNameLength()) {
-            toast(R.string.wrong_length_text)
-            return
-        }
+    //Good actions
 
+    private fun onClickGoodActionBtn(action: () -> Unit) {
+        val notValidFields = inputFieldValidators.filterNot { it.isValid() }
+        if (notValidFields.isEmpty()) {
+            action()
+            dismiss()
+        } else {
+            notValidFields.forEach { it.showError() }
+        }
+    }
+
+    private fun onClickAddGoodBtn(card: BarcodeResultCard) {
+        onClickGoodActionBtn {
+            saveGood(card)
+            toast(R.string.good_added_text)
+        }
+    }
+
+    private fun saveGood(card: BarcodeResultCard) {
         lifecycleScope.launch {
             goodRepository.add(
-                Good.of(card, name = goodNameTextInput.textAsString())
+                Good.of(
+                    card,
+                    name = goodNameTextInput.textAsString(),
+                    unit = goodMeasurementUnitDropdownItems.first {
+                        it.textValue == goodMeasurementUnitDropdown.textAsString()
+                    }.unit
+                )
             )
         }
-        toast(R.string.good_added_text)
-        dismiss()
     }
 
     private fun onClickUpdateGoodBtn(existingGood: Good) {
-        if (!isValidGoodNameLength()) {
-            toast(R.string.wrong_length_text)
-            return
+        onClickGoodActionBtn {
+            updateGood(existingGood)
+            toast(R.string.good_updated_text)
         }
+    }
+
+    private fun updateGood(existingGood: Good) {
         lifecycleScope.launch {
             goodRepository.update(
                 existingGood.copy(name = goodNameTextInput.textAsString(), updatedAt = now())
             )
         }
-        toast(R.string.good_updated_text)
-        dismiss()
     }
 
-    private fun isValidGoodNameLength(): Boolean {
-        val goodName = goodNameTextInput.textAsString()
-        return goodName.isEmpty()
-                || goodName.length <= goodNameTextInputLayout.counterMaxLength
+    //endregion
+
+    override fun onDismiss(dialogInterface: DialogInterface) {
+        activity?.let {
+            // Back to working state after the bottom sheet is dismissed.
+            ViewModelProviders.of(it)[WorkflowModel::class.java].setWorkflowState(WorkflowState.DETECTING)
+        }
+        super.onDismiss(dialogInterface)
     }
 
     companion object {
@@ -218,7 +283,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
         fun show(
             fragmentManager: FragmentManager,
-            barcodeCard: BarcodeResultCard
+            barcodeCard: BarcodeResultCard,
         ) {
             val barcodeResultFragment = BarcodeResultCardFragment()
             barcodeResultFragment.arguments = Bundle().apply {
@@ -229,6 +294,12 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
         fun dismiss(fragmentManager: FragmentManager) {
             (fragmentManager.findFragmentByTag(TAG) as BarcodeResultCardFragment?)?.dismiss()
+        }
+    }
+
+    private data class GoodUnitDropdownItem(val unit: MeasurementUnit, val textValue: String) {
+        override fun toString(): String {
+            return textValue
         }
     }
 }

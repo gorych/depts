@@ -108,7 +108,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         val dialogView = buildGoodDetailDialogView(selectedGood)
         MaterialAlertDialogBuilder(this)
             .setView(dialogView)
-            .setNegativeButton(R.string.hide_text) { dialog, _ ->
+            .setNegativeButton(R.string.hide) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()

@@ -15,10 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        android:hint="@string/search_by_barcode_text"
+        android:hint="@string/search_by_barcode"
         app:endIconMode="clear_text"
         app:hintEnabled="true"
-        app:startIconContentDescription="@string/search_by_barcode_text"
+        app:startIconContentDescription="@string/search_by_barcode"
         app:startIconDrawable="@drawable/ic_search_24">
 
         <com.google.android.material.textfield.TextInputEditText

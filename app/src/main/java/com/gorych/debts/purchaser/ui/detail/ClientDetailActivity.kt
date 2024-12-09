@@ -95,7 +95,7 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
                         LABEL_PHONE_NUMBER,
                         tvPhone.textAsString()
                     )
-                    toast(getString(R.string.copied_text))
+                    toast(getString(R.string.copied))
                 }
             }
 

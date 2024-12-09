@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="12dp"
     tools:context=".purchaser.ui.add.AddClientActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
