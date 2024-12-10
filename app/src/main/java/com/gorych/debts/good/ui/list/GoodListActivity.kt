@@ -184,7 +184,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             tvUnit.apply {
                 text = getString(
                     R.string.measurement_unit_template_string,
-                    getString(selectedGood.measurementUnit.stringResourceId()).lowercase()
+                    getString(selectedGood.measurementUnit.stringResourceId())
                 )
             }.show()
         }

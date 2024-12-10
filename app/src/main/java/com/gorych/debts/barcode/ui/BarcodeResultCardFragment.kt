@@ -10,11 +10,13 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.Chip
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.gorych.debts.R
@@ -42,6 +44,7 @@ import java.time.LocalDateTime.now
 class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultContract.View {
 
     private lateinit var barcodeImgView: ImageView
+    private lateinit var goodExistenceChip: Chip
 
     private lateinit var goodNameTextInput: TextInputEditText
     private lateinit var goodNameTextInputLayout: TextInputLayout
@@ -74,13 +77,14 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     ): View {
         val view = layoutInflater.inflate(R.layout.barcode_result_sheet, viewGroup)
 
+        barcodeImgView = view.findViewById(R.id.barcode_result_card_img)
+        goodExistenceChip = view.findViewById(R.id.barcode_result_card_chip_good_existence)
+
         initTextInputs(view)
         initMeasurementUnitDropdown(view)
 
         initTextViews(view)
         initActionButtons(view)
-
-        barcodeImgView = view.findViewById(R.id.barcode_result_card_img)
 
         configureBarcodeResultCard()
 
@@ -174,9 +178,12 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         val barcodeBitmap = createBitmapFromGood(good)
         updateBarcodeImageView(barcodeBitmap)
 
+        configureGoodExistenceChip(R.drawable.ic_check_24, R.string.good_found)
+
         goodInputLayouts.forEach(TextInputLayout::hide)
 
-        secondaryTextView.text = good.createdAtFormatted
+        secondaryTextView.text =
+            getString(R.string.created_at_template_string, good.createdAtFormatted)
         secondaryTextView.show()
 
         when {
@@ -184,7 +191,10 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
             else -> configureComponentsForExistingGoodWithName(good)
         }
 
-        supportingLine2TextView.text = getString(good.measurementUnit.stringResourceId())
+        supportingLine2TextView.text = getString(
+            R.string.measurement_unit_template_string,
+            getString(good.measurementUnit.stringResourceId())
+        )
         supportingLine2TextView.show()
     }
 
@@ -202,7 +212,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     private fun configureComponentsForExistingGoodWithName(good: Good) {
         goodNameTextInputLayout.hide()
 
-        supportingLine1TextView.text = good.name
+        supportingLine1TextView.text = getString(R.string.name_template_string, good.name)
         supportingLine1TextView.show()
 
         hideActionButtonsExceptOf(okBtn)
@@ -212,11 +222,24 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         val barcodeBitmap = convertBytesToBitmap(card.imgData)
         updateBarcodeImageView(barcodeBitmap)
 
+        configureGoodExistenceChip(R.drawable.ic_close_24, R.string.good_not_found)
+
         goodInputLayouts.forEach(TextInputLayout::show)
         secondLevelTextViews.forEach(TextView::hide)
 
         addGoodBtn.setOnClickListener { onClickAddGoodBtn(card) }
         hideActionButtonsExceptOf(addGoodBtn)
+    }
+
+    private fun configureGoodExistenceChip(iconResId: Int, textResId: Int) {
+        goodExistenceChip.apply {
+            text = getString(textResId)
+            chipIcon = ResourcesCompat.getDrawable(
+                context.resources,
+                iconResId,
+                context.theme
+            )
+        }
     }
 
     private fun updateBarcodeImageView(barcodeBitmap: Bitmap?) {

@@ -24,6 +24,8 @@
     <string name="enter_name">Введите имя товара</string>
     <string name="proceed">Продолжить</string>
     <string name="cancel">Отменить</string>
+    <string name="gram">Грамм</string>
+    <string name="quantity">Количество</string>
 
     <string name="search">Поиск по имени, фамилии или телефону</string>
     <string name="search_by_barcode">Поиск по штрихкоду</string>
@@ -68,14 +70,18 @@
     <string name="purchaser_removal_confirmation_text">Подтвердите удаление покупателя</string>
     <string name="purchaser_removal_confirmation_question">Вы действительно хотите удалить покупателя?</string>
 
-    <!-- Good-->
+    <!-- Good -->
+    <string name="good_found">Товар найден</string>
+    <string name="good_not_found">Товар не найден</string>
     <string name="good_added_text">Товар сохранен</string>
     <string name="good_updated_text">Товар обновлен</string>
     <string name="good_removed_text">Товар удален</string>
     <string name="add_good_text">Добавить товар</string>
     <string name="add_good_options_text">Выберите способ добавления</string>
-    <string name="select_measurement_units_text">Выберите единицу измерения</string>
+
     <string name="good_measurement_unit">Единица измерения</string>
+    <string name="select_measurement_units_text">Выберите единицу измерения</string>
+    <string name="not_selected_unit_of_measurement">Не выбрана единица измерения</string>
 
     <string name="barcode_result_card_txt_input_good_name_hint">Введите наименование товара</string>
     <string name="barcode_result_card_txt_input_good_name_update_hint">Наименование товара не задано. Заполните поле для лучшей читаемости</string>
@@ -110,7 +116,4 @@
     <string name="pref_summary_barcode_reticle_height">Относительно поля зрения камеры (20%-80%)</string>
     <string name="pref_summary_minimum_barcode_width">Относительно ширины сетки, диапазон составляет от 20% до 80% (применимо только при включенной проверке размера штрихкода)</string>
     <string name="prompt_searching">Поиск&#8230;</string>
-    <string name="gram">Грамм</string>
-    <string name="quantity">Количество</string>
-    <string name="not_selected_unit_of_measurement">Не выбрана единица измерения</string>
 </resources>
