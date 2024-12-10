@@ -24,6 +24,7 @@ import com.gorych.debts.purchaser.repository.PurchaserRepository
 import com.gorych.debts.purchaser.validation.FirstNameValidator
 import com.gorych.debts.purchaser.validation.LastNameValidator
 import com.gorych.debts.purchaser.validation.PhoneValidator
+import com.gorych.debts.utility.EMPTY
 import com.gorych.debts.utility.PhoneNumberUtils
 import com.gorych.debts.utility.clearText
 import com.gorych.debts.utility.textAsString
@@ -96,9 +97,20 @@ class AddClientActivity : TopBarActivityBase() {
         inputPhone = view.findViewById(R.id.add_purchaser_input_phone)
         inputPhone.addTextChangedListener(object : AbstractOnTextChangedWatcher() {
             private var isFormatting: Boolean = false
+            private var previousText: String = String.EMPTY
+
+            override fun beforeTextChanged(
+                text: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int,
+            ) {
+                previousText = text.toString()
+            }
 
             override fun afterTextChanged(text: Editable?) {
-                if (isFormatting) {
+                val isClearingAction = previousText.length > (text?.length ?: 0)
+                if (isClearingAction || isFormatting) {
                     return
                 }
                 isFormatting = true

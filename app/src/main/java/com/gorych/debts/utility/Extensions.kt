@@ -4,6 +4,11 @@ import android.view.View
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 
+val String.Companion.EMPTY: String
+    get() {
+        return ""
+    }
+
 fun View.hide() {
     visibility = View.GONE
 }
