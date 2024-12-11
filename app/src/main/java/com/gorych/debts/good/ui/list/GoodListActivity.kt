@@ -1,9 +1,12 @@
 package com.gorych.debts.good.ui.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -12,7 +15,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gorych.debts.R
+import com.gorych.debts.barcode.ui.LiveBarcodeScanningActivity
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.adapter.BaseAdapter
@@ -22,8 +27,11 @@ import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
+import com.gorych.debts.good.ui.add.AddGoodActivity
+import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import com.gorych.debts.utility.hide
+import com.gorych.debts.utility.isVisible
 import com.gorych.debts.utility.show
 import kotlinx.coroutines.launch
 
@@ -32,6 +40,9 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     private lateinit var itemsRecyclerView: RecyclerView
     private lateinit var goodListPresenter: GoodListContract.Presenter
     private lateinit var goodItemAdapter: BaseAdapter<Good, GoodItemAdapter.GoodItemViewHolder>
+
+    private lateinit var addGoodSubActionsFabLayout: LinearLayout
+    private lateinit var addGoodMainFab: FloatingActionButton
 
     private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
@@ -59,10 +70,56 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         )
 
         initItemsView()
+        initAddGoodActionButtons()
 
         goodListPresenter = GoodListPresenter(this, goodRepository)
         lifecycleScope.launch {
             goodListPresenter.loadInitialList()
+        }
+    }
+
+    private fun initAddGoodActionButtons() {
+        addGoodSubActionsFabLayout = findViewById(R.id.all_goods_fab_sub_actions_layout)
+        addGoodMainFab = configureAddGoodMainButton(addGoodSubActionsFabLayout)
+
+        findViewById<FloatingActionButton>(R.id.all_goods_fab_scan_good).setOnClickListener {
+            addGoodFabActions(
+                LiveBarcodeScanningActivity::class.java
+            )
+        }
+        findViewById<FloatingActionButton>(R.id.all_goods_fab_add_good_manually).setOnClickListener {
+            addGoodFabActions(
+                AddGoodActivity::class.java
+            )
+        }
+    }
+
+    private fun addGoodFabActions(activityClass: Class<out AppCompatActivity>) {
+        this.startActivity(Intent(this, activityClass).apply {
+            putExtra(
+                IntentExtras.PREVIOUS_ACTIVITY_NAME,
+                this@GoodListActivity::class.java.name
+            )
+        })
+        addGoodSubActionsFabLayout.hide()
+        addGoodMainFab.setImageResource(R.drawable.ic_add_24)
+    }
+
+    private fun configureAddGoodMainButton(fabSubActionsLayout: LinearLayout): FloatingActionButton {
+        return findViewById<FloatingActionButton>(R.id.all_goods_parent_fab_add_good).apply {
+            setOnClickListener {
+                when {
+                    fabSubActionsLayout.isVisible() -> {
+                        fabSubActionsLayout.hide()
+                        setImageResource(R.drawable.ic_add_24)
+                    }
+
+                    else -> {
+                        fabSubActionsLayout.show()
+                        setImageResource(R.drawable.ic_close_24)
+                    }
+                }
+            }
         }
     }
 

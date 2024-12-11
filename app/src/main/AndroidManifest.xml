@@ -25,9 +25,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Client -->
+        </activity> <!-- Client -->
         <activity
             android:name=".purchaser.ui.add.AddClientActivity"
             android:exported="false"
@@ -39,26 +37,24 @@
         <activity
             android:name=".purchaser.ui.detail.ClientDetailActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!-- Good -->
+            android:screenOrientation="portrait" /> <!-- Good -->
         <activity
             android:name=".good.ui.list.GoodListActivity"
             android:exported="false"
             android:label="@string/mode_show_all_goods_title"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".good.ui.add.AddGoodActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".barcode.ui.LiveBarcodeScanningActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!-- Debt -->
+            android:screenOrientation="portrait" /> <!-- Debt -->
         <activity
             android:name=".debt.ui.add.AddDebtActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <!-- Other -->
+            android:screenOrientation="portrait" /> <!-- Other -->
         <activity
             android:name=".settings.ui.SettingsActivity"
             android:exported="false"
