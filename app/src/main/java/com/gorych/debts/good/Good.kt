@@ -15,7 +15,11 @@ import java.time.LocalDateTime.now
 @Parcelize
 @Entity(
     tableName = "good",
-    indices = [Index(value = ["name"]), Index(value = ["barcode"], unique = true)]
+    indices = [
+        Index(value = ["name"]),
+        Index(value = ["createdAt"]),
+        Index(value = ["barcode"], unique = true)
+    ]
 )
 data class Good(
     @PrimaryKey(autoGenerate = true) val id: Long,
@@ -44,6 +48,13 @@ data class Good(
     val updatedAtFormatted: String?
         get() = updatedAt?.format(DD_MM_YYYY_HH_MM_SS_SSS_FORMATER)
 
+    constructor(name: String?, barcode: String, unit: MeasurementUnit) : this(
+        barcode,
+        name,
+        null,
+        unit
+    )
+
     constructor(id: Long, name: String?, barcode: String, unit: MeasurementUnit) : this(
         id,
         name,
@@ -69,6 +80,16 @@ data class Good(
         unit
     )
 
+    override fun toString(): String {
+        return "Good(" +
+                "id=$id, " +
+                "name=$name, " +
+                "barcode='$barcode', " +
+                "createdAt=$createdAt, " +
+                "updatedAt=$updatedAt, " +
+                "units=${measurementUnit})"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -79,6 +100,7 @@ data class Good(
         if (name != other.name) return false
         if (barcode != other.barcode) return false
         if (createdAt != other.createdAt) return false
+        if (updatedAt != other.updatedAt) return false
         if (measurementUnit != other.measurementUnit) return false
 
         return true
@@ -89,18 +111,9 @@ data class Good(
         result = 31 * result + (name?.hashCode() ?: 0)
         result = 31 * result + barcode.hashCode()
         result = 31 * result + createdAt.hashCode()
+        result = 31 * result + (updatedAt?.hashCode() ?: 0)
         result = 31 * result + measurementUnit.hashCode()
         return result
-    }
-
-    override fun toString(): String {
-        return "Good(" +
-                "id=$id, " +
-                "name=$name, " +
-                "barcode='$barcode', " +
-                "createdAt=$createdAt, " +
-                "updatedAt=$updatedAt, " +
-                "units=$measurementUnit)"
     }
 
     enum class MeasurementUnit(private val stringResId: Int) {

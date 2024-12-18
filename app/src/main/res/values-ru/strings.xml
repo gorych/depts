@@ -15,6 +15,7 @@
     <!-- Common strings -->
     <string name="contact_phone_text">Контактный телефон</string>
 
+    <string name="add">Добавить</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="hide">Скрыть</string>
@@ -39,8 +40,9 @@
     <string name="measurement_unit_template_string">Ед. измерения: %s</string>
 
     <!-- Common validation strings -->
-    <string name="wrong_length_text">Некорректное наименование товара</string>
     <string name="required_text">обязательно для заполнения</string>
+    <string name="wrong_length_text">Некорректная длина</string>
+    <string name="blank_text_or_wrong_length">Пустая строка или некорректная длина</string>
     <string name="not_valid_first_name">Имя введено неверно</string>
     <string name="not_valid_last_name">Фамилия введена неверно</string>
     <string name="not_valid_phone">Телефон введен неверно</string>
@@ -62,7 +64,6 @@
     <string name="all_clients_tooltip_create_new_receipt_text">Создать новый чек</string>
     <string name="client_phone_view_prefix">Телефон: %1$s</string>
     <string name="add_client_activity_title">Добавление покупателя</string>
-    <string name="add_client_btn_text">Добавить</string>
     <string name="add_client_txt_enter_first_name_label">Введите имя</string>
     <string name="add_client_txt_enter_last_name_label">Введите фамилию</string>
     <string name="add_client_txt_enter_phone_label">Введите телефон</string>
@@ -77,8 +78,12 @@
     <string name="good_added_text">Товар сохранен</string>
     <string name="good_updated_text">Товар обновлен</string>
     <string name="good_removed_text">Товар удален</string>
+    <string name="good_added_successfully_text">Товар успешно добавлен</string>
+    <string name="add_one_more_good_question">Хотите добавить еще один товар?</string>
     <string name="add_good_text">Добавить товар</string>
     <string name="add_good_options_text">Выберите способ добавления</string>
+    <string name="add_good_txt_enter_name_label">Введите наименование товара</string>
+    <string name="add_good_txt_enter_barcode_label">Введите штрихкод</string>
 
     <string name="good_measurement_unit">Единица измерения</string>
     <string name="select_measurement_units_text">Выберите единицу измерения</string>
@@ -117,4 +122,5 @@
     <string name="pref_summary_barcode_reticle_height">Относительно поля зрения камеры (20%-80%)</string>
     <string name="pref_summary_minimum_barcode_width">Относительно ширины сетки, диапазон составляет от 20% до 80% (применимо только при включенной проверке размера штрихкода)</string>
     <string name="prompt_searching">Поиск&#8230;</string>
+    <string name="barcode_uniqueness_error">Товар с таким штрихкодом уже существует</string>
 </resources>

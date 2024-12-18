@@ -31,7 +31,7 @@ import com.gorych.debts.good.Good
 import com.gorych.debts.good.Good.MeasurementUnit
 import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.good.validation.MeasurementUnitValidator
-import com.gorych.debts.good.validation.NameValidator
+import com.gorych.debts.core.validation.EmptyTextOrValidLengthValidator
 import com.gorych.debts.utility.BitmapUtils.convertBytesToBitmap
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import com.gorych.debts.utility.ToastUtils.Companion.toast
@@ -101,10 +101,10 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
                 .apply { hint = getString(R.string.barcode_result_card_txt_input_good_name_hint) }
         goodInputLayouts.add(goodNameTextInputLayout)
 
-        val goodNameValidator =
-            NameValidator(goodNameTextInput, goodNameTextInputLayout, requireContext())
-        inputFieldValidators.add(goodNameValidator)
-        goodNameTextInput.addTextChangedListener(OnTextChangedWatcher(goodNameValidator))
+        val goodTextLengthValidator =
+            EmptyTextOrValidLengthValidator(goodNameTextInput, goodNameTextInputLayout, requireContext())
+        inputFieldValidators.add(goodTextLengthValidator)
+        goodNameTextInput.addTextChangedListener(OnTextChangedWatcher(goodTextLengthValidator))
     }
 
     private fun initMeasurementUnitDropdown(view: View) {
@@ -114,8 +114,8 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
         val adapter = ArrayAdapter(
             requireContext(),
-            R.layout.item_barcode_result_sheet_dropdown_units,
-            R.id.barcode_result_card_dropdown_measurement_unit_item,
+            R.layout.view_dropdown_item,
+            R.id.dropdown_item,
             goodMeasurementUnitDropdownItems
         )
 
@@ -332,12 +332,6 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
 
         fun dismiss(fragmentManager: FragmentManager) {
             (fragmentManager.findFragmentByTag(TAG) as BarcodeResultCardFragment?)?.dismiss()
-        }
-    }
-
-    private data class GoodUnitDropdownItem(val unit: MeasurementUnit, val textValue: String) {
-        override fun toString(): String {
-            return textValue
         }
     }
 }

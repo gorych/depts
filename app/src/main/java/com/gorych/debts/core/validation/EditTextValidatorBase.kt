@@ -20,10 +20,10 @@ abstract class EditTextValidatorBase(
         if (!isActive()) {
             return true
         }
-        return condition()
+        return validCondition()
     }
 
-    open fun condition(): Boolean {
+    open fun validCondition(): Boolean {
         return !input.text.isNullOrBlank()
     }
 

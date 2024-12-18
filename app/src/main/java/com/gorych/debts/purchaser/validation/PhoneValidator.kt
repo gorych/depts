@@ -12,7 +12,7 @@ class PhoneValidator(
     context: Context,
 ) : EditTextValidatorBase(input, inputLayout, context, R.string.not_valid_phone) {
 
-    override fun condition(): Boolean {
+    override fun validCondition(): Boolean {
         val text = input.text
         return text.isNullOrEmpty()
                 || (text.isNotBlank() && text.length == inputLayout.counterMaxLength)

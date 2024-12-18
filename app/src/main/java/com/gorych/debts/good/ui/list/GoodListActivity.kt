@@ -185,11 +185,15 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     }
 
     private fun configureDialogBarcodeImage(dialogView: View, selectedGood: Good) {
-        val barcodeBitmap = createBitmapFromGood(selectedGood)
         val imgBarcode: ImageView = dialogView.findViewById(R.id.good_details_barcode_img)
-        imgBarcode.setImageBitmap(barcodeBitmap)
-        barcodeBitmap?.let {
-            imgBarcode.setImageBitmap(barcodeBitmap)
+        val barcodeBitmap = createBitmapFromGood(selectedGood)
+        when {
+            barcodeBitmap != null -> {
+                imgBarcode.setImageBitmap(barcodeBitmap)
+                imgBarcode.show()
+            }
+
+            else -> imgBarcode.hide()
         }
     }
 

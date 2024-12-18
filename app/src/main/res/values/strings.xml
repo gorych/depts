@@ -39,8 +39,9 @@
     <string name="measurement_unit_template_string">Measurement unit: %s</string>
 
     <!-- Common validation strings -->
-    <string name="wrong_length_text">Wrong length</string>
     <string name="required_text">required</string>
+    <string name="wrong_length_text">Wrong length</string>
+    <string name="blank_text_or_wrong_length">Blank text or wrong length</string>
     <string name="not_valid_first_name">Not valid first name provided</string>
     <string name="not_valid_last_name">Not valid last name provided</string>
     <string name="not_valid_phone">Not valid phone provided</string>
@@ -62,7 +63,7 @@
     <string name="all_clients_tooltip_create_new_receipt_text">Create new receipt</string>
     <string name="client_phone_view_prefix">Phone: %1$s</string>
     <string name="add_client_activity_title">Add new purchaser</string>
-    <string name="add_client_btn_text">Add</string>
+    <string name="add">Add</string>
     <string name="add_client_txt_enter_first_name_label">Enter first name</string>
     <string name="add_client_txt_enter_last_name_label">Enter last name</string>
     <string name="add_client_txt_enter_phone_label">Enter phone</string>
@@ -77,8 +78,12 @@
     <string name="good_added_text">Good added</string>
     <string name="good_updated_text">Good updated</string>
     <string name="good_removed_text">Good removed</string>
+    <string name="good_added_successfully_text">Good added successfully</string>
+    <string name="add_one_more_good_question">Do you want to add one more good?</string>
     <string name="add_good_text">Add good</string>
     <string name="add_good_options_text">Select adding method</string>
+    <string name="add_good_txt_enter_name_label">Enter title</string>
+    <string name="add_good_txt_enter_barcode_label">Enter barcode</string>
 
     <string name="good_measurement_unit">Measurement unit</string>
     <string name="select_measurement_units_text">Select unit of measurement</string>
@@ -125,4 +130,5 @@
     <string name="pref_key_enable_barcode_size_check" translatable="false">barcode_ebsc</string>
     <string name="pref_key_minimum_barcode_width" translatable="false">barcode_mbw</string>
     <string name="pref_key_delay_loading_barcode_result" translatable="false">barcode_dlbr</string>
+    <string name="barcode_uniqueness_error">Already existing barcode </string>
 </resources>

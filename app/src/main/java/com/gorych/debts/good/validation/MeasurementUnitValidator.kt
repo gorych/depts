@@ -13,7 +13,7 @@ class MeasurementUnitValidator(
     context: Context,
 ) : EditTextValidatorBase(input, inputLayout, context, R.string.not_selected_unit_of_measurement) {
 
-    override fun condition(): Boolean {
+    override fun validCondition(): Boolean {
         return input.textAsString().isNotEmpty()
     }
 }

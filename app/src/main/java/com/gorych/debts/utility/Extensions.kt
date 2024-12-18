@@ -1,8 +1,8 @@
 package com.gorych.debts.utility
 
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
-import com.google.android.material.textfield.TextInputEditText
 
 val String.Companion.EMPTY: String
     get() {
@@ -29,6 +29,6 @@ fun TextView.textAsString(): String {
     return text.toString()
 }
 
-fun TextInputEditText.clearText() {
+fun EditText.clearText() {
     text = null
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.widget.EditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -179,15 +180,15 @@ class AddClientActivity : TopBarActivityBase() {
         MaterialAlertDialogBuilder(this@AddClientActivity)
             .setTitle(R.string.purchaser_added_txt)
             .setMessage(R.string.add_one_more_purchaser_question)
-            .setNegativeButton(R.string.no) { _, _ ->
+            .setNegativeButton(R.string.yes) { dialog, _ ->
+                inputFields.forEach(EditText::clearText)
+                inputFieldValidators.forEach { it.clearError() }
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.no) { _, _ ->
                 this.startActivity(
                     Intent(this, Class.forName(previousActivityClassName))
                 )
-            }
-            .setPositiveButton(R.string.yes) { dialog, _ ->
-                inputFields.forEach(TextInputEditText::clearText)
-                inputFieldValidators.forEach { it.clearError() }
-                dialog.dismiss()
             }
             .show()
     }

@@ -16,7 +16,7 @@ object BitmapUtils {
 
     fun cropBitmap(
         originalBitmap: Bitmap,
-        barcodeBoundingBox: Rect
+        barcodeBoundingBox: Rect,
     ): Bitmap {
         val delta = 20
         val potentialCroppedBitmapHeight = barcodeBoundingBox.height() + delta
@@ -34,12 +34,17 @@ object BitmapUtils {
         )
     }
 
-    fun convertBytesToBitmap(data: ByteArray?): Bitmap? =
-        BitmapFactory.decodeByteArray(
+    fun convertBytesToBitmap(data: ByteArray?): Bitmap? {
+        if (data == null) {
+            return null
+        }
+        return BitmapFactory.decodeByteArray(
             data,
             0,
-            data?.size ?: 0
+            data.size
         )
+    }
+
 
     fun createBitmapFromGood(good: Good): Bitmap? = convertBytesToBitmap(good.imageData)
 }

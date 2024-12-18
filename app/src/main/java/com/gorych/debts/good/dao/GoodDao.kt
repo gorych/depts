@@ -22,6 +22,6 @@ interface GoodDao {
     @Query("SELECT * FROM good WHERE barcode = :barcode")
     suspend fun findByBarcode(barcode: String): Good?
 
-    @Query("SELECT * FROM good")
+    @Query("SELECT * FROM good ORDER BY createdAt DESC, name ASC")
     suspend fun findAll(): List<Good>
 }

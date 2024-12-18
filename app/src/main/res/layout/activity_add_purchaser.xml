@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
-            android:text="@string/add_client_btn_text"
+            android:text="@string/add"
             app:backgroundTint="@color/purple_lighten_2"
             app:icon="@drawable/ic_person_add_24"
             app:iconGravity="textStart"
