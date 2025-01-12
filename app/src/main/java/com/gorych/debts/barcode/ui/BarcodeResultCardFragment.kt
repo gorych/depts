@@ -1,6 +1,7 @@
 package com.gorych.debts.barcode.ui
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,13 +26,14 @@ import com.gorych.debts.barcode.contract.BarcodeResultContract
 import com.gorych.debts.camera.WorkflowModel
 import com.gorych.debts.camera.WorkflowModel.WorkflowState
 import com.gorych.debts.config.db.AppDatabase
+import com.gorych.debts.core.validation.EmptyTextOrValidLengthValidator
 import com.gorych.debts.core.validation.TextInputValidator
 import com.gorych.debts.core.watcher.OnTextChangedWatcher
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.Good.MeasurementUnit
 import com.gorych.debts.good.repository.GoodRepository
+import com.gorych.debts.good.ui.list.GoodListActivity
 import com.gorych.debts.good.validation.unit.MeasurementUnitValidator
-import com.gorych.debts.core.validation.EmptyTextOrValidLengthValidator
 import com.gorych.debts.utility.BitmapUtils.convertBytesToBitmap
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import com.gorych.debts.utility.ToastUtils.Companion.toast
@@ -66,6 +68,8 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     private lateinit var okBtn: MaterialButton
     private lateinit var updateBtn: MaterialButton
     private lateinit var cardActionButtons: List<MaterialButton>
+
+    private lateinit var goToGoodsBtn: MaterialButton
 
     private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(requireContext())
@@ -102,7 +106,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         goodInputLayouts.add(goodNameTextInputLayout)
 
         val goodTextLengthValidator =
-            EmptyTextOrValidLengthValidator(goodNameTextInput, goodNameTextInputLayout, requireContext())
+            EmptyTextOrValidLengthValidator(
+                goodNameTextInput,
+                goodNameTextInputLayout,
+                requireContext()
+            )
         inputFieldValidators.add(goodTextLengthValidator)
         goodNameTextInput.addTextChangedListener(OnTextChangedWatcher(goodTextLengthValidator))
     }
@@ -152,6 +160,13 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
             .apply { setOnClickListener { dismiss() } }
         updateBtn = view.findViewById(R.id.barcode_result_card_btn_update)
         cardActionButtons = listOf(addGoodBtn, okBtn, updateBtn)
+
+        goToGoodsBtn = view.findViewById<MaterialButton?>(R.id.barcode_result_card_btn_go_to_goods)
+            .apply {
+                setOnClickListener {
+                    startActivity(Intent(context, GoodListActivity::class.java))
+                }
+            }
     }
 
     //endregion
