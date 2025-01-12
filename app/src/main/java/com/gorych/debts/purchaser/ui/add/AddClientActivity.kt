@@ -180,6 +180,7 @@ class AddClientActivity : TopBarActivityBase() {
         MaterialAlertDialogBuilder(this@AddClientActivity)
             .setTitle(R.string.purchaser_added_txt)
             .setMessage(R.string.add_one_more_purchaser_question)
+            .setCancelable(false)
             .setNegativeButton(R.string.yes) { dialog, _ ->
                 inputFields.forEach(EditText::clearText)
                 inputFieldValidators.forEach { it.clearError() }

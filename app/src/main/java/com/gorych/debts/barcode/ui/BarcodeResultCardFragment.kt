@@ -30,7 +30,7 @@ import com.gorych.debts.core.watcher.OnTextChangedWatcher
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.Good.MeasurementUnit
 import com.gorych.debts.good.repository.GoodRepository
-import com.gorych.debts.good.validation.MeasurementUnitValidator
+import com.gorych.debts.good.validation.unit.MeasurementUnitValidator
 import com.gorych.debts.core.validation.EmptyTextOrValidLengthValidator
 import com.gorych.debts.utility.BitmapUtils.convertBytesToBitmap
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood

@@ -19,6 +19,7 @@ class RecyclerViewItemConfirmationRemovalDialog<T>(
         MaterialAlertDialogBuilder(context)
             .setTitle(titleResId)
             .setMessage(messageResId)
+            .setCancelable(false)
             .setNegativeButton(R.string.no) { dialog, _ ->
                 adapter.notifyItemChanged(itemPosition)
                 dialog.dismiss()

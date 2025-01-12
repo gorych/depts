@@ -17,14 +17,17 @@ import com.gorych.debts.R
 import com.gorych.debts.barcode.ui.GoodUnitDropdownItem
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
-import com.gorych.debts.core.validation.NotBlankTextAndValidLengthValidator
 import com.gorych.debts.core.validation.TextInputValidator
 import com.gorych.debts.core.watcher.OnTextChangedWatcher
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.Good.MeasurementUnit
 import com.gorych.debts.good.exception.BarcodeUniquenessException
 import com.gorych.debts.good.repository.GoodRepository
-import com.gorych.debts.good.validation.MeasurementUnitValidator
+import com.gorych.debts.good.validation.barcode.NotEmptyBarcodeValidator
+import com.gorych.debts.good.validation.barcode.ValidBarcodeLengthValidator
+import com.gorych.debts.good.validation.name.NotEmptyNameValidator
+import com.gorych.debts.good.validation.name.ValidNameLengthValidator
+import com.gorych.debts.good.validation.unit.MeasurementUnitValidator
 import com.gorych.debts.home.MainActivity
 import com.gorych.debts.purchaser.IntentExtras
 import com.gorych.debts.utility.clearText
@@ -113,22 +116,30 @@ class AddGoodActivity : TopBarActivityBase() {
         inputName = view.findViewById(R.id.add_good_input_name)
         val layoutNameInput: TextInputLayout = view.findViewById(R.id.add_good_layout_input_name)
 
-        val textLengthValidator: TextInputValidator =
-            NotBlankTextAndValidLengthValidator(inputName, layoutNameInput, this)
-        inputFieldValidators.add(textLengthValidator)
+        val notEmptyNameValidator = NotEmptyNameValidator(inputName, layoutNameInput, this)
+        inputName.addTextChangedListener(OnTextChangedWatcher(notEmptyNameValidator))
+        inputFieldValidators.add(notEmptyNameValidator)
 
-        inputName.addTextChangedListener(OnTextChangedWatcher(textLengthValidator))
+        val validNameLengthValidator = ValidNameLengthValidator(inputName, layoutNameInput, this)
+        inputName.addTextChangedListener(OnTextChangedWatcher(validNameLengthValidator))
+        inputFieldValidators.add(validNameLengthValidator)
+
+        inputName.addTextChangedListener(OnTextChangedWatcher(notEmptyNameValidator))
     }
 
     private fun initBarcodeComponents(view: View) {
         inputBarcode = view.findViewById(R.id.add_good_input_barcode)
         layoutBarcodeInput = view.findViewById(R.id.add_good_layout_input_barcode)
 
-        val textLengthValidator: TextInputValidator =
-            NotBlankTextAndValidLengthValidator(inputBarcode, layoutBarcodeInput, this)
-        inputFieldValidators.add(textLengthValidator)
+        val notEmptyBarcodeValidator =
+            NotEmptyBarcodeValidator(inputBarcode, layoutBarcodeInput, this)
+        inputBarcode.addTextChangedListener(OnTextChangedWatcher(notEmptyBarcodeValidator))
+        inputFieldValidators.add(notEmptyBarcodeValidator)
 
-        inputBarcode.addTextChangedListener(OnTextChangedWatcher(textLengthValidator))
+        val validBarcodeLengthValidator =
+            ValidBarcodeLengthValidator(inputBarcode, layoutBarcodeInput, this)
+        inputBarcode.addTextChangedListener(OnTextChangedWatcher(validBarcodeLengthValidator))
+        inputFieldValidators.add(validBarcodeLengthValidator)
     }
 
     private fun initMeasurementUnitDropdown(view: View) {
@@ -172,6 +183,7 @@ class AddGoodActivity : TopBarActivityBase() {
         MaterialAlertDialogBuilder(this@AddGoodActivity)
             .setTitle(R.string.good_added_successfully_text)
             .setMessage(R.string.add_one_more_good_question)
+            .setCancelable(false)
             .setNegativeButton(R.string.yes) { dialog, _ ->
                 inputFields.forEach(EditText::clearText)
                 inputFieldValidators.forEach { it.clearError() }

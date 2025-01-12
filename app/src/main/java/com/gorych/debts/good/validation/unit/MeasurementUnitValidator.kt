@@ -1,4 +1,4 @@
-package com.gorych.debts.good.validation
+package com.gorych.debts.good.validation.unit
 
 import android.content.Context
 import android.widget.AutoCompleteTextView

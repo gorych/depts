@@ -41,6 +41,8 @@
     <!-- Common validation strings -->
     <string name="required_text">required</string>
     <string name="wrong_length_text">Wrong length</string>
+    <string name="blank_text_error">Text must not be empty</string>
+    <string name="wrong_length_error">Text length is too long</string>
     <string name="blank_text_or_wrong_length">Blank text or wrong length</string>
     <string name="not_valid_first_name">Not valid first name provided</string>
     <string name="not_valid_last_name">Not valid last name provided</string>
@@ -84,6 +86,11 @@
     <string name="add_good_options_text">Select adding method</string>
     <string name="add_good_txt_enter_name_label">Enter title</string>
     <string name="add_good_txt_enter_barcode_label">Enter barcode</string>
+    <string name="barcode_uniqueness_error">Already existing barcode </string>
+    <string name="good_name_must_not_be_empty">Good name must not be empty</string>
+    <string name="good_barcode_must_not_be_empty">Good barcode must not be empty</string>
+    <string name="good_name_length_must_be_correct">Good name must not be longer than 64 characters</string>
+    <string name="good_barcode_length_must_be_correct">Good barcode must not be longer than 64 characters</string>
 
     <string name="good_measurement_unit">Measurement unit</string>
     <string name="select_measurement_units_text">Select unit of measurement</string>
@@ -130,5 +137,4 @@
     <string name="pref_key_enable_barcode_size_check" translatable="false">barcode_ebsc</string>
     <string name="pref_key_minimum_barcode_width" translatable="false">barcode_mbw</string>
     <string name="pref_key_delay_loading_barcode_result" translatable="false">barcode_dlbr</string>
-    <string name="barcode_uniqueness_error">Already existing barcode </string>
 </resources>

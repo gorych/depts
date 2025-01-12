@@ -73,9 +73,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/good_measurement_unit"
+                android:imeOptions="actionNext"
                 android:inputType="none"
-                android:labelFor="@+id/add_good_layout_input_good_measurement_unit"
-                android:imeOptions="actionDone"/>
+                android:labelFor="@+id/add_good_layout_input_good_measurement_unit" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
