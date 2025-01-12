@@ -7,7 +7,7 @@ import android.text.TextWatcher
  * The goal of this class to provide possibility to override only single action
  * without boilerplate 'no-op' functions
  */
-abstract class AbstractOnTextChangedWatcher() : TextWatcher {
+abstract class AbstractOnTextChangedWatcher : TextWatcher {
     override fun afterTextChanged(text: Editable?) {
         //no-op
     }

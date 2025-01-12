@@ -92,6 +92,7 @@
     <string name="good_name_length_must_be_correct">Good name must not be longer than 64 characters</string>
     <string name="good_barcode_length_must_be_correct">Good barcode must not be longer than 64 characters</string>
     <string name="go_to_goods">Go to goods</string>
+    <string name="found_good_template_string">Found goods: %d</string>
 
     <string name="good_measurement_unit">Measurement unit</string>
     <string name="select_measurement_units_text">Select unit of measurement</string>

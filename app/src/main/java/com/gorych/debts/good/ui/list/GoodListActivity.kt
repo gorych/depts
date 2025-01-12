@@ -2,6 +2,7 @@ package com.gorych.debts.good.ui.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -14,8 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
 import com.gorych.debts.R
 import com.gorych.debts.barcode.ui.LiveBarcodeScanningActivity
 import com.gorych.debts.config.db.AppDatabase
@@ -23,6 +26,7 @@ import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.adapter.BaseAdapter
 import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeDeleteCallback
 import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
+import com.gorych.debts.core.watcher.AbstractOnTextChangedWatcher
 import com.gorych.debts.good.Good
 import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
@@ -44,6 +48,8 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     private lateinit var addGoodSubActionsFabLayout: LinearLayout
     private lateinit var addGoodMainFab: FloatingActionButton
 
+    private lateinit var goodCountChip: Chip
+
     private val goodRepository: GoodRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
         GoodRepository(database.goodDao())
@@ -62,6 +68,7 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             insets
         }
 
+        goodListPresenter = GoodListPresenter(this, goodRepository)
         goodItemAdapter = GoodItemAdapter({ good -> onItemClick(good) }, this)
 
         initTopBarFragment(
@@ -69,13 +76,27 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
             R.drawable.ic_item_list_24
         )
 
+        initSearchBar()
+
         initItemsView()
         initAddGoodActionButtons()
 
-        goodListPresenter = GoodListPresenter(this, goodRepository)
+        goodCountChip = findViewById(R.id.good_count)
+
         lifecycleScope.launch {
             goodListPresenter.loadInitialList()
         }
+    }
+
+    private fun initSearchBar() {
+        findViewById<TextInputEditText>(R.id.all_goods_search_bar).addTextChangedListener(
+            object : AbstractOnTextChangedWatcher() {
+                override fun afterTextChanged(text: Editable?) {
+                    lifecycleScope.launch {
+                        goodListPresenter.reloadListOnSearch(text.toString())
+                    }
+                }
+            })
     }
 
     private fun initAddGoodActionButtons() {
@@ -123,8 +144,10 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
         }
     }
 
-    override fun populateItems(goods: List<Good>) {
+    override fun populateItems(goods: List<Good>, count: Int) {
         goodItemAdapter.updateItems(goods)
+        goodCountChip.text = getString(R.string.found_good_template_string, count)
+
     }
 
     override fun removeItem(good: Good) {

@@ -9,11 +9,16 @@ class GoodListPresenter(
 ) : GoodListContract.Presenter {
 
     override suspend fun loadInitialList() {
-        val items = goodRepository.getFirstBatch(BATCH_SIZE)
-        view.populateItems(items)
+        val items = goodRepository.getAll()
+        val count = goodRepository.countAll()
+        view.populateItems(items, count)
+
     }
 
-    companion object {
-        const val BATCH_SIZE = 100
+    override suspend fun reloadListOnSearch(barcode: String) {
+        val foundGoods = goodRepository.findByBarcode(barcode)
+        val count = goodRepository.countByBarcode(barcode)
+        view.populateItems(foundGoods, count)
+
     }
 }

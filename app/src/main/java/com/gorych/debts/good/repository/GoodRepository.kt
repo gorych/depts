@@ -9,12 +9,24 @@ import com.gorych.debts.good.exception.BarcodeUniquenessException
 
 class GoodRepository(private val goodDao: GoodDao) {
 
-    suspend fun getFirstBatch(size: Int): List<Good> {
+    suspend fun getAll(): List<Good> {
         return goodDao.findAll()
+    }
+
+    suspend fun countAll(): Int {
+        return goodDao.countAll()
     }
 
     suspend fun findByBarcode(barcode: Barcode): Good? {
         return goodDao.findByBarcode(barcode.rawValue ?: "")
+    }
+
+    suspend fun findByBarcode(barcode: String): List<Good> {
+        return goodDao.searchByBarcode("%$barcode%")
+    }
+
+    suspend fun countByBarcode(barcode: String): Int {
+        return goodDao.countByBarcode("%$barcode%")
     }
 
     suspend fun add(good: Good) {
