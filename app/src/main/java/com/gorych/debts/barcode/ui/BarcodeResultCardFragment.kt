@@ -36,6 +36,7 @@ import com.gorych.debts.good.ui.list.GoodListActivity
 import com.gorych.debts.good.validation.unit.MeasurementUnitValidator
 import com.gorych.debts.utility.BitmapUtils.convertBytesToBitmap
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
+import com.gorych.debts.utility.ClipboardUtils.copyTextToClipboard
 import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.show
@@ -145,7 +146,13 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     }
 
     private fun initTextViews(view: View) {
-        titleTextView = view.findViewById(R.id.barcode_result_card_tv_title)
+        titleTextView = view.findViewById<TextView?>(R.id.barcode_result_card_tv_title).apply {
+            setOnClickListener {
+                copyTextToClipboard(context, CLIPBOARD_LABEL_BARCODE, this.textAsString())
+                toast(getString(R.string.copied))
+            }
+        }
+
         secondaryTextView = view.findViewById(R.id.barcode_result_card_tv_secondary_text)
         supportingLine1TextView = view.findViewById(R.id.barcode_result_card_tv_supporting_line_1)
         supportingLine2TextView = view.findViewById(R.id.barcode_result_card_tv_supporting_line_2)
@@ -333,6 +340,8 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
     companion object {
         private const val TAG = "BarcodeResultFragment"
         private const val ARG_BARCODE_RESULT_CARD = "arg_barcode_result_card"
+
+        const val CLIPBOARD_LABEL_BARCODE = "barcodeClipboardLabel"
 
         fun show(
             fragmentManager: FragmentManager,
