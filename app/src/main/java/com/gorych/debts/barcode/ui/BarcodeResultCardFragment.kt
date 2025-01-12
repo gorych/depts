@@ -200,7 +200,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         val barcodeBitmap = createBitmapFromGood(good)
         updateBarcodeImageView(barcodeBitmap)
 
-        configureGoodExistenceChip(R.drawable.ic_check_24, R.string.good_found)
+        configureGoodExistenceChip(
+            R.drawable.ic_check_24,
+            R.string.good_found,
+            R.color.green_accent_3
+        )
 
         goodInputLayouts.forEach(TextInputLayout::hide)
 
@@ -244,7 +248,11 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         val barcodeBitmap = convertBytesToBitmap(card.imgData)
         updateBarcodeImageView(barcodeBitmap)
 
-        configureGoodExistenceChip(R.drawable.ic_close_24, R.string.good_not_found)
+        configureGoodExistenceChip(
+            R.drawable.ic_close_24,
+            R.string.good_not_found,
+            R.color.red_lighten_1
+        )
 
         goodInputLayouts.forEach(TextInputLayout::show)
         secondLevelTextViews.forEach(TextView::hide)
@@ -253,7 +261,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
         hideActionButtonsExceptOf(addGoodBtn)
     }
 
-    private fun configureGoodExistenceChip(iconResId: Int, textResId: Int) {
+    private fun configureGoodExistenceChip(iconResId: Int, textResId: Int, strokeColorResId: Int) {
         goodExistenceChip.apply {
             text = getString(textResId)
             chipIcon = ResourcesCompat.getDrawable(
@@ -261,6 +269,7 @@ class BarcodeResultCardFragment : BottomSheetDialogFragment(), BarcodeResultCont
                 iconResId,
                 context.theme
             )
+            setChipStrokeColorResource(strokeColorResId)
         }
     }
 
