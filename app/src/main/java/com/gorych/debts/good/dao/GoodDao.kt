@@ -22,7 +22,7 @@ interface GoodDao {
     @Query("SELECT * FROM good WHERE barcode = :barcode")
     suspend fun findByBarcode(barcode: String): Good?
 
-    @Query("SELECT * FROM good WHERE barcode LIKE :barcode")
+    @Query("SELECT * FROM good WHERE barcode LIKE :barcode ORDER BY createdAt DESC, name ASC")
     suspend fun searchByBarcode(barcode: String): List<Good>
 
     @Query("SELECT COUNT(id) FROM good WHERE barcode LIKE :barcode")
