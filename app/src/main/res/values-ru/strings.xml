@@ -30,8 +30,13 @@
 
     <string name="search">Поиск по имени, фамилии или телефону</string>
     <string name="search_by_barcode">Поиск по штрихкоду</string>
+    <string name="search_by_barcode_or_title">Поиск по штрихкоду или наименованию</string>
 
     <string name="barcode_image_description">Изображение штрихкода</string>
+
+    <string name="scan_barcode">Сканировать штрихкод</string>
+    <string name="select_from_list">Выбрать из списка</string>
+    <string name="select_type_of_good_adding">Выберите способ добавления товара</string>
 
     <!-- Common string templates -->
     <string name="name_template_string">Наименование: %s</string>
@@ -75,6 +80,7 @@
 
     <!-- Good -->
     <string name="add_good_title">Добавление товара</string>
+    <string name="goods_selection_title">Добавление товаров в чек</string>
     <string name="good_found">Товар найден</string>
     <string name="good_not_found">Товар не найден</string>
     <string name="good_added_text">Товар сохранен</string>
@@ -93,6 +99,9 @@
     <string name="good_barcode_length_must_be_correct">Штрихкод не должен превышать 64 символа</string>
     <string name="go_to_goods">К списку товаров</string>
     <string name="found_good_template_string">Найдено товаров: %d</string>
+    <string name="total_goods_template_string">Всего товаров: %d</string>
+    <string name="add_goods_to_receipt">Добавить товары (0 шт) в чек</string>
+    <string name="add_goods_to_receipt_template">Добавить товары (%d шт) в чек</string>
 
     <string name="good_measurement_unit">Единица измерения</string>
     <string name="select_measurement_units_text">Выберите единицу измерения</string>

@@ -32,7 +32,7 @@ import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.good.ui.add.AddGoodActivity
-import com.gorych.debts.purchaser.IntentExtras
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.isVisible

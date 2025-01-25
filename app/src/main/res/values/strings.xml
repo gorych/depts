@@ -29,8 +29,13 @@
 
     <string name="search">Search</string>
     <string name="search_by_barcode">Search by barcode</string>
+    <string name="search_by_barcode_or_title">Search by barcode or title</string>
 
     <string name="barcode_image_description">Barcode image</string>
+
+    <string name="scan_barcode">Scan barcode</string>
+    <string name="select_from_list">Select from the list</string>
+    <string name="select_type_of_good_adding">Select a type of good adding</string>
 
     <!-- Common string templates -->
     <string name="name_template_string">Name: %s</string>
@@ -75,6 +80,7 @@
 
     <!-- Good -->
     <string name="add_good_title">Add new good</string>
+    <string name="goods_selection_title">Add goods to receipt</string>
     <string name="good_found">Good found</string>
     <string name="good_not_found">Good not found</string>
     <string name="good_added_text">Good added</string>
@@ -93,6 +99,9 @@
     <string name="good_barcode_length_must_be_correct">Good barcode must not be longer than 64 characters</string>
     <string name="go_to_goods">Go to goods</string>
     <string name="found_good_template_string">Found goods: %d</string>
+    <string name="total_goods_template_string">Total goods: %d</string>
+    <string name="add_goods_to_receipt">Add goods (0 pcs) to receipt</string>
+    <string name="add_goods_to_receipt_template">Add goods (%d pcs) to receipt</string>
 
     <string name="good_measurement_unit">Measurement unit</string>
     <string name="select_measurement_units_text">Select unit of measurement</string>

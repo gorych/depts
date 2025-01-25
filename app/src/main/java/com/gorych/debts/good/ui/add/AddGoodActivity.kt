@@ -30,7 +30,7 @@ import com.gorych.debts.good.validation.name.NotEmptyNameValidator
 import com.gorych.debts.good.validation.name.ValidNameLengthValidator
 import com.gorych.debts.good.validation.unit.MeasurementUnitValidator
 import com.gorych.debts.home.MainActivity
-import com.gorych.debts.purchaser.IntentExtras
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.utility.clearText
 import com.gorych.debts.utility.textAsString
 import kotlinx.coroutines.launch

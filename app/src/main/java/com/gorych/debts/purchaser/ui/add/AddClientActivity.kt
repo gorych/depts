@@ -19,7 +19,7 @@ import com.gorych.debts.core.validation.TextInputValidator
 import com.gorych.debts.core.watcher.AbstractOnTextChangedWatcher
 import com.gorych.debts.core.watcher.OnTextChangedWatcher
 import com.gorych.debts.home.MainActivity
-import com.gorych.debts.purchaser.IntentExtras
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.repository.PurchaserRepository
 import com.gorych.debts.purchaser.validation.FirstNameValidator

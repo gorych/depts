@@ -12,7 +12,7 @@ import com.google.android.material.checkbox.MaterialCheckBox
 import com.gorych.debts.R
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.debt.Debt
-import com.gorych.debts.purchaser.IntentExtras
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserDetailContract
 import com.gorych.debts.purchaser.presenter.PurchaserDetailPresenter

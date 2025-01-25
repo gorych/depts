@@ -11,8 +11,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gorych.debts.R
 import com.gorych.debts.barcode.ui.LiveBarcodeScanningActivity
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.activity.TopBarActivityBase
-import com.gorych.debts.purchaser.IntentExtras
+import com.gorych.debts.good.ui.list.selectable.SelectableGoodListActivity
 import com.gorych.debts.purchaser.Purchaser
 
 class AddDebtActivity : TopBarActivityBase() {
@@ -55,13 +56,19 @@ class AddDebtActivity : TopBarActivityBase() {
                         dialog.dismiss()
                     }
                     .setPositiveButton(resources.getString(R.string.proceed)) { dialog, which ->
-                        showUnitsDialog()
+
                     }
                     // Single-choice items (initialized with checked item)
-                    .setSingleChoiceItems(singleItems, 0) { dialog, which ->
-                        when {
-                            //TODO
-                            which == 0 -> startActivity(LiveBarcodeScanningActivity::class.java)
+                    .setSingleChoiceItems(singleItems, 0) { dialog, checkedItem ->
+                        when (checkedItem) {
+                            0 -> startActivity(
+                                LiveBarcodeScanningActivity::class.java,
+                                selectedPurchaser
+                            )
+                            1 -> startActivity(
+                                SelectableGoodListActivity::class.java,
+                                selectedPurchaser
+                            )
                         }
                     }
                     .show()
@@ -71,28 +78,11 @@ class AddDebtActivity : TopBarActivityBase() {
 
     private fun startActivity(
         activityClass: Class<out AppCompatActivity>,
+        selectedPurchaser: Purchaser?,
     ) {
         val intent = Intent(this, activityClass).apply {
             //putExtra(IntentExtras.SELECTED_PURCHASER, selectedItem)
         }
         this.startActivity(intent)
-    }
-
-
-    private fun Button.showUnitsDialog() {
-        val items = arrayOf("Количество", "Граммы")
-        MaterialAlertDialogBuilder(context)
-            .setTitle(resources.getString(R.string.select_measurement_units_text))
-            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
-                dialog.dismiss()
-            }
-            .setPositiveButton(resources.getString(R.string.proceed)) { dialog, which ->
-                dialog.dismiss()
-            }
-            // Single-choice items (initialized with checked item)
-            .setSingleChoiceItems(items, 0) { dialog, which ->
-                // Respond to item chosen
-            }
-            .show()
     }
 }

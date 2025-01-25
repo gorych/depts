@@ -1,6 +1,5 @@
 package com.gorych.debts.purchaser.ui.list
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import com.gorych.debts.R
 import com.gorych.debts.core.adapter.BaseAdapter
 import com.gorych.debts.core.adapter.BaseViewHolder
 import com.gorych.debts.debt.ui.add.AddDebtActivity
-import com.gorych.debts.purchaser.IntentExtras
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.ui.detail.ClientDetailActivity

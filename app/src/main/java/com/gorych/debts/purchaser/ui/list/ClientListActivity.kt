@@ -15,7 +15,7 @@ import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeDeleteCallback
 import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
-import com.gorych.debts.purchaser.IntentExtras
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
