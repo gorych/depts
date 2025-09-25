@@ -13,6 +13,8 @@
     <string name="mode_show_all_goods_subtitle">Shows detailed info about all goods</string>
 
     <!-- Common strings -->
+    <string name="home">Home</string>
+
     <string name="contact_phone_text">Contact phone</string>
 
     <string name="yes">Yes</string>
