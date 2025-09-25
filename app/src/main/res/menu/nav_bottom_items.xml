@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_24"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/navigation_clients"
+        android:icon="@drawable/ic_people_24"
+        android:title="@string/mode_show_all_clients_title" />
+
+    <item
+        android:id="@+id/navigation_goods"
+        android:icon="@drawable/ic_item_list_24"
+        android:title="@string/mode_show_all_goods_title" />
+</menu>

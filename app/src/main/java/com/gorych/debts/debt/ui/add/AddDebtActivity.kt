@@ -78,10 +78,10 @@ class AddDebtActivity : TopBarActivityBase() {
 
     private fun startActivity(
         activityClass: Class<out AppCompatActivity>,
-        selectedPurchaser: Purchaser?,
+        selectedPurchaser: Purchaser?
     ) {
         val intent = Intent(this, activityClass).apply {
-            //putExtra(IntentExtras.SELECTED_PURCHASER, selectedItem)
+            putExtra(IntentExtras.SELECTED_PURCHASER, selectedPurchaser)
         }
         this.startActivity(intent)
     }
