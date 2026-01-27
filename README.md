@@ -6,5 +6,15 @@ Key features:
 
 ## App Interface Preview
 
-Below is a screenshot of the main screen of the application:
-![Main view](https://github.com/gorych/depts/blob/master/assets/main_view.jpg)
+<details open>
+  <summary>App Screens</summary>
+  <p align="center">
+    <img src="https://github.com/gorych/depts/blob/master/assets/main_view.jpg" width="30%" alt="Main screen"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/customer_view.jpg" width="30%" alt="Customer view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/add_customer_view.jpg" width="30%" alt="Add customer view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/goods_view.jpg" width="30%" alt="Good view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/good_detail_view.jpg" width="30%"alt="Good detail view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/add_good_view.jpg" width="30%" alt="Add good view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/barcode_scanning_view.jpg" width="30%" alt="Barcode scanning view"/>
+  </p>
+</details>
