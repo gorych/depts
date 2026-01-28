@@ -1,6 +1,7 @@
 # Debt Management App
 
 Key features:
+
 - Customer & Debt Management
 - Inventory Control
 
@@ -8,7 +9,7 @@ Key features:
 
 <details open>
   <summary>App Screens</summary>
-  <p>
+  <p style="text-align:center">
     <img src="https://github.com/gorych/depts/blob/master/assets/main_view.jpg" width="30%" alt="Main screen"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/add_customer_view.jpg" width="30%" alt="Add customer view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/customer_view.jpg" width="30%" alt="Customer view"/>
