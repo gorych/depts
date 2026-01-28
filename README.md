@@ -17,5 +17,8 @@ Key features:
     <img src="https://github.com/gorych/depts/blob/master/assets/goods_view.jpg" width="30%" alt="Good view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/good_detail_view.jpg" width="30%" alt="Good detail view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/barcode_scanning_view.jpg" width="30%" alt="Barcode scanning view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/good_found_view.jpg" width="30%" alt="Barcode scanning view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/good_not_found_view.jpg" width="30%" alt="Barcode scanning view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/settings_view.jpg" width="30%" alt="Barcode scanning view"/>
   </p>
 </details>
