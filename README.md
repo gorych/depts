@@ -20,5 +20,6 @@ Key features:
     <img src="https://github.com/gorych/depts/blob/master/assets/good_found_view.jpg" width="30%" alt="Barcode scanning view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/good_not_found_view.jpg" width="30%" alt="Barcode scanning view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/settings_view.jpg" width="30%" alt="Barcode scanning view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/error_validation.jpg" width="30%" alt="Error validation"/>
   </p>
 </details>
