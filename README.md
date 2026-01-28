@@ -17,9 +17,9 @@ Key features:
     <img src="https://github.com/gorych/depts/blob/master/assets/add_good_view.jpg" width="30%" alt="Add good view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/goods_view.jpg" width="30%" alt="Goods view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/barcode_scanning_view.jpg" width="30%" alt="Barcode scanning view"/>
-    <img src="https://github.com/gorych/depts/blob/master/assets/good_found_view.jpg" width="30%" alt="Barcode scanning view"/>
-    <img src="https://github.com/gorych/depts/blob/master/assets/good_not_found_view.jpg" width="30%" alt="Barcode scanning view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/good_found_view.jpg" width="30%" alt="Good not found view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/good_not_found_view.jpg" width="30%" alt="Good found view"/>
     <img src="https://github.com/gorych/depts/blob/master/assets/error_validation.jpg" width="30%" alt="Error validation"/>
-    <img src="https://github.com/gorych/depts/blob/master/assets/settings_view.jpg" width="30%" alt="Barcode scanning view"/>
+    <img src="https://github.com/gorych/depts/blob/master/assets/settings_view.jpg" width="30%" alt="Settings view"/>
   </p>
 </details>
