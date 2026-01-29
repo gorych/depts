@@ -10,14 +10,21 @@ import com.gorych.debts.good.Good
 import com.gorych.debts.good.dao.GoodDao
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.dao.PurchaserDao
+import com.gorych.debts.receipt.Receipt
+import com.gorych.debts.receipt.dao.ReceiptDao
 
-@Database(entities = [Purchaser::class, Good::class], version = 101)
+@Database(
+    entities = [Purchaser::class, Good::class, Receipt::class],
+    version = 102
+)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun purchaserDao(): PurchaserDao
 
     abstract fun goodDao(): GoodDao
+
+    abstract fun receiptDao(): ReceiptDao
 
     companion object {
         private const val DEBTS_DB_NAME = "debts"
