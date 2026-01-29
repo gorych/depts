@@ -14,7 +14,7 @@ import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.activity.TopBarActivityBase
-import com.gorych.debts.debt.repository.PurchaserDebtRepository
+import com.gorych.debts.receipt.repository.ReceiptRepository
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserDetailContract
 import com.gorych.debts.purchaser.presenter.PurchaserDetailPresenter
@@ -35,9 +35,9 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
 
     private lateinit var purchaserDetailPresenter: PurchaserDetailContract.Presenter
 
-    private val purchaserDebtRepository: PurchaserDebtRepository by lazy {
+    private val receiptRepository: ReceiptRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
-        PurchaserDebtRepository(database.receiptDao())
+        ReceiptRepository(database.receiptDao())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
         }
 
         debtItemAdapter = DebtRecyclerViewAdapter()
-        purchaserDetailPresenter = PurchaserDetailPresenter(this, purchaserDebtRepository)
+        purchaserDetailPresenter = PurchaserDetailPresenter(this, receiptRepository)
 
         val selectedPurchaser: Purchaser? =
             intent.getParcelableExtra(IntentExtras.SELECTED_PURCHASER)

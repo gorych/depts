@@ -25,7 +25,7 @@ data class Receipt(
     @ColumnInfo val updatedAt: LocalDateTime?,
     @ColumnInfo val status: Status,
     @ColumnInfo val purchaserUuid: UUID,
-    @ColumnInfo val seller: String,
+    @ColumnInfo val seller: String?,
 ) : Parcelable {
 
     val createdAtFormatted: String
@@ -36,7 +36,7 @@ data class Receipt(
 
     constructor(
         purchaserUuid: UUID,
-        seller: String,
+        seller: String?,
     ) : this(
         id = 0,
         now(),

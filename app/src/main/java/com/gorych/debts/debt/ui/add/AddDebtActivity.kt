@@ -8,18 +8,28 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.gorych.debts.R
 import com.gorych.debts.barcode.ui.LiveBarcodeScanningActivity
+import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.good.ui.list.selectable.SelectableGoodListActivity
 import com.gorych.debts.purchaser.Purchaser
+import com.gorych.debts.receipt.repository.ReceiptRepository
+import com.gorych.debts.utility.PreferenceUtils
+import kotlinx.coroutines.launch
 
 class AddDebtActivity : TopBarActivityBase() {
 
     private lateinit var tvClientFullName: TextView
     private lateinit var addGoodBtn: Button
+
+    private val receiptRepository: ReceiptRepository by lazy {
+        val database = AppDatabase.getDatabase(applicationContext)
+        ReceiptRepository(database.receiptDao())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +52,15 @@ class AddDebtActivity : TopBarActivityBase() {
 
         tvClientFullName = view.findViewById(R.id.add_debt_tv_client_full_name)
         selectedPurchaser?.let {
+            lifecycleScope.launch {
+                val sellerId: String? =
+                    PreferenceUtils.getStringPref(this@AddDebtActivity, R.string.pref_key_seller_id)
+                receiptRepository.add(it.id, sellerId)
+            }
             tvClientFullName.text = it.fullName()
         }
 
-        addGoodBtn = view.findViewById<Button?>(R.id.all_clients_item_btn_add_good).apply {
+        addGoodBtn = view.findViewById<Button>(R.id.all_clients_item_btn_add_good).apply {
             setOnClickListener {
                 val singleItems =
                     arrayOf("Сканировать штрихкод", "Выбрать из списка", "Ввести штрихкод вручную")
@@ -78,7 +93,7 @@ class AddDebtActivity : TopBarActivityBase() {
 
     private fun startActivity(
         activityClass: Class<out AppCompatActivity>,
-        selectedPurchaser: Purchaser?
+        selectedPurchaser: Purchaser?,
     ) {
         val intent = Intent(this, activityClass).apply {
             putExtra(IntentExtras.SELECTED_PURCHASER, selectedPurchaser)
