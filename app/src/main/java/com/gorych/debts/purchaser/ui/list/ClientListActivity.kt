@@ -2,6 +2,7 @@ package com.gorych.debts.purchaser.ui.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -9,13 +10,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
 import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeDeleteCallback
 import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
-import com.gorych.debts.core.IntentExtras
+import com.gorych.debts.core.watcher.AbstractOnTextChangedWatcher
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
 import com.gorych.debts.purchaser.presenter.PurchaserListPresenter
@@ -28,6 +32,8 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
     private lateinit var purchaserListPresenter: PurchaserListContract.Presenter
     private lateinit var itemsRecyclerView: RecyclerView
     private lateinit var purchaserAdapter: PurchaserItemAdapter
+
+    private lateinit var purchaserCountChip: Chip
 
     private val purchaserRepository: PurchaserRepository by lazy {
         val database = AppDatabase.getDatabase(applicationContext)
@@ -54,7 +60,12 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
             R.string.mode_show_all_clients_title,
             R.drawable.ic_people_24
         )
+
+        initSearchBar()
+
         initItemsView()
+
+        purchaserCountChip = findViewById(R.id.client_count)
 
         lifecycleScope.launch {
             purchaserListPresenter.loadInitialList()
@@ -70,14 +81,29 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
         }
     }
 
-    override fun populateItems(purchasers: List<Purchaser>) {
+    override fun populateItems(purchasers: List<Purchaser>, count: Int) {
+        purchaserCountChip.text = getString(R.string.found_client_template_string, count)
         purchaserAdapter.updateItems(purchasers)
     }
 
     override fun removeItem(purchaser: Purchaser) {
         lifecycleScope.launch {
             purchaserRepository.remove(purchaser)
+
+            val count: Int = purchaserRepository.countAll()
+            purchaserCountChip.text = getString(R.string.found_client_template_string, count)
         }
+    }
+
+    private fun initSearchBar() {
+        findViewById<TextInputEditText>(R.id.all_clients_search_bar).addTextChangedListener(
+            object : AbstractOnTextChangedWatcher() {
+                override fun afterTextChanged(text: Editable?) {
+                    lifecycleScope.launch {
+                        purchaserListPresenter.reloadListOnSearch(text.toString())
+                    }
+                }
+            })
     }
 
     private fun initItemsRecyclerView() {

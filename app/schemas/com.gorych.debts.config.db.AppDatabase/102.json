@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 101,
-    "identityHash": "41f50d80c5e9d98ae425d9c71e1b8757",
+    "version": 102,
+    "identityHash": "46fa0c76991c826b01b2b24b65ac689e",
     "entities": [
       {
         "tableName": "purchaser",
@@ -121,7 +121,7 @@
       },
       {
         "tableName": "receipt",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `updatedAt` TEXT, `status` TEXT NOT NULL, `purchaserUuid` BLOB NOT NULL, `seller` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT NOT NULL, `updatedAt` TEXT, `status` TEXT NOT NULL, `purchaserUuid` BLOB NOT NULL, `seller` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -155,8 +155,7 @@
           {
             "fieldPath": "seller",
             "columnName": "seller",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -189,7 +188,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '41f50d80c5e9d98ae425d9c71e1b8757')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '46fa0c76991c826b01b2b24b65ac689e')"
     ]
   }
 }

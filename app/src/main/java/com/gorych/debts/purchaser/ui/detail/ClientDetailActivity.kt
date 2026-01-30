@@ -6,20 +6,24 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.gorych.debts.R
-import com.gorych.debts.core.activity.TopBarActivityBase
-import com.gorych.debts.debt.Debt
+import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.IntentExtras
+import com.gorych.debts.core.activity.TopBarActivityBase
+import com.gorych.debts.receipt.repository.ReceiptRepository
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserDetailContract
 import com.gorych.debts.purchaser.presenter.PurchaserDetailPresenter
+import com.gorych.debts.receipt.Receipt
 import com.gorych.debts.utility.ClipboardUtils.copyTextToClipboard
 import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.textAsString
+import kotlinx.coroutines.launch
 
 class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View {
 
@@ -30,6 +34,11 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
     private lateinit var debtItemAdapter: DebtRecyclerViewAdapter
 
     private lateinit var purchaserDetailPresenter: PurchaserDetailContract.Presenter
+
+    private val receiptRepository: ReceiptRepository by lazy {
+        val database = AppDatabase.getDatabase(applicationContext)
+        ReceiptRepository(database.receiptDao())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +55,7 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
         }
 
         debtItemAdapter = DebtRecyclerViewAdapter()
-        purchaserDetailPresenter = PurchaserDetailPresenter(this)
+        purchaserDetailPresenter = PurchaserDetailPresenter(this, receiptRepository)
 
         val selectedPurchaser: Purchaser? =
             intent.getParcelableExtra(IntentExtras.SELECTED_PURCHASER)
@@ -58,12 +67,14 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
             initActiveDebtsOnlyCheckBox(it)
             initDebtsView()
 
-            purchaserDetailPresenter.loadActiveDebts(it)
+            lifecycleScope.launch {
+                purchaserDetailPresenter.loadActiveDebts(it)
+            }
         }
     }
 
-    override fun populateDebts(debts: List<Debt>) {
-        debtItemAdapter.updateItems(debts)
+    override fun populateDebts(receipts: List<Receipt>) {
+        debtItemAdapter.updateItems(receipts)
     }
 
     override fun populatePersonalInfo(purchaser: Purchaser) {
@@ -82,7 +93,12 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
     private fun initActiveDebtsOnlyCheckBox(purchaser: Purchaser) {
         findViewById<MaterialCheckBox>(R.id.client_info_mcb_active_debts_only)
             .setOnCheckedChangeListener { _, isActiveDebtsOnlyChecked ->
-                purchaserDetailPresenter.reloadDebts(purchaser, isActiveDebtsOnlyChecked)
+                lifecycleScope.launch {
+                    purchaserDetailPresenter.reloadDebts(
+                        purchaser = purchaser,
+                        activeDebtsOnly = isActiveDebtsOnlyChecked
+                    )
+                }
             }
     }
 

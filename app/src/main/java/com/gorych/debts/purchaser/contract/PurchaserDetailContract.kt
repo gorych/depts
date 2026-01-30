@@ -1,18 +1,18 @@
 package com.gorych.debts.purchaser.contract
 
-import com.gorych.debts.debt.Debt
 import com.gorych.debts.purchaser.Purchaser
+import com.gorych.debts.receipt.Receipt
 
 interface PurchaserDetailContract {
 
     interface View {
-        fun populateDebts(debts: List<Debt>)
+        fun populateDebts(receipts: List<Receipt>)
         fun populatePersonalInfo(purchaser: Purchaser)
     }
 
     interface Presenter {
-        fun loadActiveDebts(purchaser: Purchaser)
-        fun loadAllDebts(purchaser: Purchaser)
-        fun reloadDebts(purchaser: Purchaser, activeDebtsOnly: Boolean)
+        suspend fun loadActiveDebts(purchaser: Purchaser)
+        suspend fun loadAllDebts(purchaser: Purchaser)
+        suspend fun reloadDebts(purchaser: Purchaser, activeDebtsOnly: Boolean)
     }
 }
