@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.gorych.debts.R
 import com.gorych.debts.barcode.ui.LiveBarcodeScanningActivity
 import com.gorych.debts.config.db.AppDatabase
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.adapter.BaseAdapter
 import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeDeleteCallback
@@ -32,7 +33,6 @@ import com.gorych.debts.good.contract.GoodListContract
 import com.gorych.debts.good.presenter.GoodListPresenter
 import com.gorych.debts.good.repository.GoodRepository
 import com.gorych.debts.good.ui.add.AddGoodActivity
-import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.utility.BitmapUtils.createBitmapFromGood
 import com.gorych.debts.utility.hide
 import com.gorych.debts.utility.isVisible
@@ -153,6 +153,8 @@ class GoodListActivity : TopBarActivityBase(), GoodListContract.View {
     override fun removeItem(good: Good) {
         lifecycleScope.launch {
             goodRepository.remove(good)
+            val count: Int = goodRepository.countAll()
+            goodCountChip.text = getString(R.string.found_good_template_string, count)
         }
     }
 

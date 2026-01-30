@@ -15,10 +15,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
+import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.activity.TopBarActivityBase
 import com.gorych.debts.core.callback.RecyclerViewItemRightSwipeDeleteCallback
 import com.gorych.debts.core.dialog.RecyclerViewItemConfirmationRemovalDialog
-import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.watcher.AbstractOnTextChangedWatcher
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserListContract
@@ -89,6 +89,9 @@ class ClientListActivity : TopBarActivityBase(), PurchaserListContract.View {
     override fun removeItem(purchaser: Purchaser) {
         lifecycleScope.launch {
             purchaserRepository.remove(purchaser)
+
+            val count: Int = purchaserRepository.countAll()
+            purchaserCountChip.text = getString(R.string.found_client_template_string, count)
         }
     }
 
