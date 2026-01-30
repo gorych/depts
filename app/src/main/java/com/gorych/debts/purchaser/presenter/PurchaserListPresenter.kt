@@ -10,6 +10,13 @@ class PurchaserListPresenter(
 
     override suspend fun loadInitialList() {
         val items = purchaserRepository.getAll()
-        view.populateItems(items)
+        val count = purchaserRepository.countAll()
+        view.populateItems(items, count)
+    }
+
+    override suspend fun reloadListOnSearch(searchText: String) {
+        val foundClients = purchaserRepository.search(searchText)
+        val count = purchaserRepository.countSearched(searchText)
+        view.populateItems(foundClients, count)
     }
 }

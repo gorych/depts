@@ -16,4 +16,16 @@ class PurchaserRepository(private val purchaserDao: PurchaserDao) {
     suspend fun getAll(): List<Purchaser> {
         return purchaserDao.findAllSortedBySurnameAndName()
     }
+
+    suspend fun countAll(): Int {
+        return purchaserDao.countAll()
+    }
+
+    suspend fun search(searchText: String): List<Purchaser> {
+        return purchaserDao.search(searchText)
+    }
+
+    suspend fun countSearched(searchText: String): Int {
+        return purchaserDao.countSearched(searchText)
+    }
 }

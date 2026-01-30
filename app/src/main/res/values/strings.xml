@@ -29,7 +29,7 @@
     <string name="gram">Gram</string>
     <string name="quantity">Quantity</string>
 
-    <string name="search">Search</string>
+    <string name="search_by_name_or_surname_or_phone">Search</string>
     <string name="search_by_barcode">Search by barcode</string>
     <string name="search_by_barcode_or_title">Search by barcode or title</string>
 
@@ -79,6 +79,7 @@
     <string name="add_one_more_purchaser_question">Do you want to add one more purchaser?</string>
     <string name="purchaser_removal_confirmation_text">Confirm purchaser removal</string>
     <string name="purchaser_removal_confirmation_question">Are you sure you want to remove the purchaser?</string>
+    <string name="found_client_template_string">Found clients: %d</string>
 
     <!-- Good -->
     <string name="add_good_title">Add new good</string>

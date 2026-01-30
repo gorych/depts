@@ -30,7 +30,7 @@
     <string name="gram">Грамм</string>
     <string name="quantity">Количество</string>
 
-    <string name="search">Поиск по имени, фамилии или телефону</string>
+    <string name="search_by_name_or_surname_or_phone">Поиск по имени, фамилии или телефону</string>
     <string name="search_by_barcode">Поиск по штрихкоду</string>
     <string name="search_by_barcode_or_title">Поиск по штрихкоду или наименованию</string>
 
@@ -79,6 +79,7 @@
     <string name="add_one_more_purchaser_question">Хотите добавить еще одного покупателя?</string>
     <string name="purchaser_removal_confirmation_text">Подтвердите удаление покупателя</string>
     <string name="purchaser_removal_confirmation_question">Вы действительно хотите удалить покупателя?</string>
+    <string name="found_client_template_string">Найдено покупателей: %d</string>
 
     <!-- Good -->
     <string name="add_good_title">Добавление товара</string>
