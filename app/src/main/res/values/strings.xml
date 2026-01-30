@@ -41,6 +41,8 @@
 
     <!-- Common string templates -->
     <string name="name_template_string">Name: %s</string>
+    <string name="receipt_number_template_string">Receipt #%d</string>
+    <string name="seller_template_string">Seller: %s</string>
     <string name="created_at_template_string">Created at: %s</string>
     <string name="updated_at_template_string">Updated at: %s</string>
     <string name="measurement_unit_template_string">Measurement unit: %s</string>

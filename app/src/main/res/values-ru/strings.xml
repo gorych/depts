@@ -42,6 +42,8 @@
 
     <!-- Common string templates -->
     <string name="name_template_string">Наименование: %s</string>
+    <string name="receipt_number_template_string">Чек №%d</string>
+    <string name="seller_template_string">Продавец: %s</string>
     <string name="created_at_template_string">Создан: %s</string>
     <string name="updated_at_template_string">Обновлен: %s</string>
     <string name="measurement_unit_template_string">Ед. измерения: %s</string>
