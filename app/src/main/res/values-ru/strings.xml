@@ -30,6 +30,10 @@
     <string name="gram">Грамм</string>
     <string name="quantity">Количество</string>
 
+    <string name="active">Активные</string>
+    <string name="not_started">Неначатые</string>
+    <string name="closed">Закрытые</string>
+
     <string name="search_by_name_or_surname_or_phone">Поиск по имени, фамилии или телефону</string>
     <string name="search_by_barcode">Поиск по штрихкоду</string>
     <string name="search_by_barcode_or_title">Поиск по штрихкоду или наименованию</string>
@@ -60,7 +64,6 @@
 
     <!-- Debts -->
     <string name="client_debts_view_title">Долги</string>
-    <string name="client_debts_cb_text">Только активные</string>
     <string name="client_debts_text_view_YES_value">Активные долги: да</string>
     <string name="client_debts_text_view_NO_value">Активные долги: нет</string>
     <string name="all_debts_count">Всего долгов: %d</string>

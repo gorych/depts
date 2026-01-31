@@ -20,11 +20,14 @@ class ReceiptRepository(private val receiptDao: ReceiptDao) {
     }
 
     suspend fun getActiveDebtsOfPurchaser(purchaser: Purchaser): List<Receipt> {
-        return receiptDao.findOpenByPurchaserId(purchaser.id)
+        return receiptDao.findByPurchaserIdAndStatusIn(purchaser.id, setOf(Receipt.Status.OPEN))
     }
 
-    suspend fun getAllDebtsOfPurchaser(purchaser: Purchaser): List<Receipt> {
-        return receiptDao.findAllByPurchaserId(purchaser.id)
+    suspend fun getDebtsOfPurchaserWhereStatusIn(
+        purchaser: Purchaser,
+        receiptStatuses: Set<Receipt.Status>
+    ): List<Receipt> {
+        return receiptDao.findByPurchaserIdAndStatusIn(purchaser.id, receiptStatuses)
     }
 
     companion object {

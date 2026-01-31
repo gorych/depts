@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="14dp"
         android:layout_marginLeft="@dimen/view_item_padding_horizontal"
-        android:layout_marginRight="@dimen/view_item_padding_horizontal">
+        android:layout_marginRight="@dimen/view_item_padding_horizontal"
+        android:layout_marginBottom="14dp">
 
         <ImageView
             android:id="@+id/client_info_iv_contact_phone_icon"
@@ -63,18 +63,53 @@
             android:textSize="@dimen/view_item_title_size"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/client_info_mcb_active_debts_only"
+    <!--Filtering layout-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/client_info_chip_group_debts_filter"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:checked="true"
-            android:fontFamily="google-sans-medium"
-            android:text="@string/client_debts_cb_text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/view_item_title_size"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/client_info_chip_group_debts_filter_active"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/active"
+                app:checkedIconEnabled="true"
+                app:checkedIconTint="@color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/client_info_chip_group_debts_filter_not_started"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/not_started"
+                app:checkedIconEnabled="true"
+                app:checkedIconTint="@color/white" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/client_info_chip_group_debts_filter_closed"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/closed"
+                app:checkedIconEnabled="true"
+                app:checkedIconTint="@color/white" />
+
+        </com.google.android.material.chip.ChipGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

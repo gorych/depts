@@ -12,7 +12,12 @@ interface PurchaserDetailContract {
 
     interface Presenter {
         suspend fun loadActiveDebts(purchaser: Purchaser)
-        suspend fun loadAllDebts(purchaser: Purchaser)
-        suspend fun reloadDebts(purchaser: Purchaser, activeDebtsOnly: Boolean)
+
+        suspend fun loadDebtsWhereStatusIn(
+            purchaser: Purchaser,
+            receiptStatuses: Set<Receipt.Status>
+        )
+
+        suspend fun reloadDebts(purchaser: Purchaser, receiptStatuses: Set<Receipt.Status>)
     }
 }

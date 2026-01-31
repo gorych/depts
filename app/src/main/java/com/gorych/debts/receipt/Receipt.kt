@@ -41,13 +41,13 @@ data class Receipt(
         id = 0,
         now(),
         null,
-        Status.IN_PROGRESS,
+        Status.NOT_STARTED,
         purchaserUuid,
         seller
     )
 
     enum class Status {
-        IN_PROGRESS,
+        NOT_STARTED,
         OPEN,
         CLOSED
     }

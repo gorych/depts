@@ -29,6 +29,10 @@
     <string name="gram">Gram</string>
     <string name="quantity">Quantity</string>
 
+    <string name="active">Active</string>
+    <string name="not_started">Not started</string>
+    <string name="closed">Closed</string>
+
     <string name="search_by_name_or_surname_or_phone">Search</string>
     <string name="search_by_barcode">Search by barcode</string>
     <string name="search_by_barcode_or_title">Search by barcode or title</string>
@@ -59,7 +63,6 @@
 
     <!-- Debts -->
     <string name="client_debts_view_title">Debts</string>
-    <string name="client_debts_cb_text">Active debts only</string>
     <string name="client_debts_text_view_YES_value">Active debts: yes</string>
     <string name="client_debts_text_view_NO_value">Active debts: no</string>
     <string name="all_debts_count">Count of all debts: %d</string>
