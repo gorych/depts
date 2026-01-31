@@ -64,7 +64,7 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
 
             initTopBarFragment(topBarTitle, R.drawable.ic_person_24)
             initPhoneView(it)
-            initDebtsFilterChipGroup(it)
+            initDebtsFilter(it)
             initDebtsView()
 
             lifecycleScope.launch {
@@ -90,7 +90,7 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
         }
     }
 
-    private fun initDebtsFilterChipGroup(purchaser: Purchaser) {
+    private fun initDebtsFilter(purchaser: Purchaser) {
         findViewById<ChipGroup>(R.id.client_info_chip_group_debts_filter)
             .setOnCheckedStateChangeListener { _, checkedIds ->
                 lifecycleScope.launch {
