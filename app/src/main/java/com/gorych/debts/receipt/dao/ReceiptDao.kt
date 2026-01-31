@@ -29,9 +29,20 @@ interface ReceiptDao {
     @Query("SELECT COUNT(id) FROM receipt WHERE status = 'OPEN'")
     suspend fun countOpen(): Int
 
-    @Query("SELECT * FROM receipt WHERE purchaserUuid = :purchaserId")
-    suspend fun findAllByPurchaserId(purchaserId: UUID): List<Receipt>
+    @Query(SqlQuery.SELECT_BY_PURCHASER_ID_AND_STATUSES)
+    suspend fun findByPurchaserIdAndStatusIn(
+        purchaserId: UUID,
+        receiptStatuses: Set<Receipt.Status>
+    ): List<Receipt>
 
-    @Query("SELECT * FROM receipt WHERE purchaserUuid = :purchaserId AND status = 'OPEN'")
-    suspend fun findOpenByPurchaserId(purchaserId: UUID): List<Receipt>
+    class SqlQuery {
+        companion object {
+            const val SELECT_BY_PURCHASER_ID_AND_STATUSES = """
+                SELECT * 
+                FROM receipt 
+                WHERE 
+                    purchaserUuid = :purchaserId 
+                    AND status IN (:receiptStatuses)"""
+        }
+    }
 }

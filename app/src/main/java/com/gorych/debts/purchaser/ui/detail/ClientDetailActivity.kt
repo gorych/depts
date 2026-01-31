@@ -9,16 +9,16 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.chip.ChipGroup
 import com.gorych.debts.R
 import com.gorych.debts.config.db.AppDatabase
 import com.gorych.debts.core.IntentExtras
 import com.gorych.debts.core.activity.TopBarActivityBase
-import com.gorych.debts.receipt.repository.ReceiptRepository
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserDetailContract
 import com.gorych.debts.purchaser.presenter.PurchaserDetailPresenter
 import com.gorych.debts.receipt.Receipt
+import com.gorych.debts.receipt.repository.ReceiptRepository
 import com.gorych.debts.utility.ClipboardUtils.copyTextToClipboard
 import com.gorych.debts.utility.ToastUtils.Companion.toast
 import com.gorych.debts.utility.hide
@@ -64,7 +64,7 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
 
             initTopBarFragment(topBarTitle, R.drawable.ic_person_24)
             initPhoneView(it)
-            initActiveDebtsOnlyCheckBox(it)
+            initDebtsFilterChipGroup(it)
             initDebtsView()
 
             lifecycleScope.launch {
@@ -90,13 +90,13 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
         }
     }
 
-    private fun initActiveDebtsOnlyCheckBox(purchaser: Purchaser) {
-        findViewById<MaterialCheckBox>(R.id.client_info_mcb_active_debts_only)
-            .setOnCheckedChangeListener { _, isActiveDebtsOnlyChecked ->
+    private fun initDebtsFilterChipGroup(purchaser: Purchaser) {
+        findViewById<ChipGroup>(R.id.client_info_chip_group_debts_filter)
+            .setOnCheckedStateChangeListener { _, checkedIds ->
                 lifecycleScope.launch {
                     purchaserDetailPresenter.reloadDebts(
                         purchaser = purchaser,
-                        activeDebtsOnly = isActiveDebtsOnlyChecked
+                        receiptStatuses = getReceiptStatusesByCheckedChipIds(checkedIds)
                     )
                 }
             }
@@ -123,5 +123,28 @@ class ClientDetailActivity : TopBarActivityBase(), PurchaserDetailContract.View 
 
     companion object {
         const val LABEL_PHONE_NUMBER = "phoneNumberLabel"
+
+        private val DEBTS_FILTER_CHIP_ID_TO_RECEIPT_STATUS_MAPPING =
+            mapOf(
+                Pair(
+                    R.id.client_info_chip_group_debts_filter_active,
+                    Receipt.Status.OPEN
+                ),
+                Pair(
+                    R.id.client_info_chip_group_debts_filter_not_started,
+                    Receipt.Status.NOT_STARTED
+                ),
+                Pair(
+                    R.id.client_info_chip_group_debts_filter_closed,
+                    Receipt.Status.CLOSED
+                )
+            )
+
+        fun getReceiptStatusesByCheckedChipIds(checkedIds: List<Int>): Set<Receipt.Status> {
+            return DEBTS_FILTER_CHIP_ID_TO_RECEIPT_STATUS_MAPPING
+                .filter { checkedIds.contains(it.key) }
+                .map { it.value }
+                .toSet()
+        }
     }
 }

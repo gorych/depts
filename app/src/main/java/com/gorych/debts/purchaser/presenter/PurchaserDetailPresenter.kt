@@ -3,6 +3,7 @@ package com.gorych.debts.purchaser.presenter
 import com.gorych.debts.receipt.repository.ReceiptRepository
 import com.gorych.debts.purchaser.Purchaser
 import com.gorych.debts.purchaser.contract.PurchaserDetailContract
+import com.gorych.debts.receipt.Receipt
 
 class PurchaserDetailPresenter(
     private val view: PurchaserDetailContract.View,
@@ -14,16 +15,16 @@ class PurchaserDetailPresenter(
         view.populateDebts(debts)
     }
 
-    override suspend fun loadAllDebts(purchaser: Purchaser) {
-        val debts = receiptRepository.getAllDebtsOfPurchaser(purchaser)
+    override suspend fun loadDebtsWhereStatusIn(purchaser: Purchaser, receiptStatuses: Set<Receipt.Status>) {
+        val debts = receiptRepository.getDebtsOfPurchaserWhereStatusIn(purchaser, receiptStatuses)
         view.populateDebts(debts)
     }
 
-    override suspend fun reloadDebts(purchaser: Purchaser, activeDebtsOnly: Boolean) {
-        if (activeDebtsOnly) {
+    override suspend fun reloadDebts(purchaser: Purchaser, receiptStatuses: Set<Receipt.Status>) {
+        if (receiptStatuses.isEmpty()) {
             loadActiveDebts(purchaser)
         } else {
-            loadAllDebts(purchaser)
+            loadDebtsWhereStatusIn(purchaser, receiptStatuses)
         }
     }
 
